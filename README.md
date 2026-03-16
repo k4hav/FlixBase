@@ -46,8 +46,7 @@ cp .env.local.example .env.local
 Open `.env.local` and fill in your keys:
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-```
+NEXT_PUBLIC_SUPABASE_ANON_KEY=xxxxxxxxxxxxxxxxxxxxxxx
 
 ### Step 4 — Run Locally
 
