@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { getMovies, getMovieById } from '../../lib/supabase';
 import CinematicBackground from '../../components/CinematicBackground';
+import Head from 'next/head';
 import { ArrowLeft, Star, Download, ExternalLink, Film, User } from 'lucide-react';
 
 export default function MovieDetail({ movie }) {
@@ -22,6 +23,13 @@ export default function MovieDetail({ movie }) {
 
   return (
     <div className="min-h-screen bg-deep">
+      <Head>
+        <title>{movie.title} — FlixBase</title>
+        <meta name="description" content={movie.overview || (movie.title + ' — Watch and download on FlixBase')} />
+        <meta property="og:title" content={movie.title + ' — FlixBase'} />
+        <meta property="og:description" content={movie.overview || 'Watch and download on FlixBase'} />
+        {movie.poster_url && <meta property="og:image" content={movie.poster_url} />}
+      </Head>
       <CinematicBackground />
       {movie.poster_url && (
         <div className="fixed inset-0 pointer-events-none z-0"
