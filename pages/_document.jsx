@@ -28,14 +28,14 @@ export default function Document() {
         {/* ── Open Graph (WhatsApp, Facebook preview) ── */}
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="FlixBase" />
-        <meta property="og:title" content="FlixBase — Your Cinematic Universe" />
+        <meta property="og:title" content="FlixBase — Discover movies, series & anime, find download links, and request your favourites" />
         <meta property="og:description" content="Discover movies, web series & anime. Find download links and request your favourites — all in one place." />
         <meta property="og:url" content="https://flix-base.vercel.app" />
         <meta property="og:image" content="https://flix-base.vercel.app/og-image.jpg" />
 
         {/* ── Twitter Card ── */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="FlixBase — Your Cinematic Universe" />
+        <meta name="twitter:title" content="FlixBase — Discover movies, series & anime, find download links, and request your favourites" />
         <meta name="twitter:description" content="Discover movies, web series & anime. Find download links and request your favourites." />
         <meta name="twitter:image" content="https://flix-base.vercel.app/og-image.jpg" />
 
