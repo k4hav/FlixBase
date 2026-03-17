@@ -1,98 +1,148 @@
-# 🎬 FlixHub
+<div align="center">
 
-**Futuristic movie & series aggregator** — Add your own movies, share watch links, and let users request new titles. Built with Next.js, Supabase, and Framer Motion.
+# 🎬 FlixBase
 
----
+### Your Cinematic Universe
 
-## ✨ Features
+*Discover movies, web series & anime — find download links, build your collection, and request your favourites. All in one place, completely free.*
 
-- 🌌 **Futuristic dark UI** — animated particles, neon glow, 3D card tilt, custom cursor
-- 🔍 **Instant search** — search by title, genre, or language
-- 🎞️ **Movie detail pages** — poster, description, ratings, watch links
-- 🔗 **Multi-platform links** — Netflix, JioCinema, Prime, Hotstar & more
-- ⭐ **Requests system** — users request movies + upvote each other's requests
-- 🛡️ **Admin panel** — add, edit, delete movies and manage requests
-- ✨ **Framer Motion** — page transitions, scroll animations, hover effects
-- 📦 **Supabase backend** — real database, no API keys needed in frontend
-- 🚀 **Deploy free** on Vercel in minutes
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-flix--base.vercel.app-c9a84c?style=for-the-badge&logo=vercel&logoColor=white)](https://flix-base.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+[![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+
+</div>
 
 ---
 
+## ✨ What is FlixBase?
 
-## 📁 Project Structure
-
-```
-flixhub/
-├── pages/
-│   ├── index.jsx          ← Home — hero + search + movie grid
-│   ├── requests.jsx       ← Request a movie + upvote others
-│   ├── admin.jsx          ← Admin — add/edit/delete movies
-│   ├── movies/[id].jsx    ← Movie detail page
-│   ├── _app.jsx           ← Global layout + page transitions
-│   └── _document.jsx      ← Font loading
-├── components/
-│   ├── Navbar.jsx         ← Animated sticky navbar
-│   ├── MovieCard.jsx      ← 3D tilt card with glow
-│   ├── SearchBar.jsx      ← Animated search input
-│   ├── AddMovieForm.jsx   ← Full movie form with link builder
-│   └── ParticleBackground.jsx  ← Canvas star/orb animation
-├── lib/
-│   └── supabase.js        ← All DB functions
-├── styles/
-│   └── globals.css        ← All custom CSS (neon, glass, cursor...)
-└── supabase/
-    └── schema.sql         ← Run this in Supabase SQL Editor
-```
+FlixBase is a self-hosted, community-driven movie hub where anyone can add movies and web series, share download links, and request their favourite titles. No subscriptions, no ads, no login required — completely free.
 
 ---
 
-## 🎨 Pages Overview
+## 🚀 Features
 
-| Page | URL | Description |
-|------|-----|-------------|
-| Home | `/` | Hero + search + full movie grid |
-| Movie Detail | `/movies/[id]` | Poster, info, watch links |
-| Requests | `/requests` | Submit & upvote requests |
-| Admin | `/admin` | Add/edit/delete movies & manage requests |
-
----
-
-## 🔧 Adding Movies
-
-1. Go to `/admin`
-2. Click **"Add New Movie"**
-3. Fill in: Title, Year, Type, Language, Genre, Rating, Poster URL, Overview
-4. Add platform links (Netflix, JioCinema etc.) with color picker
-5. Toggle **Featured** to show it in the hero section
-
-### Getting Poster URLs free:
-- **TMDB** → [themoviedb.org](https://www.themoviedb.org) → Search movie → Right-click poster → Copy image address
-- **Google Images** → Search `movie name poster` → Right-click → Copy image address
+| Feature | Description |
+|---------|-------------|
+| 🌌 Cinematic UI | Dark theme with animated constellation background and shooting stars |
+| 🔍 Instant Search | Search by title, genre, or language in real time |
+| 🎞️ Movie Cards | 3D tilt cards with poster, rating, genre, and download count |
+| ⬇️ Download Links | Multiple download links per title with quality info (1080p, 4K, etc.) |
+| 📺 Anime Section | Dedicated anime category with filter |
+| ❤️ My Collection | Save favourites to browser — no login needed |
+| 📥 Request System | Users can request movies and upvote each other's requests |
+| 👤 Uploader Credit | Uploaded by name shown on movie page |
+| 🛡️ Admin Panel | Add, edit, delete movies and manage requests |
+| 🚀 Free Hosting | Deploy on Vercel for free |
+| 🗄️ Free Database | Powered by Supabase free tier |
 
 ---
 
-## 💡 Tech Stack
+## 🛠️ Tech Stack
 
-| Tech | Purpose |
-|------|---------|
-| **Next.js 14** | React framework with SSG/ISR |
-| **Supabase** | PostgreSQL database (free tier) |
-| **Framer Motion** | All animations & transitions |
+| Technology | Purpose |
+|-----------|---------|
+| **Next.js 14** | React framework with SSG and ISR |
+| **Supabase** | PostgreSQL database and API |
+| **Framer Motion** | Animations, transitions, 3D effects |
 | **Tailwind CSS** | Utility-first styling |
 | **Lucide React** | Icon library |
 
 ---
 
-## 🎯 Roadmap Ideas
+## 📁 Project Structure
 
-- [ ] User authentication (Supabase Auth)
-- [ ] Movie ratings & reviews by users
-- [ ] Genre filter pages
-- [ ] Admin password protection
-- [ ] Search suggestions / autocomplete
-- [ ] Dark/light mode toggle
-- [ ] PWA support for mobile
+```
+flixbase/
+├── components/
+│   ├── CinematicBackground.jsx   ← Canvas star + constellation animation
+│   ├── MovieCard.jsx             ← 3D tilt card with heart save button
+│   ├── Navbar.jsx                ← Animated navbar with collection badge
+│   ├── SearchBar.jsx             ← Animated search input
+│   └── AddMovieForm.jsx          ← Movie form with download link builder
+├── hooks/
+│   └── useCollection.js          ← localStorage collection hook
+├── lib/
+│   └── supabase.js               ← All database functions
+├── pages/
+│   ├── index.jsx                 ← Home — hero, search, movie grid
+│   ├── submit.jsx                ← Public add movie page
+│   ├── collection.jsx            ← My saved collection
+│   ├── requests.jsx              ← Community movie requests
+│   ├── admin.jsx                 ← Admin panel
+│   ├── movies/[id].jsx           ← Movie detail page
+│   ├── _app.jsx                  ← Global layout + page transitions
+│   └── _document.jsx             ← SEO, fonts, favicon
+├── styles/
+│   └── globals.css               ← Custom CSS, dark theme, animations
+├── supabase/
+│   └── schema.sql                ← Run this first in Supabase SQL Editor
+└── public/
+    ├── favicon.svg
+    └── site.webmanifest
+```
+
+
+
+## 📖 Pages Overview
+
+| Page | URL | Description |
+|------|-----|-------------|
+| Home | `/` | Hero section, search bar, movie grid with filters |
+| Movie Detail | `/movies/[id]` | Full info, poster, download links, uploader credit |
+| Add Movie | `/submit` | Public page — anyone can add a movie |
+| My Collection | `/collection` | Browser-saved favourites (no login needed) |
+| Requests | `/requests` | Submit and upvote movie requests |
+| Admin | `/admin` | Edit, delete movies and manage requests |
 
 ---
 
-Made with ❤️ — FlixHub
+## 🎬 How to Add a Movie
+
+1. Go to `/submit` (or click **Add Movie** in the navbar)
+2. Enter your name so you get credited
+3. Fill in the title (only required field — everything else is optional)
+4. Add a poster image URL (right-click any poster image → Copy image address)
+5. Add download links with quality info like `1080p HD`, `Season 1 Ep 1-12`, `4K HDR`
+6. Click **Add to FlixBase Library**
+
+---
+
+## ❤️ My Collection Feature
+
+- Hover over any movie card and click the **heart icon** to save it
+- Go to `/collection` to view all saved titles
+- Collection is stored in your **browser's localStorage** — no account needed
+- Stays saved even after closing the tab or browser
+
+---
+
+## ⚠️ Important Notes
+
+- **Never push `.env.local` to GitHub** — it contains your secret keys
+- The `.gitignore` file already blocks it automatically
+- Add environment variables manually in the Vercel dashboard
+- Supabase free tier includes 500MB database storage and unlimited reads
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a pull request.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+Made with ❤️ by [k4hav](https://github.com/k4hav)
+
+⭐ Star this repo if you found it useful!
+
+</div>
