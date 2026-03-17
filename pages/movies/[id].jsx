@@ -38,8 +38,7 @@ export default function MovieDetail({ movie }) {
               onMouseLeave={e=>e.currentTarget.style.color='#6a6a5a'}>
               <ArrowLeft size={13} /> Back to Library
             </motion.div>
-          </Link>
-        </motion.div>
+      
 
         <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
           {/* Poster */}
