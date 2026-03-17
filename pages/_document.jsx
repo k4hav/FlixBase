@@ -15,6 +15,8 @@ export default function Document() {
         <link rel="apple-touch-icon" href="/favicon.svg" />
         <link rel="manifest" href="/site.webmanifest" />
 
+        <meta name="google-site-verification" content="4R4CtipfBA-100wi1HYBeuWjzYxL5I_hYzQlkjIh9q0" />
+
         {/* ── Theme color (browser UI color) ── */}
         <meta name="theme-color" content="#c9a84c" />
         <meta name="msapplication-TileColor" content="#0a0a0f" />
