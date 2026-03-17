@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1628"/>
+      <stop offset="100%" stop-color="#0a0810"/>
+    </linearGradient>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5e4a8"/>
+      <stop offset="60%" stop-color="#c9a84c"/>
+      <stop offset="100%" stop-color="#8a6020"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="32" height="32" rx="8" fill="url(#bg)"/>
+
+  <!-- Glow behind icon -->
+  <ellipse cx="16" cy="16" rx="12" ry="12" fill="url(#glow)"/>
+
+  <!-- Play triangle (cinema symbol) -->
+  <polygon points="10,8 10,24 26,16" fill="url(#g1)" opacity="0.95"/>
+
+  <!-- Gold border -->
+  <rect width="32" height="32" rx="8" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.2"/>
+
+  <!-- Star sparkle top-right -->
+  <circle cx="26" cy="6" r="1.2" fill="#f5e4a8" opacity="0.8"/>
+  <line x1="26" y1="3.5" x2="26" y2="4.8" stroke="#f5e4a8" stroke-width="0.8" opacity="0.6"/>
+  <line x1="26" y1="7.2" x2="26" y2="8.5" stroke="#f5e4a8" stroke-width="0.8" opacity="0.6"/>
+  <line x1="23.5" y1="6" x2="24.8" y2="6" stroke="#f5e4a8" stroke-width="0.8" opacity="0.6"/>
+  <line x1="27.2" y1="6" x2="28.5" y2="6" stroke="#f5e4a8" stroke-width="0.8" opacity="0.6"/>
+</svg>
