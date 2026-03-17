@@ -163,8 +163,7 @@ export default function MovieDetail({ movie }) {
             </motion.div>
 
             
-              </Link>
-            </motion.div>
+              
           </div>
         </div>
       </div>
