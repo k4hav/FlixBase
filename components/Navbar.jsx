@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Film, Inbox, Plus } from 'lucide-react';
+import { Film, Inbox, Plus, Shield } from 'lucide-react';
 
 export default function Navbar() {
   const router = useRouter();
@@ -9,34 +9,85 @@ export default function Navbar() {
   const bgO = useTransform(scrollY, [0, 60], [0, 1]);
 
   const links = [
-    { href: '/',         label: 'Explore',   icon: Film  },
-    { href: '/requests', label: 'Requests',  icon: Inbox },
-    { href: '/admin',    label: 'Add Movie', icon: Plus  },
+    { href:'/',         label:'Explore',   icon:Film  },
+    { href:'/requests', label:'Requests',  icon:Inbox },
+    { href:'/submit',   label:'Add Movie', icon:Plus  },
   ];
 
   return (
     <motion.nav className="fixed top-0 left-0 right-0 z-50">
       <motion.div style={{ opacity: bgO }}
-        className="absolute inset-0 border-b"
-        style={{ background: 'rgba(10,10,15,0.92)', borderBottomColor: 'rgba(201,168,76,0.1)', backdropFilter: 'blur(20px)' }}
+        className="absolute inset-0"
+        style={{ background:'rgba(10,10,15,0.92)', borderBottom:'1px solid rgba(201,168,76,0.1)', backdropFilter:'blur(20px)' }}
       />
+
       <div className="relative max-w-6xl mx-auto px-5 h-14 flex items-center justify-between">
 
-        {/* Logo — compact one-line */}
+        {/* ── Logo with glow burst ── */}
         <Link href="/">
-          <motion.div whileHover={{ scale: 1.02 }} className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center"
-              style={{ background: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.25)' }}>
-              <Film size={14} style={{ color: '#c9a84c' }} />
+          <motion.div whileHover={{ scale: 1.04 }} className="flex items-center gap-2.5 group cursor-pointer">
+
+            {/* Icon with pulsing ring */}
+            <div className="relative">
+              {/* Outer glow ring */}
+              <motion.div
+                className="absolute inset-0 rounded-lg"
+                style={{ background: 'rgba(201,168,76,0.25)', filter: 'blur(6px)' }}
+                animate={{ opacity: [0.4, 0.9, 0.4], scale: [1, 1.3, 1] }}
+                transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
+              />
+              <div className="relative w-7 h-7 rounded-lg flex items-center justify-center"
+                style={{ background: 'linear-gradient(135deg, rgba(201,168,76,0.25), rgba(201,168,76,0.08))', border: '1px solid rgba(201,168,76,0.4)' }}>
+                <Film size={14} style={{ color: '#e8c87a' }} />
+              </div>
             </div>
-            <span className="font-cinzel font-semibold text-base tracking-[3px]"
-              style={{ fontFamily: 'Cinzel, serif', color: '#e8c87a', letterSpacing: '3px' }}>
-              FLIXBASE
-            </span>
+
+            {/* FLIXBASE text with shimmer effect */}
+            <div className="relative overflow-hidden">
+              <span
+                className="font-cinzel font-bold text-sm tracking-[3px] relative z-10"
+                style={{ fontFamily: 'Cinzel, serif', letterSpacing: '3px' }}
+              >
+                {/* Each letter with staggered glow */}
+                {'FLIXBASE'.split('').map((char, i) => (
+                  <motion.span
+                    key={i}
+                    style={{ display: 'inline-block' }}
+                    animate={{
+                      color: ['#c9a84c', '#f5e4a8', '#e8c87a', '#c9a84c'],
+                      textShadow: [
+                        '0 0 8px rgba(201,168,76,0)',
+                        '0 0 20px rgba(201,168,76,0.8), 0 0 40px rgba(201,168,76,0.4)',
+                        '0 0 8px rgba(201,168,76,0)',
+                      ],
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 3,
+                      delay: i * 0.12,
+                      ease: 'easeInOut',
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+
+              {/* Shimmer sweep */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(105deg, transparent 30%, rgba(245,228,168,0.4) 50%, transparent 70%)',
+                  zIndex: 20,
+                }}
+                animate={{ x: ['-100%', '200%'] }}
+                transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut', repeatDelay: 1.5 }}
+              />
+            </div>
           </motion.div>
         </Link>
 
-        {/* Nav */}
+        {/* Nav links */}
         <div className="flex items-center gap-1">
           {links.map(({ href, label, icon: Icon }) => {
             const active = router.pathname === href;
@@ -47,14 +98,24 @@ export default function Navbar() {
                   style={active
                     ? { color: '#c9a84c', background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.2)' }
                     : { color: '#6a6a5a', border: '1px solid transparent' }
-                  }
-                >
+                  }>
                   <Icon size={13} />
                   <span className="hidden sm:block">{label}</span>
                 </motion.div>
               </Link>
             );
           })}
+
+          {/* Hidden admin */}
+          <Link href="/admin">
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs transition-all ml-1"
+              style={{ color: '#2a2a1a', border: '1px solid transparent' }}
+              onMouseEnter={e => e.currentTarget.style.color = '#c9a84c'}
+              onMouseLeave={e => e.currentTarget.style.color = '#2a2a1a'}>
+              <Shield size={12} />
+            </motion.div>
+          </Link>
         </div>
       </div>
     </motion.nav>
