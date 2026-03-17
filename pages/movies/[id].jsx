@@ -163,16 +163,6 @@ export default function MovieDetail({ movie }) {
               }
             </motion.div>
 
-            <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.5 }}
-              className="mt-8 pt-5" style={{ borderTop:'1px solid rgba(255,255,255,0.05)' }}>
-              <Link href="/admin">
-                <span className="text-[11px] transition-colors" style={{ color:'#3a3a2a' }}
-                  onMouseEnter={e=>e.target.style.color='#c9a84c'}
-                  onMouseLeave={e=>e.target.style.color='#3a3a2a'}>
-                  Admin — Edit this movie →
-                </span>
-              </Link>
-            </motion.div>
           </div>
         </div>
       </div>
