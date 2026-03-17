@@ -34,9 +34,9 @@ export default function Home({ movies: initial }) {
   return (
     <>
       <Head>
-        <title>FlixBase — Your Cinematic Universe</title>
+        <title>FlixBase — Discover movies, series & anime, find download links, and request your favourites</title>
         <meta name="description" content="Discover movies, series & anime. Find download links, request your favourites — all in one place. Free movie streaming hub." />
-        <meta property="og:title" content="FlixBase — Your Cinematic Universe" />
+        <meta property="og:title" content="FlixBase — Discover movies, series & anime, find download links, and request your favourites" />
         <meta property="og:description" content="Discover movies, series & anime. Find download links and request your favourites." />
         <link rel="canonical" href="https://flix-base.vercel.app" />
       </Head>
