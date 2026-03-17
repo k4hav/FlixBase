@@ -1,7 +1,8 @@
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
 import Link from 'next/link';
-import { Star, Download, Tv2 } from 'lucide-react';
+import { Star, Download, Tv2, Heart } from 'lucide-react';
+import { useCollection } from '../hooks/useCollection';
 
 export default function MovieCard({ movie, index = 0 }) {
   const ref = useRef(null);
@@ -9,6 +10,7 @@ export default function MovieCard({ movie, index = 0 }) {
   const y = useMotionValue(0);
   const rotateX = useSpring(useTransform(y, [-60,60], [6,-6]), { stiffness:200, damping:24 });
   const rotateY = useSpring(useTransform(x, [-60,60], [-6,6]), { stiffness:200, damping:24 });
+  const { addToCollection, removeFromCollection, isInCollection } = useCollection();
 
   const handleMouse = e => {
     const rect = ref.current?.getBoundingClientRect();
@@ -17,7 +19,14 @@ export default function MovieCard({ movie, index = 0 }) {
     y.set(e.clientY - rect.top  - rect.height/2);
   };
 
-  const links = Array.isArray(movie.links) ? movie.links : [];
+  const links   = Array.isArray(movie.links) ? movie.links : [];
+  const inColl  = isInCollection(movie.id);
+
+  const toggleCollection = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    inColl ? removeFromCollection(movie.id) : addToCollection(movie);
+  };
 
   return (
     <motion.div
@@ -49,6 +58,48 @@ export default function MovieCard({ movie, index = 0 }) {
             e.currentTarget.style.boxShadow='0 4px 24px rgba(0,0,0,0.5)';
           }}
         >
+          {/* ── Heart / Save button ── */}
+          <motion.button
+            onClick={toggleCollection}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.85 }}
+            className="absolute top-2 left-2 z-30 w-7 h-7 rounded-full flex items-center justify-center transition-all"
+            style={{
+              background: inColl ? 'rgba(201,168,76,0.25)' : 'rgba(0,0,0,0.5)',
+              border: inColl ? '1px solid rgba(201,168,76,0.5)' : '1px solid rgba(255,255,255,0.1)',
+              backdropFilter: 'blur(4px)',
+              opacity: inColl ? 1 : 0,
+            }}
+            // Show on hover via parent group
+            title={inColl ? 'Remove from collection' : 'Save to collection'}
+          >
+            <Heart
+              size={12}
+              fill={inColl ? '#c9a84c' : 'none'}
+              style={{ color: inColl ? '#c9a84c' : '#fff' }}
+            />
+          </motion.button>
+
+          {/* Make heart always visible when saved, show on hover otherwise */}
+          <style>{`
+            .group:hover .heart-btn { opacity: 1 !important; }
+          `}</style>
+          <motion.button
+            onClick={toggleCollection}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.85 }}
+            className="heart-btn absolute top-2 left-2 z-30 w-7 h-7 rounded-full flex items-center justify-center transition-all"
+            style={{
+              background: inColl ? 'rgba(201,168,76,0.25)' : 'rgba(0,0,0,0.55)',
+              border: inColl ? '1px solid rgba(201,168,76,0.5)' : '1px solid rgba(255,255,255,0.12)',
+              backdropFilter: 'blur(4px)',
+              opacity: inColl ? 1 : 0,
+            }}
+            title={inColl ? 'Remove from collection' : 'Save to collection'}
+          >
+            <Heart size={12} fill={inColl ? '#c9a84c' : 'none'} style={{ color: inColl ? '#c9a84c' : '#e8e4d8' }} />
+          </motion.button>
+
           {/* Poster */}
           <div className="relative aspect-[2/3] overflow-hidden">
             {movie.poster_url ? (
@@ -67,19 +118,18 @@ export default function MovieCard({ movie, index = 0 }) {
             </div>
             <div className="absolute inset-0 poster-fade" />
 
-            {/* Badges */}
             {movie.featured && (
-              <div className="absolute top-2 left-2 z-10">
+              <div className="absolute top-2 right-2 z-10">
                 <span className="badge badge-gold">Featured</span>
               </div>
             )}
-            <div className="absolute top-2 right-2 z-10">
-              <span className={`badge ${
-                movie.type === 'Series'  ? 'badge-blue' :
-                movie.type === 'Anime'   ? 'badge-purple' :
-                'badge-muted'
-              }`}>{movie.type}</span>
-            </div>
+            {!movie.featured && (
+              <div className="absolute top-2 right-2 z-10">
+                <span className={`badge ${movie.type==='Series'?'badge-blue':movie.type==='Anime'?'badge-purple':'badge-muted'}`}>
+                  {movie.type}
+                </span>
+              </div>
+            )}
 
             {links.length > 0 && (
               <div className="absolute bottom-2 right-2 z-10 flex items-center gap-1 px-1.5 py-0.5 rounded-md"
@@ -92,8 +142,7 @@ export default function MovieCard({ movie, index = 0 }) {
 
           {/* Info */}
           <div className="p-3">
-            <h3 className="font-medium text-sm leading-snug mb-1 line-clamp-2"
-              style={{ color:'#e8e4d8', transition:'color 0.2s' }}>
+            <h3 className="font-medium text-sm leading-snug mb-1 line-clamp-2" style={{ color:'#e8e4d8' }}>
               {movie.title}
             </h3>
             <div className="flex items-center justify-between">
@@ -107,11 +156,8 @@ export default function MovieCard({ movie, index = 0 }) {
               )}
             </div>
             {movie.genre && <span className="inline-block mt-1.5 badge badge-muted">{movie.genre}</span>}
-            {/* Uploader credit */}
             {movie.uploaded_by && (
-              <div className="mt-1.5 text-[10px]" style={{ color:'#4a4a3a' }}>
-                by {movie.uploaded_by}
-              </div>
+              <div className="mt-1.5 text-[10px]" style={{ color:'#4a4a3a' }}>by {movie.uploaded_by}</div>
             )}
           </div>
         </motion.div>
