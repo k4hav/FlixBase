@@ -83,7 +83,64 @@ flixbase/
     └── site.webmanifest
 ```
 
+---
 
+## ⚡ Quick Setup Guide
+
+### Step 1 — Clone the Repository
+
+```bash
+git clone https://github.com/k4hav/FlixBase.git
+cd FlixBase
+```
+
+### Step 2 — Set Up Supabase Database (Free)
+
+1. Go to [supabase.com](https://supabase.com) and create a free account
+2. Click **New Project** and wait ~2 minutes for setup
+3. Go to **SQL Editor** → **New Query**
+4. Paste the entire contents of `supabase/schema.sql` and click **Run**
+5. Go to **Settings → API** and copy:
+   - `Project URL`
+   - `anon public` key
+
+### Step 3 — Configure Environment Variables
+
+```bash
+cp .env.local.example .env.local
+```
+
+Open `.env.local` and fill in your Supabase credentials:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+```
+
+### Step 4 — Install and Run
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser 🎉
+
+---
+
+## 🌐 Deploy on Vercel (Free)
+
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com) and sign in with GitHub
+3. Click **Add New Project** → import your `FlixBase` repository
+4. Add environment variables in the Vercel dashboard:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+5. Click **Deploy** — your site will be live in ~2 minutes
+
+You will receive a free domain like `flixbase.vercel.app`
+
+---
 
 ## 📖 Pages Overview
 
