@@ -148,22 +148,7 @@ export default function Home({ movies: initial }) {
           </motion.div>
         </section>
 
-        {/* ══ ANIME SECTION ══ */}
-        {animeList.length > 0 && filter === 'All' && !query && (
-          <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-10">
-            <SectionHeader icon={Sparkles} label="Anime" color="#a78bfa" accentColor="rgba(167,139,250,0.35)" />
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {animeList.slice(0, 5).map((m, i) => <MovieCard key={m.id} movie={m} index={i} />)}
-            </div>
-            {animeList.length > 5 && (
-              <div className="mt-4 text-center">
-                <motion.button whileHover={{ scale: 1.03 }} onClick={() => setFilter('Anime')}
-                  className="btn-ghost px-5 py-2 rounded-xl text-xs">View all anime →</motion.button>
-              </div>
-            )}
-          </section>
-        )}
-
+       
         {/* ══ ALL TITLES ══ */}
         <section id="explore" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-24">
           <div className="flex items-center gap-3 mb-5">
