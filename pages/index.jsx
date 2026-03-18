@@ -6,21 +6,25 @@ import { getMovies } from '../lib/supabase';
 import CinematicBackground from '../components/CinematicBackground';
 import SearchBar from '../components/SearchBar';
 import MovieCard from '../components/MovieCard';
-import { Film, Inbox, TrendingUp, Sparkles, Download } from 'lucide-react';
+import { Film, Inbox, ChevronLeft, ChevronRight, Download } from 'lucide-react';
+
+const PER_PAGE = 20;
 
 export default function Home({ movies: initial }) {
   const [movies,  setMovies]  = useState(initial || []);
   const [query,   setQuery]   = useState('');
   const [filter,  setFilter]  = useState('All');
+  const [page,    setPage]    = useState(1);
   const [loading, setLoading] = useState(!initial);
 
   useEffect(() => {
     if (!initial) getMovies().then(d => { setMovies(d); setLoading(false); }).catch(() => setLoading(false));
   }, []);
 
-  const types    = ['All', 'Movie', 'Series', 'Anime', 'Documentary'];
-  const featured = movies.filter(m => m.featured);
-  const animeList = movies.filter(m => m.type === 'Anime');
+  // Reset to page 1 when filter or search changes
+  useEffect(() => { setPage(1); }, [query, filter]);
+
+  const types = ['All', 'Movie', 'Series', 'Anime', 'Documentary'];
 
   const filtered = movies.filter(m => {
     const q = query.toLowerCase();
@@ -29,15 +33,34 @@ export default function Home({ movies: initial }) {
     return mQ && mT;
   });
 
-  const noResult = query && filtered.length === 0;
+  const noResult   = query && filtered.length === 0;
+  const totalPages = Math.ceil(filtered.length / PER_PAGE);
+  const paginated  = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+  // Page numbers to show
+  const getPageNumbers = () => {
+    if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
+    if (page <= 4) return [1, 2, 3, 4, 5, '...', totalPages];
+    if (page >= totalPages - 3) return [1, '...', totalPages-4, totalPages-3, totalPages-2, totalPages-1, totalPages];
+    return [1, '...', page-1, page, page+1, '...', totalPages];
+  };
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const changePage = (p) => {
+    setPage(p);
+    setTimeout(() => {
+      document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  };
 
   return (
     <>
       <Head>
         <title>FlixBase — Discover movies, series & anime, find download links, and request your favourites</title>
-        <meta name="description" content="Discover movies, series & anime. Find download links, request your favourites — all in one place. Free movie streaming hub." />
-        <meta property="og:title" content="FlixBase — Discover movies, series & anime, find download links, and request your favourites" />
-        <meta property="og:description" content="Discover movies, series & anime. Find download links and request your favourites." />
+        <meta name="description" content="Discover movies, web series & anime. Find download links and request your favourites — all in one place." />
+        <meta property="og:title" content="FlixBase — Discover movies, series & anime" />
+        <meta property="og:description" content="Discover movies, web series & anime. Find download links and request your favourites." />
         <link rel="canonical" href="https://flix-base.vercel.app" />
       </Head>
 
@@ -50,60 +73,36 @@ export default function Home({ movies: initial }) {
           <div className="orb absolute top-0 right-0 w-[300px] h-[300px]" style={{ background: 'rgba(100,80,200,0.05)' }} />
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="relative z-10 text-center w-full max-w-2xl mx-auto"
           >
-            {/* Pill */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 }}
-              className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full text-[10px] font-medium tracking-[3px] uppercase"
-              style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.18)', color: '#c9a84c' }}
-            >
-              <Film size={10} /> Movies · Series · Downloads
-            </motion.div>
-
-            {/* Big animated FLIXBASE */}
-            <motion.div className="mb-3" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 0.8 }}>
+            {/* FLIXBASE animated logo */}
+            <motion.div className="mb-3" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.1, duration: 0.8 }}>
               <motion.h1
                 className="font-cinzel font-bold tracking-[0.2em] leading-none select-none"
-                style={{ fontFamily: 'Cinzel, serif', fontSize: 'clamp(2.8rem, 8vw, 5.5rem)' }}
+                style={{ fontFamily: 'Cinzel, serif', fontSize: 'clamp(2.8rem, 8vw, 5.5rem)',
+                  background: 'linear-gradient(135deg, #f5e4a8 0%, #c9a84c 40%, #e8c87a 65%, #a07828 100%)',
+                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+                  filter: 'drop-shadow(0 0 30px rgba(201,168,76,0.4))',
+                }}
+                animate={{ filter: [
+                  'drop-shadow(0 0 20px rgba(201,168,76,0.3))',
+                  'drop-shadow(0 0 45px rgba(201,168,76,0.6))',
+                  'drop-shadow(0 0 20px rgba(201,168,76,0.3))',
+                ]}}
+                transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
               >
-                {'FLIXBASE'.split('').map((char, i) => (
-                  <motion.span
-                    key={i}
-                    style={{ display: 'inline-block' }}
-                    animate={{
-                      color: ['#c9a84c', '#f5e4a8', '#e8c87a', '#c9a84c'],
-                      textShadow: [
-                        '0 0 10px rgba(201,168,76,0.1)',
-                        '0 0 30px rgba(201,168,76,0.8), 0 0 60px rgba(201,168,76,0.3)',
-                        '0 0 10px rgba(201,168,76,0.1)',
-                      ],
-                    }}
-                    transition={{ repeat: Infinity, duration: 4, delay: i * 0.15, ease: 'easeInOut' }}
-                  >
-                    {char}
-                  </motion.span>
-                ))}
+                FLIXBASE
               </motion.h1>
-
-              <motion.div
-                initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
+              <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
                 transition={{ delay: 0.5, duration: 1.2, ease: 'easeOut' }}
-                className="divider-gold w-48 mx-auto mt-2"
-              />
+                className="divider-gold w-48 mx-auto mt-2" />
             </motion.div>
 
-            {/* Tagline */}
-            <motion.p
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
               className="text-xs sm:text-sm font-light mb-5 leading-relaxed"
-              style={{ color: '#8a8778', maxWidth: '440px', margin: '0.5rem auto 1.2rem' }}
-            >
+              style={{ color: '#8a8778', maxWidth: '440px', margin: '0.5rem auto 1.2rem' }}>
               Your Cinematic Universe — Discover movies, series &amp; anime, find download links, and request your favourites — all in one place.
             </motion.p>
 
@@ -148,16 +147,20 @@ export default function Home({ movies: initial }) {
           </motion.div>
         </section>
 
-       
         {/* ══ ALL TITLES ══ */}
         <section id="explore" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-24">
+          {/* Header */}
           <div className="flex items-center gap-3 mb-5">
             <Download size={13} style={{ color: '#c9a84c' }} />
             <span className="section-tag">{filter === 'All' ? 'All Titles' : filter}</span>
             <div className="flex-1 divider-soft" />
-            <span className="text-[11px]" style={{ color: '#6a6a5a' }}>{filtered.length} titles</span>
+            <span className="text-[11px]" style={{ color: '#6a6a5a' }}>
+              {filtered.length} titles
+              {totalPages > 1 && <span style={{ color: '#4a4a3a' }}> · page {page}/{totalPages}</span>}
+            </span>
           </div>
 
+          {/* Loading skeletons */}
           {loading && (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {[...Array(10)].map((_, i) => (
@@ -170,6 +173,7 @@ export default function Home({ movies: initial }) {
             </div>
           )}
 
+          {/* No results */}
           <AnimatePresence>
             {!loading && noResult && (
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
@@ -196,14 +200,76 @@ export default function Home({ movies: initial }) {
             )}
           </AnimatePresence>
 
+          {/* Movie Grid */}
           {!loading && !noResult && (
-            <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              <AnimatePresence>
-                {filtered.map((m, i) => <MovieCard key={m.id} movie={m} index={i} />)}
-              </AnimatePresence>
-            </motion.div>
+            <>
+              <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-10">
+                <AnimatePresence>
+                  {paginated.map((m, i) => <MovieCard key={m.id} movie={m} index={i} />)}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* ══ PAGINATION ══ */}
+              {totalPages > 1 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center justify-center gap-2 flex-wrap"
+                >
+                  {/* Prev */}
+                  <motion.button
+                    onClick={() => changePage(page - 1)}
+                    disabled={page === 1}
+                    whileHover={page !== 1 ? { scale: 1.05 } : {}}
+                    whileTap={page !== 1 ? { scale: 0.95 } : {}}
+                    className="flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-medium transition-all"
+                    style={page === 1
+                      ? { background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', color: '#3a3a2a', cursor: 'not-allowed' }
+                      : { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', color: '#b8b4a8', cursor: 'pointer' }
+                    }
+                  >
+                    <ChevronLeft size={14} /> Prev
+                  </motion.button>
+
+                  {/* Page numbers */}
+                  {getPageNumbers().map((p, i) => (
+                    <motion.button
+                      key={i}
+                      onClick={() => p !== '...' && changePage(p)}
+                      whileHover={p !== '...' ? { scale: 1.08 } : {}}
+                      whileTap={p !== '...' ? { scale: 0.93 } : {}}
+                      className="w-9 h-9 rounded-xl text-xs font-medium transition-all flex items-center justify-center"
+                      style={p === page
+                        ? { background: 'rgba(201,168,76,0.2)', border: '1px solid rgba(201,168,76,0.45)', color: '#e8c87a',
+                            boxShadow: '0 0 16px rgba(201,168,76,0.15)', cursor: 'default' }
+                        : p === '...'
+                          ? { background: 'transparent', border: 'none', color: '#4a4a3a', cursor: 'default' }
+                          : { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', color: '#8a8778', cursor: 'pointer' }
+                      }
+                    >
+                      {p}
+                    </motion.button>
+                  ))}
+
+                  {/* Next */}
+                  <motion.button
+                    onClick={() => changePage(page + 1)}
+                    disabled={page === totalPages}
+                    whileHover={page !== totalPages ? { scale: 1.05 } : {}}
+                    whileTap={page !== totalPages ? { scale: 0.95 } : {}}
+                    className="flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-medium transition-all"
+                    style={page === totalPages
+                      ? { background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', color: '#3a3a2a', cursor: 'not-allowed' }
+                      : { background: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.3)', color: '#c9a84c', cursor: 'pointer' }
+                    }
+                  >
+                    Next <ChevronRight size={14} />
+                  </motion.button>
+                </motion.div>
+              )}
+            </>
           )}
 
+          {/* Empty state */}
           {!loading && movies.length === 0 && (
             <div className="text-center py-16">
               <p className="text-sm mb-4" style={{ color: '#6a6a5a' }}>No movies added yet.</p>
@@ -217,17 +283,6 @@ export default function Home({ movies: initial }) {
         </section>
       </div>
     </>
-  );
-}
-
-function SectionHeader({ icon: Icon, label, color = '#c9a84c', accentColor }) {
-  return (
-    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-      className="flex items-center gap-3 mb-6">
-      <Icon size={14} style={{ color }} />
-      <span className="section-tag" style={{ color }}>{label}</span>
-      <div className="flex-1 h-px" style={{ background: `linear-gradient(90deg, ${accentColor || 'rgba(201,168,76,0.35)'}, transparent)` }} />
-    </motion.div>
   );
 }
 
