@@ -22,7 +22,7 @@ export default function Document() {
         <meta name="msapplication-TileColor" content="#0a0a0f" />
 
         {/* ── SEO Meta Tags ── */}
-        <meta name="description" content="FlixBase — Your cinematic universe. Discover movies, web series & anime. Find download links, request your favourites, and build your personal collection." />
+        <meta name="description" content="FlixBase — Discover movies, web series & anime. Find download links, request your favourites, and build your personal collection." />
         <meta name="keywords" content="FlixBase, movies, web series, anime, download movies, hindi movies, bollywood, watch online, movie download links, series download" />
         <meta name="author" content="FlixBase" />
         <meta name="robots" content="index, follow" />
@@ -30,7 +30,7 @@ export default function Document() {
         {/* ── Open Graph (WhatsApp, Facebook preview) ── */}
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="FlixBase" />
-        <meta property="og:title" content="FlixBase — Discover movies, series & anime, find download links, and request your favourites" />
+        <meta property="og:title" content="FlixBase — Download movies, series & anime, and request your favourites" />
         <meta property="og:description" content="Discover movies, web series & anime. Find download links and request your favourites — all in one place." />
         <meta property="og:url" content="https://flix-base.vercel.app" />
         <meta property="og:image" content="https://flix-base.vercel.app/og-image.jpg" />
