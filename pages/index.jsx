@@ -6,7 +6,7 @@ import { getMovies } from '../lib/supabase';
 import CinematicBackground from '../components/CinematicBackground';
 import SearchBar from '../components/SearchBar';
 import MovieCard from '../components/MovieCard';
-import { Film, Inbox, ChevronLeft, ChevronRight, Download } from 'lucide-react';
+import { Film, Inbox, ChevronLeft, ChevronRight, Download, Send } from 'lucide-react';
 
 const PER_PAGE = 20;
 
@@ -143,6 +143,29 @@ export default function Home({ movies: initial }) {
                   <Inbox size={13} /> Request a Movie
                 </motion.div>
               </Link>
+            </motion.div>
+
+            {/* Telegram join banner */}
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}
+              className="mt-5">
+              <motion.a
+                href="https://t.me/+n3etNnm3RxI5NGZl"
+                target="_blank" rel="noopener noreferrer"
+                whileHover={{ scale: 1.02, boxShadow: '0 0 24px rgba(34,158,217,0.2)' }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-xs font-medium relative overflow-hidden"
+                style={{ background: 'rgba(34,158,217,0.1)', border: '1px solid rgba(34,158,217,0.3)', color: '#4fc3f7' }}
+              >
+                {/* Shimmer */}
+                <motion.div className="absolute inset-0 pointer-events-none"
+                  style={{ background: 'linear-gradient(105deg,transparent 30%,rgba(79,195,247,0.15) 50%,transparent 70%)' }}
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut', repeatDelay: 2 }}
+                />
+                <Send size={13} />
+                <span className="relative z-10">Join our Telegram Channel for updates &amp; new movies</span>
+                <span className="relative z-10 text-[10px] opacity-60">→</span>
+              </motion.a>
             </motion.div>
           </motion.div>
         </section>
