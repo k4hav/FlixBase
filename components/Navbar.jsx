@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Film, Inbox, Plus, Shield, Heart, Send } from 'lucide-react';
+import { Film, Inbox, Plus, Heart, Send } from 'lucide-react';
 import { useCollection } from '../hooks/useCollection';
 
 export default function Navbar() {
@@ -116,16 +116,7 @@ export default function Navbar() {
             </motion.div>
           </Link>
 
-          {/* Hidden admin */}
-          <Link href="/admin">
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-              className="flex items-center px-2.5 py-1.5 rounded-lg text-xs transition-all ml-0.5"
-              style={{ color: '#2a2a1a', border: '1px solid transparent' }}
-              onMouseEnter={e => e.currentTarget.style.color = '#c9a84c'}
-              onMouseLeave={e => e.currentTarget.style.color = '#2a2a1a'}>
-              <Shield size={12} />
-            </motion.div>
-          </Link>
+         
         </div>
       </div>
     </motion.nav>
