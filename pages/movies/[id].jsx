@@ -137,50 +137,34 @@ export default function MovieDetail({ movie }) {
           )}
           </motion.div>
 
-          {/* ── OFFICIAL STREAMING PLATFORMS (Watchmode) ── */}
-          <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.25 }}
-          className="mb-6">
-          <div className="section-tag mb-3 flex items-center gap-2">
-          <Tv2 size={11} /> Stream Officially On
-          </div>
-
-          {loadingStream ? (
-            <div className="flex items-center gap-2 text-xs" style={{ color:'#6a6a5a' }}>
-            <motion.div animate={{ rotate:360 }} transition={{ repeat:Infinity, duration:1, ease:'linear' }}>
-            <Loader2 size={13} />
-            </motion.div>
-            Checking platforms...
-            </div>
-          ) : streaming.length > 0 ? (
-            <div className="flex flex-wrap gap-2">
-            {streaming.map((s, i) => (
-              <motion.a key={i} href={s.url} target="_blank" rel="noopener noreferrer"
-              initial={{ opacity:0, scale:0.85 }} animate={{ opacity:1, scale:1 }}
-              transition={{ delay:0.3 + i*0.05 }}
-              whileHover={{ scale:1.06, y:-2 }} whileTap={{ scale:0.96 }}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium transition-all"
-              style={{
-                background:`${s.color}18`,
-                border:`1px solid ${s.color}40`,
-                color:s.color,
-                boxShadow:`0 4px 16px ${s.color}12`,
-                textDecoration:'none',
-              }}>
-              <div className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold flex-shrink-0"
-              style={{ background:`${s.color}30` }}>
-              {s.icon}
-              </div>
-              {s.name}
-              <ExternalLink size={10} style={{ opacity:0.5 }} />
-              </motion.a>
-            ))}
-            </div>
-          ) : (
-            <p className="text-xs italic" style={{ color:'#3a3a2a' }}>
-            Not found on major streaming platforms — check download links below.
-            </p>
-          )}
-          </motion.div>
+{/* ── SEARCH ON PLATFORMS ── */}
+<motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.25 }} className="mb-6">
+  <div className="section-tag mb-3 flex items-center gap-2">
+    <Tv2 size={11} /> Search On Platforms
+  </div>
+  <div className="flex flex-wrap gap-2">
+    {[
+      { name:'Netflix',      color:'#E50914', url:'https://www.netflix.com/search?q=' },
+      { name:'Amazon Prime', color:'#00A8E1', url:'https://www.primevideo.com/search/ref=atv_nb_sr?phrase=' },
+      { name:'JioCinema',    color:'#6B4DE6', url:'https://www.jiocinema.com/search/' },
+      { name:'Hotstar',      color:'#1F80E0', url:'https://www.hotstar.com/in/search?q=' },
+      { name:'YouTube',      color:'#FF0000', url:'https://www.youtube.com/results?search_query=' },
+      { name:'SonyLIV',      color:'#0057A8', url:'https://www.sonyliv.com/search/' },
+      { name:'ZEE5',         color:'#7B2FBE', url:'https://www.zee5.com/search?q=' },
+      { name:'MX Player',    color:'#FF6C00', url:'https://www.mxplayer.in/search?query=' },
+    ].map((p, i) => (
+      <motion.a key={i}
+        href={p.url + encodeURIComponent(movie.title)}
+        target="_blank" rel="noopener noreferrer"
+        whileHover={{ scale:1.06, y:-2 }} whileTap={{ scale:0.96 }}
+        className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium"
+        style={{ background:p.color+'18', border:'1px solid '+p.color+'40', color:p.color, textDecoration:'none' }}>
+        {p.name}
+        <ExternalLink size={10} style={{ opacity:0.5 }} />
+      </motion.a>
+    ))}
+  </div>
+</motion.div>
 
           {/* ── DOWNLOAD LINKS (manual) ── */}
           <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.35 }}>
