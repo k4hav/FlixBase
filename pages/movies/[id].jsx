@@ -3,21 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Head from 'next/head';
 import { getMovies, getMovieById } from '../../lib/supabase';
-import { getStreamingSources } from '../../lib/watchmode';
 import CinematicBackground from '../../components/CinematicBackground';
-import { ArrowLeft, Star, Download, ExternalLink, Film, User, Tv2, Loader2 } from 'lucide-react';
+import { ArrowLeft, Star, Download, ExternalLink, Film, User, Tv2 } from 'lucide-react';
 
 export default function MovieDetail({ movie }) {
-  const [streaming, setStreaming]   = useState([]);
-  const [loadingStream, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (!movie) return;
-    setLoading(true);
-    getStreamingSources(movie.title, movie.year)
-    .then(data => setStreaming(data))
-    .finally(() => setLoading(false));
-  }, [movie?.id]);
+  
 
   if (!movie) return (
     <div className="min-h-screen flex items-center justify-center bg-deep">
