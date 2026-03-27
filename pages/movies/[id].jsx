@@ -131,7 +131,7 @@ export default function MovieDetail({ movie }) {
 {movie.platforms && movie.platforms.length > 0 && (
   <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.25 }} className="mb-6">
     <div className="section-tag mb-3 flex items-center gap-2">
-      <Tv2 size={11} /> Available On
+      <Tv2 size={11} /> Officially Available on
     </div>
     <div className="flex flex-wrap gap-2">
       {[
