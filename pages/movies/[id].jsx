@@ -136,9 +136,9 @@ export default function MovieDetail({ movie }) {
     <div className="flex flex-wrap gap-2">
       {[
         { name:'Netflix',      color:'#E50914', url:'https://www.netflix.com/search?q=' },
-        { name:'Amazon Prime', color:'#00A8E1', url:'https://www.primevideo.com/search/ref=atv_nb_sr?phrase=' },
+        { name:'Amazon Prime video', color:'#00A8E1', url:'https://www.primevideo.com/search/ref=atv_nb_sr?phrase=' },
         { name:'JioCinema',    color:'#6B4DE6', url:'https://www.jiocinema.com/search/' },
-        { name:'Hotstar',      color:'#1F80E0', url:'https://www.hotstar.com/in/search?q=' },
+        { name:'JioHotstar',      color:'#1F80E0', url:'https://www.hotstar.com/in/search?q=' },
         { name:'YouTube',      color:'#FF0000', url:'https://www.youtube.com/results?search_query=' },
         { name:'SonyLIV',      color:'#0057A8', url:'https://www.sonyliv.com/search/' },
         { name:'ZEE5',         color:'#7B2FBE', url:'https://www.zee5.com/search?q=' },
