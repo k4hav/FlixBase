@@ -121,9 +121,9 @@ export default function AddMovieForm({ initial=null, onSave, onCancel, loading=f
   <div className="flex flex-wrap gap-2">
     {[
       { name:'Netflix',      color:'#E50914' },
-      { name:'Amazon Prime', color:'#00A8E1' },
+      { name:'Amazon Prime Video', color:'#00A8E1' },
       { name:'JioCinema',    color:'#6B4DE6' },
-      { name:'Hotstar',      color:'#1F80E0' },
+      { name:'JioHotstar',      color:'#1F80E0' },
       { name:'YouTube',      color:'#FF0000' },
       { name:'SonyLIV',      color:'#0057A8' },
       { name:'ZEE5',         color:'#7B2FBE' },
