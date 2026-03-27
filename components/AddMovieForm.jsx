@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Trash2, Save, X, Film } from 'lucide-react';
 
 const PLATFORMS = [
-  { name: 'Filmyzilla',  color: '#e05c3a' },
-  { name: 'Filmywap',    color: '#c0392b' },
+  { name: 'V-Cloud',  color: '#e05c3a' },
+  { name: 'Hubcloud',    color: '#c0392b' },
   { name: 'Telegram',    color: '#229ED9' },
   { name: 'Drive',       color: '#4285F4' },
   { name: 'Mega.nz',     color: '#D9272E' },
@@ -12,8 +12,8 @@ const PLATFORMS = [
   { name: '1Fichier',    color: '#55a05b' },
   { name: 'Netflix',     color: '#E50914' },
   { name: 'Amazon Prime',color: '#00A8E1' },
-  { name: 'JioCinema',   color: '#6B4DE6' },
-  { name: 'YouTube',     color: '#FF0000' },
+  { name: 'GDflix',   color: '#6B4DE6' },
+  { name: 'FLIXBASE',     color: '#FF0000' },
   { name: 'Custom',      color: '#c9a84c' },
 ];
 
@@ -112,6 +112,42 @@ export default function AddMovieForm({ initial=null, onSave, onCancel, loading=f
           value={form.overview} onChange={e=>set('overview',e.target.value)}
           placeholder="Short plot description..." />
       </div>
+
+      {/* Platform Availability */}
+<div>
+  <label className="block text-[10px] font-medium mb-2 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>
+    Available On (select platforms)
+  </label>
+  <div className="flex flex-wrap gap-2">
+    {[
+      { name:'Netflix',      color:'#E50914' },
+      { name:'Amazon Prime', color:'#00A8E1' },
+      { name:'JioCinema',    color:'#6B4DE6' },
+      { name:'Hotstar',      color:'#1F80E0' },
+      { name:'YouTube',      color:'#FF0000' },
+      { name:'SonyLIV',      color:'#0057A8' },
+      { name:'ZEE5',         color:'#7B2FBE' },
+      { name:'MX Player',    color:'#FF6C00' },
+    ].map(p => {
+      const selected = (form.platforms || []).includes(p.name);
+      return (
+        <button key={p.name} type="button"
+          onClick={() => {
+            const curr = form.platforms || [];
+            set('platforms', selected ? curr.filter(x => x !== p.name) : [...curr, p.name]);
+          }}
+          className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+          style={{
+            background: selected ? p.color+'25' : 'rgba(255,255,255,0.03)',
+            border: `1px solid ${selected ? p.color+'60' : 'rgba(255,255,255,0.08)'}`,
+            color: selected ? p.color : '#6a6a5a',
+          }}>
+          {selected ? '✓ ' : ''}{p.name}
+        </button>
+      );
+    })}
+  </div>
+</div>
 
       {/* Download Links */}
       <div>
