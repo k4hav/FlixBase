@@ -80,7 +80,7 @@ export default function Navbar() {
 
           {/* Telegram Join button */}
           <motion.a
-            href="https://t.me/+n3etNnm3RxI5NGZl"
+            href="https://https://t.me/+9QsRMsRrJwhlNDE1"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
