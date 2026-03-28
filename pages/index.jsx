@@ -152,8 +152,8 @@ export default function Home({ movies: initial }) {
                 <motion.div
                   whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(201,168,76,0.2)' }}
                   whileTap={{ scale: 0.98 }}
-                  className="inline-flex items-center gap-3 px-5 py-3 rounded-xl text-xs font-medium relative overflow-hidden cursor-pointer w-full justify-center"
-                  style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.3)', color: '#e8c87a' }}
+                  className="inline-flex items-center gap-3 px-5 py-2.5 rounded-xl text-xs font-medium relative overflow-hidden cursor-pointer"
+                  style={{ background: 'rgba(200,0,0,0.12)', border: '1px solid rgba(220,0,0,0.4)', color: '#ff4444' }}
                 >
                   <motion.div className="absolute inset-0 pointer-events-none"
                     style={{ background: 'linear-gradient(105deg,transparent 30%,rgba(245,228,168,0.12) 50%,transparent 70%)' }}
@@ -167,7 +167,7 @@ export default function Home({ movies: initial }) {
                   />
                   <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/220px-Indian_Premier_League_Official_Logo.svg.png"
                     alt="IPL" className="h-5 w-auto relative z-10" />
-                  <span className="relative z-10 font-semibold">Watch IPL 2025 Live →</span>
+                  <span className="relative z-10 font-semibold">Watch IPL 2026 Live →</span>
                 </motion.div>
               </Link>
             </motion.div>
