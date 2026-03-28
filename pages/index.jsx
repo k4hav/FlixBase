@@ -165,8 +165,8 @@ export default function Home({ movies: initial }) {
                     animate={{ opacity: [1, 0.2, 1] }}
                     transition={{ repeat: Infinity, duration: 1 }}
                   />
-                  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/220px-Indian_Premier_League_Official_Logo.svg.png"
-                    alt="IPL" className="h-5 w-auto relative z-10" />
+                  <img src="https://www.awazthevoice.in/upload/news/1742665544IPL_25_KKR_vs_RCB_153_e4WJkAY.webp"
+                    alt="IPL" className="h-6 w-auto relative z-10 rounded-md" style={{ maxWidth: '60px', objectFit: 'cover' }} />
                   <span className="relative z-10 font-semibold">Watch IPL 2026 Live →</span>
                 </motion.div>
               </Link>
