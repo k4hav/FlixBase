@@ -45,16 +45,26 @@ export default function Live() {
         {/* Header */}
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} className="text-center mb-10">
           {/* IPL Logo */}
-          <motion.div
-            className="relative inline-flex items-center justify-center mb-5"
-            animate={{ filter: ['drop-shadow(0 0 10px rgba(201,168,76,0.3))', 'drop-shadow(0 0 30px rgba(201,168,76,0.7))', 'drop-shadow(0 0 10px rgba(201,168,76,0.3))'] }}
-            transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
-          >
-         <img
+          <motion.div className="relative inline-flex items-center justify-center mb-5">
+            {/* Rotating border ring */}
+            <motion.div className="absolute inset-0 rounded-2xl"
+              style={{ background: 'conic-gradient(from 0deg, #cc0000, #ff4444, #e8c87a, #cc0000)', padding: '2px', borderRadius: '18px' }}
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 3, ease: 'linear' }}
+            />
+            {/* Glow pulse */}
+            <motion.div className="absolute inset-0 rounded-2xl"
+              style={{ background: 'rgba(200,0,0,0.3)', filter: 'blur(16px)', zIndex: 0 }}
+              animate={{ opacity: [0.4, 1, 0.4], scale: [1, 1.1, 1] }}
+              transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+            />
+        <motion.img
               src="https://www.awazthevoice.in/upload/news/1742665544IPL_25_KKR_vs_RCB_153_e4WJkAY.webp"
-              alt=""
-              className="w-28 h-auto"
-              style={{ filter: 'drop-shadow(0 4px 20px rgba(201,168,76,0.4))' }}
+              alt="IPL"
+              className="relative z-10"
+              style={{ width: '160px', height: '120px', objectFit: 'cover', borderRadius: '16px', border: '2px solid rgba(200,0,0,0.5)' }}
+              animate={{ scale: [1, 1.03, 1] }}
+              transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
             />
           </motion.div>
 
