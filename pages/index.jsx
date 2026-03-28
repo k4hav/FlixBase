@@ -176,7 +176,7 @@ export default function Home({ movies: initial }) {
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}
               className="mt-3">
               <motion.a
-                href="https://t.me/+n3etNnm3RxI5NGZl"
+                href="https://t.me/+9QsRMsRrJwhlNDE1"
                 target="_blank" rel="noopener noreferrer"
                 whileHover={{ scale: 1.02, boxShadow: '0 0 24px rgba(34,158,217,0.2)' }}
                 whileTap={{ scale: 0.98 }}
