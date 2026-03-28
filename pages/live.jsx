@@ -73,7 +73,7 @@ export default function Live() {
               background:'linear-gradient(135deg,#ff6666,#cc0000)',
               WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
               filter:'drop-shadow(0 0 20px rgba(201,168,76,0.3))' }}>
-            IPL 2025 Live
+            IPL 2026 Live
           </h1>
           <p className="text-xs" style={{ color:'#6a6a5a' }}>
             Click any stream below to watch
