@@ -50,7 +50,12 @@ export default function Live() {
             animate={{ filter: ['drop-shadow(0 0 10px rgba(201,168,76,0.3))', 'drop-shadow(0 0 30px rgba(201,168,76,0.7))', 'drop-shadow(0 0 10px rgba(201,168,76,0.3))'] }}
             transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
           >
-         
+         <img
+              src="https://www.awazthevoice.in/upload/news/1742665544IPL_25_KKR_vs_RCB_153_e4WJkAY.webp"
+              alt=""
+              className="w-28 h-auto"
+              style={{ filter: 'drop-shadow(0 4px 20px rgba(201,168,76,0.4))' }}
+            />
           </motion.div>
 
           {/* Live badge */}
