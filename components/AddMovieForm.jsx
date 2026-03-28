@@ -17,19 +17,20 @@ const OFFICIAL_PLATFORMS = [
 ];
 
 const PLATFORMS = [
-  { name: 'Filmyzilla',   color: '#e05c3a' },
-  { name: 'Filmywap',     color: '#c0392b' },
-  { name: 'Telegram',     color: '#229ED9' },
-  { name: 'Drive',        color: '#4285F4' },
-  { name: 'Mega.nz',      color: '#D9272E' },
-  { name: 'MediaFire',    color: '#1B82E4' },
-  { name: '1Fichier',     color: '#55a05b' },
-  { name: 'Netflix',      color: '#E50914' },
-  { name: 'Amazon Prime', color: '#00A8E1' },
-  { name: 'JioCinema',    color: '#6B4DE6' },
-  { name: 'YouTube',      color: '#FF0000' },
-  { name: 'Custom',       color: '#c9a84c' },
+  { name: 'Filmyzilla',  color: '#e05c3a' },
+  { name: 'Filmywap',    color: '#c0392b' },
+  { name: 'Telegram',    color: '#229ED9' },
+  { name: 'Drive',       color: '#4285F4' },
+  { name: 'Mega.nz',     color: '#D9272E' },
+  { name: 'MediaFire',   color: '#1B82E4' },
+  { name: '1Fichier',    color: '#55a05b' },
+  { name: 'Netflix',     color: '#E50914' },
+  { name: 'Amazon Prime',color: '#00A8E1' },
+  { name: 'JioCinema',   color: '#6B4DE6' },
+  { name: 'YouTube',     color: '#FF0000' },
+  { name: 'Custom',      color: '#c9a84c' },
 ];
+
 
 const EMPTY = { title:'', year:'', type:'Movie', language:'', genre:'', rating:'', poster_url:'', overview:'', featured:false, platforms:[], otherPlatform:'' };
 
