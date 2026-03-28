@@ -165,6 +165,8 @@ export default function Home({ movies: initial }) {
                     animate={{ opacity: [1, 0.2, 1] }}
                     transition={{ repeat: Infinity, duration: 1 }}
                   />
+
+                   <span className="relative z-10 font-semibold">Watch IPL 2026 Live →</span>
                  
                 </motion.div>
               </Link>
