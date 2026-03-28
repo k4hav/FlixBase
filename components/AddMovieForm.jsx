@@ -1,10 +1,24 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Trash2, Save, X, Film } from 'lucide-react';
+import { Plus, Trash2, Save, X, Film, Check } from 'lucide-react';
+
+const OFFICIAL_PLATFORMS = [
+  { name: 'Netflix',            color: '#E50914', url: 'https://www.netflix.com/search?q=' },
+  { name: 'Amazon Prime Video', color: '#00A8E1', url: 'https://www.primevideo.com/search/ref=atv_nb_sr?phrase=' },
+  { name: 'JioHotstar',         color: '#1F80E0', url: 'https://www.hotstar.com/in/search?q=' },
+  { name: 'JioCinema',          color: '#6B4DE6', url: 'https://www.jiocinema.com/search/' },
+  { name: 'SonyLIV',            color: '#0057A8', url: 'https://www.sonyliv.com/search/' },
+  { name: 'ZEE5',               color: '#7B2FBE', url: 'https://www.zee5.com/search?q=' },
+  { name: 'YouTube',            color: '#FF0000', url: 'https://www.youtube.com/results?search_query=' },
+  { name: 'MX Player',          color: '#FF6C00', url: 'https://www.mxplayer.in/search?query=' },
+  { name: 'Apple TV+',          color: '#888888', url: 'https://tv.apple.com/search?term=' },
+  { name: 'Disney+',            color: '#113CCF', url: 'https://www.disneyplus.com/search/' },
+  { name: 'Other',              color: '#c9a84c', url: '' },
+];
 
 const PLATFORMS = [
-  { name: 'V-Cloud',  color: '#e05c3a' },
-  { name: 'Hubcloud',    color: '#c0392b' },
+  { name: 'Filmyzilla',  color: '#e05c3a' },
+  { name: 'Filmywap',    color: '#c0392b' },
   { name: 'Telegram',    color: '#229ED9' },
   { name: 'Drive',       color: '#4285F4' },
   { name: 'Mega.nz',     color: '#D9272E' },
@@ -12,19 +26,54 @@ const PLATFORMS = [
   { name: '1Fichier',    color: '#55a05b' },
   { name: 'Netflix',     color: '#E50914' },
   { name: 'Amazon Prime',color: '#00A8E1' },
-  { name: 'GDflix',   color: '#6B4DE6' },
-  { name: 'FLIXBASE',     color: '#FF0000' },
+  { name: 'JioCinema',   color: '#6B4DE6' },
+  { name: 'YouTube',     color: '#FF0000' },
   { name: 'Custom',      color: '#c9a84c' },
 ];
 
-const EMPTY = { title:'', year:'', type:'Movie', language:'', genre:'', rating:'', poster_url:'', overview:'', featured:false };
+const PLATFORMS = [
+  { name: 'Filmyzilla',   color: '#e05c3a' },
+  { name: 'Filmywap',     color: '#c0392b' },
+  { name: 'Telegram',     color: '#229ED9' },
+  { name: 'Drive',        color: '#4285F4' },
+  { name: 'Mega.nz',      color: '#D9272E' },
+  { name: 'MediaFire',    color: '#1B82E4' },
+  { name: '1Fichier',     color: '#55a05b' },
+  { name: 'Netflix',      color: '#E50914' },
+  { name: 'Amazon Prime', color: '#00A8E1' },
+  { name: 'JioCinema',    color: '#6B4DE6' },
+  { name: 'YouTube',      color: '#FF0000' },
+  { name: 'Custom',       color: '#c9a84c' },
+];
+
+const EMPTY = { title:'', year:'', type:'Movie', language:'', genre:'', rating:'', poster_url:'', overview:'', featured:false, platforms:[], otherPlatform:'' };
 
 export default function AddMovieForm({ initial=null, onSave, onCancel, loading=false }) {
-  const [form, setForm]     = useState(initial || EMPTY);
-  const [links, setLinks]   = useState(initial?.links || []);
-  const [errors, setErrors] = useState({});
+  const [form, setForm]         = useState(initial || EMPTY);
+  const [links, setLinks]       = useState(initial?.links || []);
+  const [errors, setErrors]     = useState({});
+  const [showOther, setShowOther] = useState(false);
 
   const set = (k,v) => { setForm(f=>({...f,[k]:v})); setErrors(e=>({...e,[k]:''})); };
+
+  const togglePlatform = (p) => {
+    if (p.name === 'Other') { setShowOther(s => !s); return; }
+    const curr = form.platforms || [];
+    const exists = curr.find(x => x.name === p.name);
+    set('platforms', exists ? curr.filter(x => x.name !== p.name) : [...curr, { name: p.name, color: p.color, url: p.url }]);
+  };
+  const isPlatformSelected = (name) => (form.platforms || []).some(x => x.name === name);
+
+  const addOtherPlatform = () => {
+    const name = form.otherPlatform?.trim();
+    if (!name) return;
+    const curr = form.platforms || [];
+    if (!curr.find(x => x.name === name)) {
+      set('platforms', [...curr, { name, color: '#c9a84c', url: '' }]);
+    }
+    set('otherPlatform', '');
+    setShowOther(false);
+  };
 
   const addLink = () => setLinks(l=>[...l,{label:'',url:'',color:'#c9a84c'}]);
   const setLink = (i,k,v) => setLinks(l=>l.map((x,idx)=>idx===i?{...x,[k]:v}:x));
@@ -40,7 +89,7 @@ export default function AddMovieForm({ initial=null, onSave, onCancel, loading=f
 
   const handleSubmit = () => {
     if (!validate()) return;
-    onSave({ ...form, links: links.filter(l=>l.url) });
+    onSave({ ...form, links: links.filter(l=>l.url), platforms: form.platforms || [] });
   };
 
   const F = (k, label, placeholder, opts={}) => (
@@ -113,41 +162,66 @@ export default function AddMovieForm({ initial=null, onSave, onCancel, loading=f
           placeholder="Short plot description..." />
       </div>
 
-      {/* Platform Availability */}
-<div>
-  <label className="block text-[10px] font-medium mb-2 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>
-    Available On (select platforms)
-  </label>
-  <div className="flex flex-wrap gap-2">
-    {[
-      { name:'Netflix',      color:'#E50914' },
-      { name:'Amazon Prime Video', color:'#00A8E1' },
-      { name:'JioCinema',    color:'#6B4DE6' },
-      { name:'JioHotstar',      color:'#1F80E0' },
-      { name:'YouTube',      color:'#FF0000' },
-      { name:'SonyLIV',      color:'#0057A8' },
-      { name:'ZEE5',         color:'#7B2FBE' },
-      { name:'MX Player',    color:'#FF6C00' },
-    ].map(p => {
-      const selected = (form.platforms || []).includes(p.name);
-      return (
-        <button key={p.name} type="button"
-          onClick={() => {
-            const curr = form.platforms || [];
-            set('platforms', selected ? curr.filter(x => x !== p.name) : [...curr, p.name]);
-          }}
-          className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-          style={{
-            background: selected ? p.color+'25' : 'rgba(255,255,255,0.03)',
-            border: `1px solid ${selected ? p.color+'60' : 'rgba(255,255,255,0.08)'}`,
-            color: selected ? p.color : '#6a6a5a',
-          }}>
-          {selected ? '✓ ' : ''}{p.name}
-        </button>
-      );
-    })}
-  </div>
-</div>
+      {/* Official Streaming Platforms */}
+      <div>
+        <label className="block text-[10px] font-medium mb-2 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>
+          Available On — <span style={{ color:'#4a4a3a', letterSpacing:0 }}>select official platforms</span>
+        </label>
+        <div className="flex flex-wrap gap-2 mb-2">
+          {OFFICIAL_PLATFORMS.map(p => {
+            const selected = p.name === 'Other' ? showOther : isPlatformSelected(p.name);
+            return (
+              <motion.button key={p.name} type="button"
+                onClick={() => togglePlatform(p)}
+                whileHover={{ scale:1.03 }} whileTap={{ scale:0.96 }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+                style={{
+                  background: selected ? p.color+'22' : 'rgba(255,255,255,0.03)',
+                  border: `1px solid ${selected ? p.color+'55' : 'rgba(255,255,255,0.08)'}`,
+                  color: selected ? p.color : '#6a6a5a',
+                }}>
+                {selected && <Check size={10} />}
+                {p.name}
+              </motion.button>
+            );
+          })}
+        </div>
+
+        {/* Other platform input */}
+        <AnimatePresence>
+          {showOther && (
+            <motion.div initial={{ opacity:0, height:0 }} animate={{ opacity:1, height:'auto' }} exit={{ opacity:0, height:0 }}
+              className="flex gap-2 mt-2">
+              <input
+                className="input-dark flex-1 px-3 py-2 rounded-lg text-sm"
+                value={form.otherPlatform || ''}
+                onChange={e => set('otherPlatform', e.target.value)}
+                placeholder="Platform name (e.g. Mubi, Voot, Aha...)"
+                onKeyDown={e => e.key === 'Enter' && addOtherPlatform()}
+              />
+              <motion.button whileHover={{ scale:1.03 }} whileTap={{ scale:0.97 }}
+                onClick={addOtherPlatform}
+                className="btn-primary px-4 py-2 rounded-lg text-xs">
+                Add
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Show selected platforms */}
+        {(form.platforms || []).length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            {(form.platforms || []).map((p, i) => (
+              <span key={i} className="flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px]"
+                style={{ background: p.color+'18', border:`1px solid ${p.color}35`, color: p.color }}>
+                {p.name}
+                <button onClick={() => set('platforms', form.platforms.filter((_,idx)=>idx!==i))}
+                  className="opacity-50 hover:opacity-100 ml-0.5">×</button>
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* Download Links */}
       <div>
