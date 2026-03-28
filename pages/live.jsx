@@ -70,7 +70,7 @@ export default function Live() {
 
           <h1 className="font-cinzel font-bold text-2xl sm:text-3xl mb-2"
             style={{ fontFamily:'Cinzel,serif',
-              background:'linear-gradient(135deg,#f5e4a8,#c9a84c)',
+              background:'linear-gradient(135deg,#ff6666,#cc0000)',
               WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
               filter:'drop-shadow(0 0 20px rgba(201,168,76,0.3))' }}>
             IPL 2025 Live
