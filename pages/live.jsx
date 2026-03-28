@@ -50,12 +50,7 @@ export default function Live() {
             animate={{ filter: ['drop-shadow(0 0 10px rgba(201,168,76,0.3))', 'drop-shadow(0 0 30px rgba(201,168,76,0.7))', 'drop-shadow(0 0 10px rgba(201,168,76,0.3))'] }}
             transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
           >
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/220px-Indian_Premier_League_Official_Logo.svg.png"
-              alt="IPL"
-              className="w-28 h-auto"
-              style={{ filter: 'drop-shadow(0 4px 20px rgba(201,168,76,0.4))' }}
-            />
+         
           </motion.div>
 
           {/* Live badge */}
