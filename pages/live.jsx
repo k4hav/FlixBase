@@ -50,7 +50,7 @@ export default function Live() {
             <motion.div className="absolute inset-0 rounded-2xl"
               style={{ background: 'conic-gradient(from 0deg, #cc0000, #ff4444, #e8c87a, #cc0000)', padding: '2px', borderRadius: '18px' }}
               animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 3, ease: 'linear' }}
+              transition={{ repeat: Infinity, duration: 6, ease: 'linear' }}
             />
             {/* Glow pulse */}
             <motion.div className="absolute inset-0 rounded-2xl"
@@ -59,7 +59,7 @@ export default function Live() {
               transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
             />
         <motion.img
-              src="https://www.awazthevoice.in/upload/news/1742665544IPL_25_KKR_vs_RCB_153_e4WJkAY.webp"
+              src="https://www.iplbetonline.in/wp-content/uploads/2025/05/virat-kohlis-fiery-celebration-ignites-rcbs-dominance-in-ipl-2025-qualifier-1-against-pbks.jpg"
               alt="IPL"
               className="relative z-10"
               style={{ width: '160px', height: '120px', objectFit: 'cover', borderRadius: '16px', border: '2px solid rgba(200,0,0,0.5)' }}
