@@ -46,18 +46,9 @@ export default function Live() {
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} className="text-center mb-10">
           {/* IPL Logo */}
           <motion.div className="relative inline-flex items-center justify-center mb-5">
-            {/* Rotating border ring */}
-            <motion.div className="absolute inset-0 rounded-2xl"
-              style={{ background: 'conic-gradient(from 0deg, #cc0000, #ff4444, #e8c87a, #cc0000)', padding: '2px', borderRadius: '18px' }}
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 6, ease: 'linear' }}
-            />
-            {/* Glow pulse */}
-            <motion.div className="absolute inset-0 rounded-2xl"
-              style={{ background: 'rgba(200,0,0,0.3)', filter: 'blur(16px)', zIndex: 0 }}
-              animate={{ opacity: [0.4, 1, 0.4], scale: [1, 1.1, 1] }}
-              transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-            />
+            
+            
+           
         <motion.img
               src="https://1000logos.net/wp-content/uploads/2022/08/IPL-sponsorship-Logo-2022.png"
               alt="IPL"
