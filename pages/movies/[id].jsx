@@ -205,6 +205,24 @@ export default function MovieDetail({ movie }) {
             )
           }
           </motion.div>
+        {/* How to Download */}
+            <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.5 }} className="mt-6">
+              <motion.a
+                href="https://drive.google.com/file/d/1lW06PSgu_mt_bGqvX5svxzbbDlQdAXci/view?usp=sharing"
+                target="_blank" rel="noopener noreferrer"
+                whileHover={{ scale:1.03, boxShadow:'0 0 20px rgba(201,168,76,0.2)' }}
+                whileTap={{ scale:0.97 }}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-medium relative overflow-hidden"
+                style={{ background:'rgba(201,168,76,0.08)', border:'1px solid rgba(201,168,76,0.25)', color:'#e8c87a', textDecoration:'none' }}
+              >
+                <motion.div className="absolute inset-0 pointer-events-none"
+                  style={{ background:'linear-gradient(105deg,transparent 30%,rgba(245,228,168,0.1) 50%,transparent 70%)' }}
+                  animate={{ x:['-100%','200%'] }}
+                  transition={{ repeat:Infinity, duration:3, ease:'easeInOut', repeatDelay:2 }}
+                />
+                <span className="relative z-10">🎬 How to Download — Watch Tutorial</span>
+              </motion.a>
+            </motion.div>
           </div>
           </div>
           </div>
