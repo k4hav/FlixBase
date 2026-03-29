@@ -213,7 +213,7 @@ export default function MovieDetail({ movie }) {
                 whileHover={{ scale:1.03, boxShadow:'0 0 20px rgba(201,168,76,0.2)' }}
                 whileTap={{ scale:0.97 }}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-medium relative overflow-hidden"
-                style={{ background:'rgba(201,168,76,0.08)', border:'1px solid rgba(201,168,76,0.25)', color:'#e8c87a', textDecoration:'none' }}
+                style={{ background:'rgba(59,130,246,0.08)', border:'1px solid rgba(59,130,246,0.3)', color:'#60a5fa', textDecoration:'none' }}
               >
                 <motion.div className="absolute inset-0 pointer-events-none"
                   style={{ background:'linear-gradient(105deg,transparent 30%,rgba(245,228,168,0.1) 50%,transparent 70%)' }}
