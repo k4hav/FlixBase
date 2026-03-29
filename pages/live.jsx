@@ -5,9 +5,9 @@ import CinematicBackground from '../components/CinematicBackground';
 import { ArrowLeft, ExternalLink, Tv2, Radio } from 'lucide-react';
 
 const STREAMS = [
-  { label: 'Stream 1', info: 'HD Quality', url: 'https://we-live-v2.pages.dev/live-stream?channel=Star%20Sports%20Hindi', color: '#E50914' },
-  { label: 'Stream 2', info: 'Backup Link', url: 'https://we-live-v2.pages.dev/live-stream?channel=Star%20Sports%20Hindi', color: '#00A8E1' },
-  { label: 'Stream 3', info: 'Mirror Link', url: 'https://we-live-v2.pages.dev/live-stream?channel=Star%20Sports%20Hindi', color: '#6B4DE6' },
+  { label: 'Stream 1', info: 'HINDI Link', url: 'https://gplinks.co/vPTCI', color: '#E50914' },
+  { label: 'Stream 2', info: 'ENGLISH Link', url: 'https://gplinks.co/MOriU', color: '#00A8E1' },
+  { label: 'Stream 3', info: 'Other Link', url: 'https://gplinks.co/vPTCI', color: '#6B4DE6' },
 ];
 
 export default function Live() {
