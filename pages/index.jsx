@@ -57,8 +57,8 @@ export default function Home({ movies: initial }) {
   return (
     <>
       <Head>
-        <title>FlixBase — Discover movies, series & anime, find download links, and request your favourites</title>
-        <meta name="description" content="Discover movies, web series & anime. Find download links and request your favourites — all in one place." />
+        <title>FlixBase — Free Movies & Web Series Download Links | Hindi, English, Anime</title>
+        <meta name="description" content="Download latest Bollywood, Hollywood, Hindi Dubbed movies and web series for free. Find 4K, 1080p, 720p download links. Anime, Netflix, Amazon Prime content — all on FlixBase." />
         <meta property="og:title" content="FlixBase — Discover movies, series & anime" />
         <meta property="og:description" content="Discover movies, web series & anime. Find download links and request your favourites." />
         <link rel="canonical" href="https://flix-base.vercel.app" />
