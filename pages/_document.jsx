@@ -23,7 +23,7 @@ export default function Document() {
 
         {/* ── SEO Meta Tags ── */}
         <meta name="description" content="FlixBase — Discover movies, web series & anime. Find download links, request your favourites, and build your personal collection." />
-        <meta name="keywords" content="FlixBase, movies, web series, anime, download movies, hindi movies, bollywood, watch online, movie download links, series download" />
+        <meta name="keywords" content="FlixBase,Dhurandhar The Revenge,Dhurandhar,SUBEDAAR,Peaky Blinders The Immortal Man,Border 2, movies download, web series download, anime download, hindi movies, bollywood movies download, hollywood hindi dubbed, netflix movies download, amazon prime download, free movies download, 4k movies download, 1080p movies, filmyzilla alternative, filmywap alternative, movie download links 2025 2026" />
         <meta name="author" content="FlixBase" />
         <meta name="robots" content="index, follow" />
 
