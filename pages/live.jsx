@@ -5,9 +5,9 @@ import CinematicBackground from '../components/CinematicBackground';
 import { ArrowLeft, ExternalLink, Tv2, Radio } from 'lucide-react';
 
 const STREAMS = [
-  { label: 'Stream 1', info: 'HINDI Link', url: 'https://gplinks.co/vPTCI', color: '#E50914' },
-  { label: 'Stream 2', info: 'ENGLISH Link', url: 'https://gplinks.co/MOriU', color: '#00A8E1' },
-  { label: 'Stream 3', info: 'Other Link', url: 'https://gplinks.co/vPTCI', color: '#6B4DE6' },
+  { label: 'Stream 1', info: 'HINDI', url: 'https://gplinks.co/vPTCI', color: '#E50914' },
+  { label: 'Stream 2', info: 'ENGLISH', url: 'https://gplinks.co/MOriU', color: '#00A8E1' },
+  { label: 'Stream 3', info: 'OTHER', url: 'https://gplinks.co/vPTCI', color: '#6B4DE6' },
 ];
 
 export default function Live() {
@@ -59,7 +59,7 @@ export default function Live() {
               transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
             />
         <motion.img
-              src="https://www.iplbetonline.in/wp-content/uploads/2025/05/virat-kohlis-fiery-celebration-ignites-rcbs-dominance-in-ipl-2025-qualifier-1-against-pbks.jpg"
+              src="https://1000logos.net/wp-content/uploads/2022/08/IPL-sponsorship-Logo-2022.png"
               alt="IPL"
               className="relative z-10"
               style={{ width: '160px', height: '120px', objectFit: 'cover', borderRadius: '16px', border: '2px solid rgba(200,0,0,0.5)' }}
