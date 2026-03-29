@@ -25,8 +25,9 @@ export default function MovieDetail({ movie }) {
   return (
     <div className="min-h-screen bg-deep">
     <Head>
-    <title>{movie.title} — FlixBase</title>
-    <meta name="description" content={movie.overview || (movie.title + ' — Watch and download on FlixBase')} />
+    <title>{movie.title} {movie.year ? `(${movie.year})` : ''} Download — {movie.language || 'Hindi'} {movie.type || 'Movie'} | FlixBase</title>
+    <meta name="description" content={`Download ${movie.title} ${movie.year || ''} in 4K, 1080p, 720p. ${movie.overview || `Watch ${movie.title} online or download for free on FlixBase.`}`} />
+    <meta name="keywords" content={`${movie.title} download, ${movie.title} ${movie.year || ''}, ${movie.title} ${movie.language || 'hindi'}, ${movie.title} 1080p, ${movie.title} 4k, ${movie.genre || ''} movies download`} />
     <meta property="og:title" content={movie.title + ' — FlixBase'} />
     <meta property="og:description" content={movie.overview || 'Watch and download on FlixBase'} />
     {movie.poster_url && <meta property="og:image" content={movie.poster_url} />}
