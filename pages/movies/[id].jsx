@@ -209,7 +209,7 @@ export default function MovieDetail({ movie }) {
         {/* How to Download */}
             <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.5 }} className="mt-6">
               <motion.a
-                href="https://drive.google.com/file/d/1lW06PSgu_mt_bGqvX5svxzbbDlQdAXci/view?usp=sharing"
+                href="https://drive.google.com/drive/folders/1s-llW3hYo3-4pK6U2XR3M5bJEakbHDjI"
                 target="_blank" rel="noopener noreferrer"
                 whileHover={{ scale:1.03, boxShadow:'0 0 20px rgba(201,168,76,0.2)' }}
                 whileTap={{ scale:0.97 }}
