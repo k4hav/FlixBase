@@ -5,9 +5,9 @@ import CinematicBackground from '../components/CinematicBackground';
 import { ArrowLeft, ExternalLink, Tv2, Radio } from 'lucide-react';
 
 const STREAMS = [
-  { label: 'Stream 1', info: 'HINDI', url: 'https://gplinks.co/vPTCI', color: '#E50914' },
-  { label: 'Stream 2', info: 'ENGLISH', url: 'https://gplinks.co/MOriU', color: '#00A8E1' },
-  { label: 'Stream 3', info: 'OTHER', url: 'https://gplinks.co/vPTCI', color: '#6B4DE6' },
+  { label: 'Stream 1', info: 'HINDI', url: 'https://shrinkme.click/6x0qJ', color: '#E50914' },
+  { label: 'Stream 2', info: 'ENGLISH', url: 'https://shrinkme.click/a8Dasy', color: '#00A8E1' },
+  { label: 'Stream 3', info: 'OTHER', url: 'https://shrinkme.click/6x0qJ', color: '#6B4DE6' },
 ];
 
 export default function Live() {
