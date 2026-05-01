@@ -23,7 +23,6 @@ export default function AddMovieForm({ initial=null, onSave, onCancel, loading=f
   const [form, setForm]     = useState(initial || EMPTY);
   const [links, setLinks] = useState(initial?.links || []);
   const [watchLinks, setWatchLinks] = useState(initial?.watch_links || []);
-  const [watchLinks, setWatchLinks] = useState(initial?.watch_links || []);
   const [errors, setErrors] = useState({});
 
   const set = (k,v) => { setForm(f=>({...f,[k]:v})); setErrors(e=>({...e,[k]:''})); };
