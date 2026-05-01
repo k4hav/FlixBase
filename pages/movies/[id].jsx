@@ -139,12 +139,14 @@ export default function MovieDetail({ movie }) {
         <motion.a key={i} href={l.url} target="_blank" rel="noopener noreferrer"
           whileHover={{ scale:1.04, y:-2 }} whileTap={{ scale:0.97 }}
           className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all"
-          style={{
+       style={{
             background:'rgba(59,130,246,0.12)',
             border:'1px solid rgba(59,130,246,0.35)',
             color:'#60a5fa',
             textDecoration:'none',
             boxShadow:'0 4px 20px rgba(59,130,246,0.1)',
+            cursor:'pointer',
+            pointerEvents:'all',
           }}>
           ▶ {l.label || 'Watch Online'}
           <ExternalLink size={10} style={{ opacity:0.6 }} />
