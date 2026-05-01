@@ -136,34 +136,54 @@ export default function MovieDetail({ movie }) {
     </div>
     <div className="flex flex-wrap gap-3">
       {movie.watch_links.map((l, i) => (
-       <motion.a key={i} href={l.url} target="_blank" rel="noopener noreferrer"
-          whileHover={{ scale:1.06, y:-3 }}
-          whileTap={{ scale:0.96 }}
-          className="relative flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-bold overflow-hidden"
-          style={{ textDecoration:'none', cursor:'pointer', pointerEvents:'all', color:'#fff' }}
+      <motion.a key={i} href={l.url} target="_blank" rel="noopener noreferrer"
+          whileTap={{ scale:0.95 }}
+          className="relative flex items-center gap-3 px-7 py-3.5 rounded-2xl text-sm font-bold overflow-hidden group"
+          style={{ textDecoration:'none', cursor:'pointer', pointerEvents:'all', color:'#fff', minWidth:'200px', justifyContent:'center' }}
         >
-          {/* Animated gradient background */}
-          <motion.div className="absolute inset-0 rounded-xl"
-            style={{ background:'linear-gradient(135deg, #1a56db, #7c3aed, #0ea5e9, #1a56db)', backgroundSize:'300% 300%' }}
-            animate={{ backgroundPosition:['0% 50%','100% 50%','0% 50%'] }}
-            transition={{ repeat:Infinity, duration:3, ease:'linear' }}
+          {/* Base dark bg */}
+          <div className="absolute inset-0 rounded-2xl" style={{ background:'#0a0a1a' }} />
+
+          {/* Rotating conic gradient border */}
+          <motion.div className="absolute -inset-[1.5px] rounded-2xl -z-10"
+            style={{ background:'conic-gradient(from 0deg, #3b82f6, #8b5cf6, #ec4899, #06b6d4, #3b82f6)' }}
+            animate={{ rotate: 360 }}
+            transition={{ repeat:Infinity, duration:2.5, ease:'linear' }}
           />
-          {/* Glow */}
-          <motion.div className="absolute inset-0 rounded-xl"
-            style={{ background:'rgba(99,102,241,0.4)', filter:'blur(12px)', zIndex:0 }}
-            animate={{ opacity:[0.4,0.9,0.4] }}
-            transition={{ repeat:Infinity, duration:2, ease:'easeInOut' }}
+
+          {/* Inner dark overlay */}
+          <div className="absolute inset-[1.5px] rounded-2xl" style={{ background:'linear-gradient(135deg,#0f0f2a,#0a0a1a)' }} />
+
+          {/* Moving aurora glow inside */}
+          <motion.div className="absolute inset-0 rounded-2xl opacity-60"
+            style={{ background:'radial-gradient(circle at 30% 50%, rgba(99,102,241,0.4) 0%, transparent 60%)' }}
+            animate={{ x:['-20%','20%','-20%'], y:['-10%','10%','-10%'] }}
+            transition={{ repeat:Infinity, duration:3, ease:'easeInOut' }}
           />
-          {/* Shimmer sweep */}
-          <motion.div className="absolute inset-0 pointer-events-none"
-            style={{ background:'linear-gradient(105deg,transparent 35%,rgba(255,255,255,0.2) 50%,transparent 65%)', zIndex:1 }}
+          <motion.div className="absolute inset-0 rounded-2xl opacity-40"
+            style={{ background:'radial-gradient(circle at 70% 50%, rgba(236,72,153,0.4) 0%, transparent 60%)' }}
+            animate={{ x:['20%','-20%','20%'], y:['10%','-10%','10%'] }}
+            transition={{ repeat:Infinity, duration:3, ease:'easeInOut' }}
+          />
+
+          {/* Shimmer */}
+          <motion.div className="absolute inset-0 pointer-events-none rounded-2xl"
+            style={{ background:'linear-gradient(105deg,transparent 30%,rgba(255,255,255,0.12) 50%,transparent 70%)' }}
             animate={{ x:['-100%','200%'] }}
-            transition={{ repeat:Infinity, duration:2, ease:'easeInOut', repeatDelay:1 }}
+            transition={{ repeat:Infinity, duration:2.2, ease:'easeInOut', repeatDelay:0.8 }}
           />
-          {/* Content */}
-          <span className="relative z-10 text-lg">▶</span>
-          <span className="relative z-10">{l.label || 'Watch Online'}</span>
-          <ExternalLink size={12} className="relative z-10" style={{ opacity:0.8 }} />
+
+          {/* Play icon animated */}
+          <motion.div className="relative z-10 w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
+            style={{ background:'rgba(255,255,255,0.15)', border:'1px solid rgba(255,255,255,0.3)' }}
+            animate={{ scale:[1,1.2,1], boxShadow:['0 0 0px rgba(99,102,241,0)','0 0 16px rgba(99,102,241,0.8)','0 0 0px rgba(99,102,241,0)'] }}
+            transition={{ repeat:Infinity, duration:1.8, ease:'easeInOut' }}
+          >
+            <span style={{ fontSize:'10px', marginLeft:'1px' }}>▶</span>
+          </motion.div>
+
+          <span className="relative z-10 tracking-wide">{l.label || 'Watch Online'}</span>
+          <ExternalLink size={12} className="relative z-10" style={{ opacity:0.7 }} />
         </motion.a>
       ))}
     </div>
