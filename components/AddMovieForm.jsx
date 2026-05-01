@@ -17,7 +17,7 @@ const PLATFORMS = [
   { name: 'Custom',      color: '#c9a84c' },
 ];
 
-const EMPTY = { title:'', year:'', type:'Movie', language:'', genre:'', rating:'', poster_url:'', overview:'', featured:false };
+const EMPTY = { title:'', year:'', type:'Movie', language:'', genre:'', rating:'', poster_url:'', overview:'', featured:false, platforms:[], watch_links:[] };
 
 export default function AddMovieForm({ initial=null, onSave, onCancel, loading=false }) {
   const [form, setForm]     = useState(initial || EMPTY);
