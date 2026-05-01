@@ -128,6 +128,31 @@ export default function MovieDetail({ movie }) {
           )}
           </motion.div>
 
+        {/* Watch Online */}
+{movie.watch_links && Array.isArray(movie.watch_links) && movie.watch_links.length > 0 && (
+  <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.22 }} className="mb-6">
+    <div className="section-tag mb-3 flex items-center gap-2">
+      <Tv2 size={11} /> Watch Online
+    </div>
+    <div className="flex flex-wrap gap-3">
+      {movie.watch_links.map((l, i) => (
+        <motion.a key={i} href={l.url} target="_blank" rel="noopener noreferrer"
+          whileHover={{ scale:1.04, y:-2 }} whileTap={{ scale:0.97 }}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all"
+          style={{
+            background:'rgba(59,130,246,0.12)',
+            border:'1px solid rgba(59,130,246,0.35)',
+            color:'#60a5fa',
+            textDecoration:'none',
+            boxShadow:'0 4px 20px rgba(59,130,246,0.1)',
+          }}>
+          ▶ {l.label || 'Watch Online'}
+          <ExternalLink size={10} style={{ opacity:0.6 }} />
+        </motion.a>
+      ))}
+    </div>
+  </motion.div>
+)}
 {/* ── AVAILABLE ON ── */}
 {movie.platforms && movie.platforms.length > 0 && (
   <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.25 }} className="mb-6">
