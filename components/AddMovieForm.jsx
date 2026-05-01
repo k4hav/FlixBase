@@ -149,6 +149,47 @@ export default function AddMovieForm({ initial=null, onSave, onCancel, loading=f
   </div>
 </div>
 
+      {/* Watch Online Links */}
+<div>
+  <div className="flex items-center justify-between mb-3">
+    <div>
+      <span className="text-[10px] font-medium tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Watch Online Links </span>
+      <span className="text-[10px]" style={{ color:'#3a3a2a' }}>optional</span>
+    </div>
+    <motion.button whileHover={{ scale:1.03 }} whileTap={{ scale:0.97 }}
+      onClick={() => setWatchLinks(l=>[...l,{label:'',url:''}])}
+      className="btn-primary flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs">
+      <Plus size={11} /> Add Link
+    </motion.button>
+  </div>
+  <AnimatePresence>
+    {watchLinks.map((link, i) => (
+      <motion.div key={i}
+        initial={{ opacity:0, y:-8 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, height:0 }}
+        className="mb-3 flex gap-2 items-center flex-wrap p-3 rounded-xl"
+        style={{ background:'rgba(59,130,246,0.04)', border:'1px solid rgba(59,130,246,0.15)' }}>
+        <input className="input-dark flex-1 min-w-[100px] px-2.5 py-1.5 rounded-lg text-xs"
+          value={link.label} onChange={e => setWatchLinks(l=>l.map((x,idx)=>idx===i?{...x,label:e.target.value}:x))}
+          placeholder="Label (e.g. Watch HD, Watch 1080p)" />
+        <input className="input-dark flex-[2] min-w-[140px] px-2.5 py-1.5 rounded-lg text-xs"
+          value={link.url} onChange={e => setWatchLinks(l=>l.map((x,idx)=>idx===i?{...x,url:e.target.value}:x))}
+          placeholder="Online stream URL" />
+        <button onClick={() => setWatchLinks(l=>l.filter((_,idx)=>idx!==i))}
+          style={{ color:'#e05c3a44' }}
+          onMouseEnter={e=>e.currentTarget.style.color='#e05c3a'}
+          onMouseLeave={e=>e.currentTarget.style.color='#e05c3a44'}>
+          <Trash2 size={14} />
+        </button>
+      </motion.div>
+    ))}
+  </AnimatePresence>
+  {watchLinks.length === 0 && (
+    <div className="text-center py-3 rounded-xl text-xs" style={{ color:'#3a3a2a', border:'1px dashed rgba(59,130,246,0.15)' }}>
+      No watch links yet — click Add Link above
+    </div>
+  )}
+</div>
+
       {/* Download Links */}
       <div>
         <div className="flex items-center justify-between mb-3">
