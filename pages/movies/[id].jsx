@@ -136,20 +136,34 @@ export default function MovieDetail({ movie }) {
     </div>
     <div className="flex flex-wrap gap-3">
       {movie.watch_links.map((l, i) => (
-        <motion.a key={i} href={l.url} target="_blank" rel="noopener noreferrer"
-          whileHover={{ scale:1.04, y:-2 }} whileTap={{ scale:0.97 }}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all"
-       style={{
-            background:'rgba(59,130,246,0.12)',
-            border:'1px solid rgba(59,130,246,0.35)',
-            color:'#60a5fa',
-            textDecoration:'none',
-            boxShadow:'0 4px 20px rgba(59,130,246,0.1)',
-            cursor:'pointer',
-            pointerEvents:'all',
-          }}>
-          ▶ {l.label || 'Watch Online'}
-          <ExternalLink size={10} style={{ opacity:0.6 }} />
+       <motion.a key={i} href={l.url} target="_blank" rel="noopener noreferrer"
+          whileHover={{ scale:1.06, y:-3 }}
+          whileTap={{ scale:0.96 }}
+          className="relative flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-bold overflow-hidden"
+          style={{ textDecoration:'none', cursor:'pointer', pointerEvents:'all', color:'#fff' }}
+        >
+          {/* Animated gradient background */}
+          <motion.div className="absolute inset-0 rounded-xl"
+            style={{ background:'linear-gradient(135deg, #1a56db, #7c3aed, #0ea5e9, #1a56db)', backgroundSize:'300% 300%' }}
+            animate={{ backgroundPosition:['0% 50%','100% 50%','0% 50%'] }}
+            transition={{ repeat:Infinity, duration:3, ease:'linear' }}
+          />
+          {/* Glow */}
+          <motion.div className="absolute inset-0 rounded-xl"
+            style={{ background:'rgba(99,102,241,0.4)', filter:'blur(12px)', zIndex:0 }}
+            animate={{ opacity:[0.4,0.9,0.4] }}
+            transition={{ repeat:Infinity, duration:2, ease:'easeInOut' }}
+          />
+          {/* Shimmer sweep */}
+          <motion.div className="absolute inset-0 pointer-events-none"
+            style={{ background:'linear-gradient(105deg,transparent 35%,rgba(255,255,255,0.2) 50%,transparent 65%)', zIndex:1 }}
+            animate={{ x:['-100%','200%'] }}
+            transition={{ repeat:Infinity, duration:2, ease:'easeInOut', repeatDelay:1 }}
+          />
+          {/* Content */}
+          <span className="relative z-10 text-lg">▶</span>
+          <span className="relative z-10">{l.label || 'Watch Online'}</span>
+          <ExternalLink size={12} className="relative z-10" style={{ opacity:0.8 }} />
         </motion.a>
       ))}
     </div>
