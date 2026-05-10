@@ -265,7 +265,7 @@ export default function MovieDetail({ movie }) {
   >
     {/* Animated dashed border */}
     <motion.div className="absolute inset-0 rounded-2xl"
-      style={{ border:'1.5px dashed rgba(99,102,241,0.6)', borderRadius:'16px' }}
+      style={{ border:'1.5px dashed rgba(220,38,38,0.6)', borderRadius:'16px' }}
       animate={{ rotate: 360 }}
       transition={{ repeat:Infinity, duration:8, ease:'linear' }}
     />
@@ -273,7 +273,7 @@ export default function MovieDetail({ movie }) {
     <div className="absolute inset-0 rounded-2xl" style={{ background:'rgba(8,8,20,0.9)' }} />
     {/* Glow */}
     <motion.div className="absolute inset-0 rounded-2xl"
-      style={{ background:'radial-gradient(circle at 50% 50%, rgba(99,102,241,0.15) 0%, transparent 70%)' }}
+      style={{ background:'radial-gradient(circle at 50% 50%, rgba(220,38,38,0.15) 0%, transparent 70%)' }}
       animate={{ opacity:[0.4,1,0.4] }}
       transition={{ repeat:Infinity, duration:2.5, ease:'easeInOut' }}
     />
@@ -285,11 +285,11 @@ export default function MovieDetail({ movie }) {
     />
     {/* Question mark icon */}
     <div className="relative z-10 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0"
-      style={{ background:'rgba(99,102,241,0.2)', border:'1px solid rgba(99,102,241,0.4)', color:'#818cf8' }}>
+      style={{ background:'rgba(220,38,38,0.2)', border:'1px solid rgba(220,38,38,0.4)', color:'#f87171' }}>
       ?
     </div>
     <div className="relative z-10 text-left">
-      <div className="text-[11px] font-bold" style={{ color:'#818cf8' }}>How to Download</div>
+      <div className="text-[11px] font-bold" style={{ color:'#f87171' }}>How to Download</div>
       <div className="text-[9px] mt-0.5" style={{ color:'#6a6a8a' }}>Watch video tutorial →</div>
     </div>
   </motion.a>
