@@ -128,6 +128,44 @@ export default function MovieDetail({ movie }) {
           )}
           </motion.div>
 
+        {/* ── AVAILABLE ON ── */}
+{movie.platforms && movie.platforms.length > 0 && (
+  <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.25 }} className="mb-6">
+    <div className="section-tag mb-3 flex items-center gap-2">
+      <Tv2 size={11} /> Officially Available on
+    </div>
+    <div className="flex flex-wrap gap-2">
+      {[
+        { name:'Netflix',      color:'#E50914', url:'https://www.netflix.com/search?q=' },
+        { name:'Amazon Prime Video', color:'#00A8E1', url:'https://www.primevideo.com/search/ref=atv_nb_sr?phrase=' },
+        { name:'JioCinema',    color:'#6B4DE6', url:'https://www.jiocinema.com/search/' },
+        { name:'JioHotstar',      color:'#1F80E0', url:'https://www.hotstar.com/in/search?q=' },
+        { name:'YouTube',      color:'#FF0000', url:'https://www.youtube.com/results?search_query=' },
+        { name:'SonyLIV',      color:'#0057A8', url:'https://www.sonyliv.com/search/' },
+        { name:'ZEE5',         color:'#7B2FBE', url:'https://www.zee5.com/search?q=' },
+        { name:'MX Player',    color:'#FF6C00', url:'https://www.mxplayer.in/search?query=' },
+      ].filter(p => movie.platforms.includes(p.name)).map((p, i) => (
+        <motion.a key={i}
+          href={p.url + encodeURIComponent(movie.title)}
+          target="_blank" rel="noopener noreferrer"
+          whileHover={{ scale:1.05, y:-2 }} whileTap={{ scale:0.96 }}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold"
+          style={{
+            background: p.color+'20',
+            border: `1px solid ${p.color}50`,
+            color: p.color,
+            textDecoration: 'none',
+            boxShadow: `0 4px 20px ${p.color}15`,
+          }}>
+          Watch on {p.name}
+          <ExternalLink size={10} style={{ opacity:0.6 }} />
+        </motion.a>
+      ))}
+    </div>
+  </motion.div>
+)}
+
+
         {/* Watch Online */}
 {movie.watch_links && Array.isArray(movie.watch_links) && movie.watch_links.length > 0 && (
   <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.22 }} className="mb-6">
@@ -144,12 +182,7 @@ export default function MovieDetail({ movie }) {
           {/* Base dark bg */}
           <div className="absolute inset-0 rounded-2xl" style={{ background:'#0a0a1a' }} />
 
-          {/* Rotating conic gradient border */}
-          <motion.div className="absolute -inset-[1.5px] rounded-2xl -z-10"
-            style={{ background:'conic-gradient(from 0deg, #3b82f6, #8b5cf6, #ec4899, #06b6d4, #3b82f6)' }}
-            animate={{ rotate: 360 }}
-            transition={{ repeat:Infinity, duration:2.5, ease:'linear' }}
-          />
+        
 
           {/* Inner dark overlay */}
           <div className="absolute inset-[1.5px] rounded-2xl" style={{ background:'linear-gradient(135deg,#0f0f2a,#0a0a1a)' }} />
@@ -184,42 +217,6 @@ export default function MovieDetail({ movie }) {
 
           <span className="relative z-10 tracking-wide">{l.label || 'Watch Online'}</span>
           <ExternalLink size={12} className="relative z-10" style={{ opacity:0.7 }} />
-        </motion.a>
-      ))}
-    </div>
-  </motion.div>
-)}
-{/* ── AVAILABLE ON ── */}
-{movie.platforms && movie.platforms.length > 0 && (
-  <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.25 }} className="mb-6">
-    <div className="section-tag mb-3 flex items-center gap-2">
-      <Tv2 size={11} /> Officially Available on
-    </div>
-    <div className="flex flex-wrap gap-2">
-      {[
-        { name:'Netflix',      color:'#E50914', url:'https://www.netflix.com/search?q=' },
-        { name:'Amazon Prime Video', color:'#00A8E1', url:'https://www.primevideo.com/search/ref=atv_nb_sr?phrase=' },
-        { name:'JioCinema',    color:'#6B4DE6', url:'https://www.jiocinema.com/search/' },
-        { name:'JioHotstar',      color:'#1F80E0', url:'https://www.hotstar.com/in/search?q=' },
-        { name:'YouTube',      color:'#FF0000', url:'https://www.youtube.com/results?search_query=' },
-        { name:'SonyLIV',      color:'#0057A8', url:'https://www.sonyliv.com/search/' },
-        { name:'ZEE5',         color:'#7B2FBE', url:'https://www.zee5.com/search?q=' },
-        { name:'MX Player',    color:'#FF6C00', url:'https://www.mxplayer.in/search?query=' },
-      ].filter(p => movie.platforms.includes(p.name)).map((p, i) => (
-        <motion.a key={i}
-          href={p.url + encodeURIComponent(movie.title)}
-          target="_blank" rel="noopener noreferrer"
-          whileHover={{ scale:1.05, y:-2 }} whileTap={{ scale:0.96 }}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold"
-          style={{
-            background: p.color+'20',
-            border: `1px solid ${p.color}50`,
-            color: p.color,
-            textDecoration: 'none',
-            boxShadow: `0 4px 20px ${p.color}15`,
-          }}>
-          Watch on {p.name}
-          <ExternalLink size={10} style={{ opacity:0.6 }} />
         </motion.a>
       ))}
     </div>
@@ -267,24 +264,40 @@ export default function MovieDetail({ movie }) {
             )
           }
           </motion.div>
-        {/* How to Download */}
-            <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.5 }} className="mt-6">
-              <motion.a
-                href="https://drive.google.com/drive/folders/1s-llW3hYo3-4pK6U2XR3M5bJEakbHDjI"
-                target="_blank" rel="noopener noreferrer"
-                whileHover={{ scale:1.03, boxShadow:'0 0 20px rgba(201,168,76,0.2)' }}
-                whileTap={{ scale:0.97 }}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-medium relative overflow-hidden"
-                style={{ background:'rgba(59,130,246,0.08)', border:'1px solid rgba(59,130,246,0.3)', color:'#60a5fa', textDecoration:'none' }}
-              >
-                <motion.div className="absolute inset-0 pointer-events-none"
-                  style={{ background:'linear-gradient(105deg,transparent 30%,rgba(245,228,168,0.1) 50%,transparent 70%)' }}
-                  animate={{ x:['-100%','200%'] }}
-                  transition={{ repeat:Infinity, duration:3, ease:'easeInOut', repeatDelay:2 }}
-                />
-                <span className="relative z-10">🎬 How to Download — Watch Tutorial</span>
-              </motion.a>
-            </motion.div>
+       {/* How to Download */}
+<motion.div initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.5 }} className="mt-6">
+  <motion.a
+    href="https://drive.google.com/file/d/1lW06PSgu_mt_bGqvX5svxzbbDlQdAXci/view?usp=sharing"
+    target="_blank" rel="noopener noreferrer"
+    whileHover={{ scale:1.03 }} whileTap={{ scale:0.97 }}
+    className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl text-xs font-semibold relative overflow-hidden"
+    style={{ textDecoration:'none', color:'#fff', background:'transparent' }}
+  >
+    {/* Animated dashed border */}
+    <motion.div className="absolute inset-0 rounded-2xl"
+      style={{ border:'1.5px dashed rgba(99,102,241,0.6)', borderRadius:'16px' }}
+      animate={{ rotate: 360 }}
+      transition={{ repeat:Infinity, duration:8, ease:'linear' }}
+    />
+    {/* Dark bg */}
+    <div className="absolute inset-0 rounded-2xl" style={{ background:'rgba(8,8,20,0.9)' }} />
+    {/* Glow */}
+    <motion.div className="absolute inset-0 rounded-2xl"
+      style={{ background:'radial-gradient(circle at 50% 50%, rgba(99,102,241,0.15) 0%, transparent 70%)' }}
+      animate={{ opacity:[0.4,1,0.4] }}
+      transition={{ repeat:Infinity, duration:2.5, ease:'easeInOut' }}
+    />
+    {/* Question mark icon */}
+    <div className="relative z-10 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0"
+      style={{ background:'rgba(99,102,241,0.2)', border:'1px solid rgba(99,102,241,0.4)', color:'#818cf8' }}>
+      ?
+    </div>
+    <div className="relative z-10 text-left">
+      <div className="text-[11px] font-bold" style={{ color:'#818cf8' }}>How to Download</div>
+      <div className="text-[9px] mt-0.5" style={{ color:'#6a6a8a' }}>Watch video tutorial →</div>
+    </div>
+  </motion.a>
+</motion.div>
           </div>
           </div>
           </div>
