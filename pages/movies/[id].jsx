@@ -187,17 +187,7 @@ export default function MovieDetail({ movie }) {
           {/* Inner dark overlay */}
           <div className="absolute inset-[1.5px] rounded-2xl" style={{ background:'linear-gradient(135deg,#0f0f2a,#0a0a1a)' }} />
 
-          {/* Moving aurora glow inside */}
-          <motion.div className="absolute inset-0 rounded-2xl opacity-60"
-            style={{ background:'radial-gradient(circle at 30% 50%, rgba(99,102,241,0.4) 0%, transparent 60%)' }}
-            animate={{ x:['-20%','20%','-20%'], y:['-10%','10%','-10%'] }}
-            transition={{ repeat:Infinity, duration:3, ease:'easeInOut' }}
-          />
-          <motion.div className="absolute inset-0 rounded-2xl opacity-40"
-            style={{ background:'radial-gradient(circle at 70% 50%, rgba(236,72,153,0.4) 0%, transparent 60%)' }}
-            animate={{ x:['20%','-20%','20%'], y:['10%','-10%','10%'] }}
-            transition={{ repeat:Infinity, duration:3, ease:'easeInOut' }}
-          />
+     
 
           {/* Shimmer */}
           <motion.div className="absolute inset-0 pointer-events-none rounded-2xl"
@@ -286,6 +276,12 @@ export default function MovieDetail({ movie }) {
       style={{ background:'radial-gradient(circle at 50% 50%, rgba(99,102,241,0.15) 0%, transparent 70%)' }}
       animate={{ opacity:[0.4,1,0.4] }}
       transition={{ repeat:Infinity, duration:2.5, ease:'easeInOut' }}
+    />
+    {/* Light swipe */}
+    <motion.div className="absolute inset-0 pointer-events-none rounded-2xl"
+      style={{ background:'linear-gradient(105deg,transparent 25%,rgba(255,255,255,0.12) 50%,transparent 75%)' }}
+      animate={{ x:['-150%','200%'] }}
+      transition={{ repeat:Infinity, duration:2, ease:'easeInOut', repeatDelay:1.5 }}
     />
     {/* Question mark icon */}
     <div className="relative z-10 w-7 h-7 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0"
