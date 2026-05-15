@@ -348,6 +348,59 @@ export default function Admin() {
             )}
           </div>
         )}
+
+        {tab === 'pending' && (
+          <div className="space-y-3">
+            {fetching ? (
+              [...Array(3)].map((_, i) => <div key={i} className="shimmer h-20 rounded-xl" />)
+            ) : pending.length === 0 ? (
+              <div className="text-center py-16 text-sm" style={{ color:'#4a4a3a' }}>No pending submissions! ✅</div>
+            ) : (
+              pending.map((m, i) => (
+                <motion.div key={m.id}
+                  initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:i*0.05 }}
+                  className="flex items-start gap-4 p-4 rounded-xl"
+                  style={{ background:'rgba(14,14,22,0.5)', border:'1px solid rgba(234,179,8,0.15)' }}>
+                  {m.poster_url
+                    ? <img src={m.poster_url} alt={m.title} className="w-10 h-14 object-cover rounded-lg flex-shrink-0" />
+                    : <div className="w-10 h-14 rounded-lg flex items-center justify-center flex-shrink-0"
+                        style={{ background:'#131320' }}><Film size={14} style={{ color:'#4a4a3a' }} /></div>
+                  }
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-sm" style={{ color:'#e8e4d8' }}>{m.title}</div>
+                    <div className="text-xs mt-0.5" style={{ color:'#6a6a5a' }}>
+                      {m.year} · {m.type} · {(m.links||[]).length} links
+                      {m.uploaded_by && <span style={{ color:'#c9a84c' }}> · by {m.uploaded_by}</span>}
+                    </div>
+                  </div>
+                  <div className="flex gap-2 flex-shrink-0">
+                    <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.95 }}
+                      onClick={async () => {
+                        await approveMovie(m.id);
+                        setPending(p => p.filter(x => x.id !== m.id));
+                        setMovies(prev => [...prev, { ...m, status:'approved' }]);
+                        flash('Movie approved! ✅');
+                      }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium"
+                      style={{ background:'rgba(34,197,94,0.1)', border:'1px solid rgba(34,197,94,0.3)', color:'#4ade80' }}>
+                      ✓ Approve
+                    </motion.button>
+                    <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.95 }}
+                      onClick={async () => {
+                        await rejectMovie(m.id);
+                        setPending(p => p.filter(x => x.id !== m.id));
+                        flash('Movie rejected.');
+                      }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs"
+                      style={{ background:'rgba(192,57,43,0.1)', border:'1px solid rgba(192,57,43,0.25)', color:'#e57373' }}>
+                      ✕ Reject
+                    </motion.button>
+                  </div>
+                </motion.div>
+              ))
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
