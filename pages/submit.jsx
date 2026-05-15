@@ -90,6 +90,34 @@ export default function Submit() {
       <CinematicBackground />
       <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 pt-20 pb-24">
 
+        {/* Notice Banner */}
+<motion.div
+  initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }}
+  transition={{ delay:0.1 }}
+  className="mb-6 p-4 rounded-xl relative overflow-hidden"
+  style={{ background:'rgba(234,179,8,0.06)', border:'1px solid rgba(234,179,8,0.25)' }}
+>
+  <motion.div className="absolute inset-0 pointer-events-none"
+    style={{ background:'linear-gradient(105deg,transparent 30%,rgba(234,179,8,0.06) 50%,transparent 70%)' }}
+    animate={{ x:['-100%','200%'] }}
+    transition={{ repeat:Infinity, duration:4, ease:'easeInOut', repeatDelay:3 }}
+  />
+  <div className="flex gap-3 items-start relative z-10">
+    <span className="text-lg flex-shrink-0">⚠️</span>
+    <div>
+      <p className="text-xs font-semibold mb-1" style={{ color:'#fbbf24' }}>
+        Dear Uploader — Please Read Before Adding
+      </p>
+      <p className="text-[11px] leading-relaxed" style={{ color:'#8a8060' }}>
+        Please upload <span style={{ color:'#fbbf24' }}>valid working links only</span>. 
+        Fake, broken, or spam links will be <span style={{ color:'#f87171' }}>permanently rejected</span> and 
+        your uploads will be blocked. All submissions are <span style={{ color:'#fbbf24' }}>reviewed by admin</span> before appearing on the site.
+        Thank you for contributing! 🙏
+      </p>
+    </div>
+  </div>
+</motion.div>
+        
         <motion.div initial={{ opacity:0, x:-14 }} animate={{ opacity:1, x:0 }} className="mb-6">
           <Link href="/">
             <motion.div whileHover={{ x:-3 }} className="inline-flex items-center gap-1.5 text-xs transition-colors"
