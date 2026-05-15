@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { getMovies, addMovie, updateMovie, deleteMovie, fulfillRequest, getRequests } from '../lib/supabase';
+import { getMovies, addMovie, updateMovie, deleteMovie, fulfillRequest, getRequests, getPendingMovies, approveMovie, rejectMovie } from '../lib/supabase';
 import AddMovieForm from '../components/AddMovieForm';
 import CinematicBackground from '../components/CinematicBackground';
 import { Plus, Pencil, Trash2, ArrowLeft, Shield, Film, CheckCircle2, Clock, X } from 'lucide-react';
@@ -16,13 +16,14 @@ export default function Admin() {
   const [adding,   setAdding]   = useState(false);
   const [loading,  setLoading]  = useState(false);
   const [fetching, setFetching] = useState(true);
+  const [pending, setPending] = useState([]);
   const [msg,      setMsg]      = useState('');
   // Confirm delete modal
   const [confirmDelete, setConfirmDelete] = useState(null); // movie object
 
   useEffect(() => {
-    Promise.all([getMovies(), getRequests()])
-      .then(([m, r]) => { setMovies(m); setRequests(r); })
+    Promise.all([getMovies(), getRequests(), getPendingMovies()])
+      .then(([m, r, p]) => { setMovies(m); setRequests(r); setPending(p); })
       .finally(() => setFetching(false));
   }, []);
 
@@ -183,6 +184,7 @@ export default function Admin() {
           {[
             { id: 'movies',   label: 'Movies',   icon: Film,  count: movies.length },
             { id: 'requests', label: 'Requests', icon: Clock, count: requests.filter(r=>!r.fulfilled).length },
+      { id: 'pending', label: 'Pending', icon: Clock, count: pending.length },
           ].map(({ id, label, icon: Icon, count }) => (
             <motion.button key={id} onClick={() => setTab(id)}
               whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
