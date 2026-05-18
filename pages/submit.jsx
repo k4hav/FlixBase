@@ -45,7 +45,7 @@ export default function Submit() {
     if (!validate()) return;
     setLoading(true);
     try {
-      await addMovie({ ...form, links: links.filter(l => l.url) });
+      await addMovie({ ...form, links: links.filter(l => l.url), watch_links: watchLinks.filter(l=>l.url) });
       setSuccess(true);
       setForm(EMPTY);
       setLinks([]);
