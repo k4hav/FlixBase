@@ -90,21 +90,6 @@ export default function MovieDetail({ movie }) {
       </div>
       </motion.div>
 
-      {/* Trailer */}
-{movie.trailer_url && (
-  <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.18 }} className="mb-6">
-    <div className="section-tag mb-3 flex items-center gap-2">
-      <Film size={11} /> Official Trailer
-    </div>
-    <motion.a href={movie.trailer_url} target="_blank" rel="noopener noreferrer"
-      whileHover={{ scale:1.03 }} whileTap={{ scale:0.97 }}
-      className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-xs font-semibold"
-      style={{ background:'rgba(255,0,0,0.1)', border:'1px solid rgba(255,0,0,0.3)', color:'#f87171', textDecoration:'none' }}>
-      ▶ Watch Trailer
-      <ExternalLink size={11} style={{ opacity:0.6 }} />
-    </motion.a>
-  </motion.div>
-)}
 
       {/* Info */}
       <div className="flex-1 min-w-0">
@@ -144,6 +129,23 @@ export default function MovieDetail({ movie }) {
           )}
           </motion.div>
 
+      {/* Trailer */}
+{movie.trailer_url && (
+  <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.18 }} className="mb-6">
+    <div className="section-tag mb-3 flex items-center gap-2">
+      <Film size={11} /> Official Trailer
+    </div>
+    <motion.a href={movie.trailer_url} target="_blank" rel="noopener noreferrer"
+      whileHover={{ scale:1.03 }} whileTap={{ scale:0.97 }}
+      className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-xs font-semibold"
+      style={{ background:'rgba(255,0,0,0.1)', border:'1px solid rgba(255,0,0,0.3)', color:'#f87171', textDecoration:'none' }}>
+      ▶ Watch Trailer
+      <ExternalLink size={11} style={{ opacity:0.6 }} />
+    </motion.a>
+  </motion.div>
+)}
+
+        
         {/* ── AVAILABLE ON ── */}
 {movie.platforms && movie.platforms.length > 0 && (
   <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.25 }} className="mb-6">
