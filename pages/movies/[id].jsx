@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { getMovies, getMovieById } from '../../lib/supabase';
 import CinematicBackground from '../../components/CinematicBackground';
-import { ArrowLeft, Star, Download, ExternalLink, Film, User, Tv2 } from 'lucide-react';
+import { ArrowLeft, Star, Download, ExternalLink, User, Tv2 } from 'lucide-react';
 
 export default function MovieDetail({ movie }) {
   
