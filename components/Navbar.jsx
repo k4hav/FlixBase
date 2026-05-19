@@ -24,11 +24,12 @@ export default function Navbar() {
         style={{ background: 'rgba(8,8,18,0.92)', borderBottom: '1px solid rgba(201,168,76,0.08)', backdropFilter: 'blur(24px)' }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+     <div className="relative max-w-6xl mx-auto px-5 h-16 flex items-center">
+      
 
 
         {/* Nav links */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 w-full justify-between">
           {links.map(({ href, label, icon: Icon }) => {
             const active = router.pathname === href;
             return (
