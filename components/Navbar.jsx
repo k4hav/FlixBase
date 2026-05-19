@@ -12,7 +12,7 @@ export default function Navbar() {
   const { collection } = useCollection();
 
   const links = [
-    { href: '/',         label: 'Explore',   icon: Film  },
+    
     { href: '/requests', label: 'Requests',  icon: Inbox },
     { href: '/submit',   label: 'Add Movie', icon: Plus  },
     { href:'/games', label:'Games', icon: Gamepad2 },
