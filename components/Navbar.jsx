@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Inbox, Plus, Heart, Send, Gamepad2, Home } from 'lucide-react';
+import { Film, Inbox, Plus, Heart, Send, Gamepad2, Home } from 'lucide-react';
 import { useCollection } from '../hooks/useCollection';
 
 export default function Navbar() {
@@ -24,12 +24,26 @@ export default function Navbar() {
         style={{ background: 'rgba(8,8,18,0.92)', borderBottom: '1px solid rgba(201,168,76,0.08)', backdropFilter: 'blur(24px)' }}
       />
 
-     <div className="relative max-w-6xl mx-auto px-5 h-16 flex items-center">
-      
+      <div className="relative max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
 
+        {/* Logo icon only */}
+        <Link href="/">
+          <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }} className="relative cursor-pointer">
+            <motion.div
+              className="absolute -inset-1.5 rounded-xl"
+              style={{ background: 'conic-gradient(from 0deg, #c9a84c, #e8c87a, #c9a84c)', filter: 'blur(6px)', opacity: 0.5 }}
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 4, ease: 'linear' }}
+            />
+            <div className="relative w-9 h-9 rounded-xl flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05))', border: '1px solid rgba(201,168,76,0.4)' }}>
+              <Film size={17} style={{ color: '#e8c87a' }} />
+            </div>
+          </motion.div>
+        </Link>
 
         {/* Nav links */}
-        <div className="flex items-center gap-1.5 w-full justify-between">
+        <div className="flex items-center gap-1.5">
           {links.map(({ href, label, icon: Icon }) => {
             const active = router.pathname === href;
             return (
