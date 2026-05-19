@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Film, Inbox, Plus, Heart, Send } from 'lucide-react';
+import { Inbox, Plus, Heart, Send } from 'lucide-react';
 import { useCollection } from '../hooks/useCollection';
-import { Inbox, Plus, Heart, Send, Gamepad2 } from 'lucide-react';
+import { Film, Inbox, Plus, Heart, Send, Gamepad2 } from 'lucide-react';
 
 export default function Navbar() {
   const router = useRouter();
