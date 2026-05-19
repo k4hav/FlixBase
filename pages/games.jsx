@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { supabase } from '../lib/supabase';
 import CinematicBackground from '../components/CinematicBackground';
 import SearchBar from '../components/SearchBar';
-import { Gamepad2, Smartphone, Download, Star, ExternalLink } from 'lucide-react';
+import { Gamepad2, Smartphone, Download, Star, ExternalLink, Plus } from 'lucide-react';
 
 export default function Games() {
   const [items,   setItems]   = useState([]);
