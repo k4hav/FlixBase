@@ -59,6 +59,14 @@ export default function Games() {
           </div>
         </motion.div>
 
+        <Link href="/submit-game">
+  <motion.div whileHover={{ scale:1.03 }} whileTap={{ scale:0.97 }}
+    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-medium mt-4"
+    style={{ background:'rgba(139,92,246,0.1)', border:'1px solid rgba(139,92,246,0.3)', color:'#a78bfa' }}>
+    <Plus size={13} /> Add Game / App
+  </motion.div>
+</Link>
+
         {/* Filter tabs */}
         <div className="flex gap-2 justify-center mb-8">
           {types.map(t => (
