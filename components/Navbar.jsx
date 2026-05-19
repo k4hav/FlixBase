@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Film, Inbox, Plus, Heart, Send, Gamepad2 } from 'lucide-react';
+import { Film, Inbox, Plus, Heart, Send, Gamepad2, Home } from 'lucide-react';
 import { useCollection } from '../hooks/useCollection';
-;
 
 export default function Navbar() {
   const router = useRouter();
@@ -12,101 +11,108 @@ export default function Navbar() {
   const { collection } = useCollection();
 
   const links = [
-    { href: '/',         label: 'Explore',   icon: Film  },
-    { href: '/requests', label: 'Requests',  icon: Inbox },
-    { href: '/submit',   label: 'Add Movie', icon: Plus  },
-    { href:'/games', label:'Games', icon: Gamepad2 },
-    
+    { href: '/',         label: 'Explore',   icon: Home     },
+    { href: '/requests', label: 'Requests',  icon: Inbox    },
+    { href: '/games',    label: 'Games',     icon: Gamepad2 },
+    { href: '/submit',   label: 'Add Movie', icon: Plus     },
   ];
 
   return (
     <motion.nav className="fixed top-0 left-0 right-0 z-50">
       <motion.div style={{ opacity: bgO }}
         className="absolute inset-0"
-        style={{ background: 'rgba(10,10,15,0.92)', borderBottom: '1px solid rgba(201,168,76,0.1)', backdropFilter: 'blur(20px)' }}
+        style={{ background: 'rgba(8,8,18,0.92)', borderBottom: '1px solid rgba(201,168,76,0.08)', backdropFilter: 'blur(24px)' }}
       />
-      <div className="relative max-w-6xl mx-auto px-5 h-14 flex items-center justify-between">
 
-        {/* Logo */}
+      <div className="relative max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+
+        {/* Logo icon only */}
         <Link href="/">
-          <motion.div whileHover={{ scale: 1.04 }} className="flex items-center gap-2.5 group cursor-pointer">
-            <div className="relative">
-              <motion.div className="absolute inset-0 rounded-lg"
-                style={{ background: 'rgba(201,168,76,0.25)', filter: 'blur(6px)' }}
-                animate={{ opacity: [0.4, 0.9, 0.4], scale: [1, 1.3, 1] }}
-                transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
-              />
-              <div className="relative w-7 h-7 rounded-lg flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg,rgba(201,168,76,0.25),rgba(201,168,76,0.08))', border: '1px solid rgba(201,168,76,0.4)' }}>
-                <Film size={14} style={{ color: '#e8c87a' }} />
-              </div>
-            </div>
-            <div className="relative overflow-hidden">
-              <span className="font-cinzel font-bold text-sm tracking-[3px] relative z-10"
-                style={{ fontFamily: 'Cinzel,serif', letterSpacing: '3px' }}>
-                {'FLIXBASE'.split('').map((char, i) => (
-                  <motion.span key={i} style={{ display: 'inline-block' }}
-                    animate={{ color: ['#c9a84c', '#f5e4a8', '#e8c87a', '#c9a84c'],
-                      textShadow: ['0 0 8px rgba(201,168,76,0)', '0 0 20px rgba(201,168,76,0.8)', '0 0 8px rgba(201,168,76,0)'] }}
-                    transition={{ repeat: Infinity, duration: 3, delay: i * 0.12, ease: 'easeInOut' }}>
-                    {char}
-                  </motion.span>
-                ))}
-              </span>
-              <motion.div className="absolute inset-0 pointer-events-none"
-                style={{ background: 'linear-gradient(105deg,transparent 30%,rgba(245,228,168,0.4) 50%,transparent 70%)', zIndex: 20 }}
-                animate={{ x: ['-100%', '200%'] }}
-                transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut', repeatDelay: 1.5 }}
-              />
+          <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }} className="relative cursor-pointer">
+            <motion.div
+              className="absolute -inset-1.5 rounded-xl"
+              style={{ background: 'conic-gradient(from 0deg, #c9a84c, #e8c87a, #c9a84c)', filter: 'blur(6px)', opacity: 0.5 }}
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 4, ease: 'linear' }}
+            />
+            <div className="relative w-9 h-9 rounded-xl flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05))', border: '1px solid rgba(201,168,76,0.4)' }}>
+              <Film size={17} style={{ color: '#e8c87a' }} />
             </div>
           </motion.div>
         </Link>
 
         {/* Nav links */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           {links.map(({ href, label, icon: Icon }) => {
             const active = router.pathname === href;
             return (
               <Link key={href} href={href}>
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-                  style={active
-                    ? { color: '#c9a84c', background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.2)' }
-                    : { color: '#6a6a5a', border: '1px solid transparent' }
-                  }>
-                  <Icon size={13} />
-                  <span className="hidden sm:block">{label}</span>
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all overflow-hidden"
+                  style={active ? {
+                    color: '#e8c87a',
+                    background: 'rgba(201,168,76,0.1)',
+                    border: '1px solid rgba(201,168,76,0.25)',
+                  } : {
+                    color: '#8a8778',
+                    border: '1px solid transparent',
+                  }}
+                >
+                  {active && (
+                    <motion.div className="absolute inset-0 pointer-events-none"
+                      style={{ background: 'linear-gradient(105deg,transparent 30%,rgba(201,168,76,0.1) 50%,transparent 70%)' }}
+                      animate={{ x: ['-100%', '200%'] }}
+                      transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut', repeatDelay: 2 }}
+                    />
+                  )}
+                  <Icon size={14} />
+                  <span className="hidden sm:block tracking-wide">{label}</span>
+                  {active && (
+                    <motion.div layoutId="nav-dot"
+                      className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
+                      style={{ background: '#c9a84c' }}
+                    />
+                  )}
                 </motion.div>
               </Link>
             );
           })}
 
-          {/* Telegram Join button */}
+          {/* Telegram */}
           <motion.a
-            href="https://t.me/+9QsRMsRrJwhlNDE1"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium ml-1 transition-all"
-            style={{ background: 'rgba(34,158,217,0.12)', border: '1px solid rgba(34,158,217,0.3)', color: '#4fc3f7' }}
+            href="https://t.me/+n3etNnm3RxI5NGZl"
+            target="_blank" rel="noopener noreferrer"
+            whileHover={{ scale: 1.05, y: -1 }} whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold relative overflow-hidden"
+            style={{ background: 'rgba(34,158,217,0.1)', border: '1px solid rgba(34,158,217,0.25)', color: '#4fc3f7' }}
           >
-            <Send size={12} />
-            <span className="hidden sm:block">Telegram</span>
+            <motion.div className="absolute inset-0 pointer-events-none"
+              style={{ background: 'linear-gradient(105deg,transparent 30%,rgba(79,195,247,0.1) 50%,transparent 70%)' }}
+              animate={{ x: ['-100%', '200%'] }}
+              transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut', repeatDelay: 2 }}
+            />
+            <Send size={13} />
+            <span className="hidden sm:block tracking-wide">Telegram</span>
           </motion.a>
 
-          {/* Collection heart */}
+          {/* Collection */}
           <Link href="/collection">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-              className="relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs transition-all ml-0.5"
+            <motion.div
+              whileHover={{ scale: 1.08, y: -1 }} whileTap={{ scale: 0.95 }}
+              className="relative flex items-center justify-center w-10 h-10 rounded-xl"
               style={router.pathname === '/collection'
-                ? { color: '#c9a84c', background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.2)' }
-                : { color: '#6a6a5a', border: '1px solid transparent' }
-              }>
+                ? { background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.25)' }
+                : { border: '1px solid transparent' }
+              }
+            >
               <motion.div
-                animate={collection.length > 0 ? { scale: [1, 1.2, 1] } : {}}
-                transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}>
-                <Heart size={14} fill={collection.length > 0 ? '#c9a84c' : 'none'}
+                animate={collection.length > 0 ? { scale: [1, 1.25, 1] } : {}}
+                transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+              >
+                <Heart size={16} fill={collection.length > 0 ? '#c9a84c' : 'none'}
                   style={{ color: collection.length > 0 ? '#c9a84c' : '#6a6a5a' }} />
               </motion.div>
               {collection.length > 0 && (
@@ -118,8 +124,6 @@ export default function Navbar() {
               )}
             </motion.div>
           </Link>
-
-         
         </div>
       </div>
     </motion.nav>
