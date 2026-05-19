@@ -225,6 +225,15 @@ export default function Submit() {
               placeholder="Short plot description..." />
           </div>
 
+          <div>
+  <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>
+    Trailer URL — <span style={{ color:'#3a3a2a', letterSpacing:0 }}>optional</span>
+  </label>
+  <input className="input-dark w-full px-3 py-2 rounded-lg text-sm"
+    value={form.trailer_url || ''} onChange={e => set('trailer_url', e.target.value)}
+    placeholder="https://youtube.com/watch?v=... ya koi bhi trailer link" />
+</div>
+
      {/* Watch Online Links */}
 <div>
   <div className="flex items-center justify-between mb-3">
