@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Film, Inbox, Plus, Heart, Send } from 'lucide-react';
 import { useCollection } from '../hooks/useCollection';
+import { Film, Inbox, Plus, Heart, Send, Gamepad2 } from 'lucide-react';
 
 export default function Navbar() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function Navbar() {
     { href: '/',         label: 'Explore',   icon: Film  },
     { href: '/requests', label: 'Requests',  icon: Inbox },
     { href: '/submit',   label: 'Add Movie', icon: Plus  },
+    { href:'/games', label:'Games', icon: Gamepad2 },
   ];
 
   return (
