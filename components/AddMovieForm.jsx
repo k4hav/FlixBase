@@ -96,6 +96,7 @@ export default function AddMovieForm({ initial=null, onSave, onCancel, loading=f
       </div>
 
       {F('poster_url', 'Poster Image URL', 'https://...jpg or paste any image link')}
+      {F('trailer_url', 'Trailer URL', 'https://youtube.com/watch?v=... ya koi bhi trailer link')}
       {form.poster_url && (
         <div className="flex gap-3 items-start">
           <img src={form.poster_url} alt="preview"
