@@ -44,6 +44,7 @@ export default function Submit() {
     if (!form.trailer_url?.trim()) errs.trailer_url = 'Trailer URL is required';
     setErrors(errs);
     if (Object.keys(errs).length) return;
+     }
 
   const handleSubmit = async () => {
     if (!validate()) return;
