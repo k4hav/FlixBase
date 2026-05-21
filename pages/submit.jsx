@@ -36,10 +36,14 @@ export default function Submit() {
 
   const validate = () => {
     const e = {};
-    if (!form.title.trim()) e.title = 'Title is required';
-    setErrors(e);
-    return !Object.keys(e).length;
-  };
+ const errs = {};
+    if (!form.title.trim())    errs.title    = 'Title is required';
+    if (!form.year?.trim())    errs.year     = 'Year is required';
+    if (!form.language?.trim()) errs.language = 'Language is required';
+    if (!form.genre?.trim())   errs.genre    = 'Genre is required';
+    if (!form.trailer_url?.trim()) errs.trailer_url = 'Trailer URL is required';
+    setErrors(errs);
+    if (Object.keys(errs).length) return;
 
   const handleSubmit = async () => {
     if (!validate()) return;
@@ -173,11 +177,11 @@ export default function Submit() {
           {/* Row */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Year <span style={{ color:'#4a4a3a' }}>optional</span></label>
-              <input className="input-dark w-full px-3 py-2 rounded-lg text-sm" value={form.year} onChange={e => set('year', e.target.value)} placeholder="2024" />
+              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Year <span style={{ color:'#4a4a3a' }}>*</span></label>
+              <input className={`input-dark w-full px-3 py-2 rounded-lg text-sm ${errors.year?'border-red-500/40':''}`} value={form.year} onChange={e => set('year', e.target.value)} placeholder="2024" />
             </div>
             <div>
-              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Type <span style={{ color:'#4a4a3a' }}>optional</span></label>
+              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Type <span style={{ color:'#4a4a3a' }}>*</span></label>
               <select className="input-dark w-full px-3 py-2 rounded-lg text-sm cursor-pointer" value={form.type} onChange={e => set('type', e.target.value)}
                 style={{ background:'rgba(255,255,255,0.03)' }}>
                 {['Movie','Series','Anime','Documentary','Short Film'].map(t =>
@@ -189,11 +193,11 @@ export default function Submit() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Language <span style={{ color:'#4a4a3a' }}>optional</span></label>
+              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Language <span style={{ color:'#4a4a3a' }}>*</span></label>
               <input className="input-dark w-full px-3 py-2 rounded-lg text-sm" value={form.language} onChange={e => set('language', e.target.value)} placeholder="Hindi, English, Japanese..." />
             </div>
             <div>
-              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Genre <span style={{ color:'#4a4a3a' }}>optional</span></label>
+              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Genre <span style={{ color:'#4a4a3a' }}>*</span></label>
               <input className="input-dark w-full px-3 py-2 rounded-lg text-sm" value={form.genre} onChange={e => set('genre', e.target.value)} placeholder="Action, Romance, Thriller..." />
             </div>
           </div>
@@ -207,7 +211,7 @@ export default function Submit() {
           </div>
 
           <div>
-            <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Poster Image URL <span style={{ color:'#4a4a3a' }}>optional</span></label>
+            <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Poster Image URL <span style={{ color:'#4a4a3a' }}>*</span></label>
             <input className="input-dark w-full px-3 py-2 rounded-lg text-sm" value={form.poster_url} onChange={e => set('poster_url', e.target.value)} placeholder="https://...jpg" />
             {form.poster_url && (
               <div className="mt-2 flex gap-2 items-center">
@@ -227,7 +231,7 @@ export default function Submit() {
 
           <div>
   <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>
-    Trailer URL — <span style={{ color:'#3a3a2a', letterSpacing:0 }}>optional</span>
+    Trailer URL — <span style={{ color:'#3a3a2a', letterSpacing:0 }}>*</span>
   </label>
   <input className="input-dark w-full px-3 py-2 rounded-lg text-sm"
     value={form.trailer_url || ''} onChange={e => set('trailer_url', e.target.value)}
