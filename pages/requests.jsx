@@ -35,8 +35,11 @@ export default function Requests({ requests: initial }) {
 
   const handleSubmit = async (e) => {
     e?.preventDefault();
-    const errs = {};
+   const errs = {};
     if (!form.title.trim()) errs.title = 'Title is required';
+    if (!form.year?.trim()) errs.year = 'Year is required';
+    if (!form.language?.trim()) errs.language = 'Language is required';
+    if (!form.source?.trim()) errs.source = 'Please select an option';
     setErrors(errs);
     if (Object.keys(errs).length) return;
 
@@ -105,10 +108,10 @@ export default function Requests({ requests: initial }) {
             )}
           </AnimatePresence>
 
-          <div className="space-y-4">
+    <div className="space-y-4">
             <div>
               <label className="block text-[11px] text-[#6b6b8a] uppercase tracking-widest mb-1.5">
-                Movie / Series Title <span className="text-[#ff0080]">*</span>
+                Movie / Series Title <span style={{ color:'#e05c3a' }}>*</span>
               </label>
               <input
                 className={`input-dark w-full px-3 py-2.5 rounded-lg text-sm ${errors.title ? 'border-red-500/50' : ''}`}
@@ -119,23 +122,49 @@ export default function Requests({ requests: initial }) {
               {errors.title && <p className="text-red-400 text-xs mt-1">{errors.title}</p>}
             </div>
             <div>
-              <label className="block text-[11px] text-[#6b6b8a] uppercase tracking-widest mb-1.5">Your Name (optional)</label>
+              <label className="block text-[11px] uppercase tracking-widest mb-1.5" style={{ color:'#6a6a5a' }}>
+                Year <span style={{ color:'#e05c3a' }}>*</span>
+              </label>
               <input
-                className="input-dark w-full px-3 py-2.5 rounded-lg text-sm"
-                value={form.requested_by}
-                onChange={e => setForm(f => ({ ...f, requested_by: e.target.value }))}
-                placeholder="Anonymous"
+                className={`input-dark w-full px-3 py-2.5 rounded-lg text-sm ${errors.year ? 'border-red-500/50' : ''}`}
+                value={form.year || ''}
+                onChange={e => { setForm(f => ({ ...f, year: e.target.value })); setErrors({}); }}
+                placeholder="e.g. 2025"
               />
+              {errors.year && <p className="text-red-400 text-xs mt-1">{errors.year}</p>}
             </div>
             <div>
-              <label className="block text-[11px] text-[#6b6b8a] uppercase tracking-widest mb-1.5">Note (optional)</label>
-              <textarea
-                className="input-dark w-full px-3 py-2.5 rounded-lg text-sm resize-none"
-                rows={2}
-                value={form.note}
-                onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
-                placeholder="Why you want it added..."
+              <label className="block text-[11px] uppercase tracking-widest mb-1.5" style={{ color:'#6a6a5a' }}>
+                Language <span style={{ color:'#e05c3a' }}>*</span>
+              </label>
+              <input
+                className={`input-dark w-full px-3 py-2.5 rounded-lg text-sm ${errors.language ? 'border-red-500/50' : ''}`}
+                value={form.language || ''}
+                onChange={e => { setForm(f => ({ ...f, language: e.target.value })); setErrors({}); }}
+                placeholder="e.g. Hindi, English, Tamil..."
               />
+              {errors.language && <p className="text-red-400 text-xs mt-1">{errors.language}</p>}
+            </div>
+            <div>
+              <label className="block text-[11px] uppercase tracking-widest mb-1.5" style={{ color:'#6a6a5a' }}>
+                Where did you hear about FlixBase? <span style={{ color:'#e05c3a' }}>*</span>
+              </label>
+              <select
+                className={`input-dark w-full px-3 py-2.5 rounded-lg text-sm cursor-pointer ${errors.source ? 'border-red-500/50' : ''}`}
+                value={form.source || ''}
+                onChange={e => { setForm(f => ({ ...f, source: e.target.value })); setErrors({}); }}
+                style={{ background:'rgba(255,255,255,0.03)' }}
+              >
+                <option value="" style={{ background:'#0f0f16' }}>Select an option...</option>
+                <option value="Telegram" style={{ background:'#0f0f16' }}>Telegram</option>
+                <option value="WhatsApp" style={{ background:'#0f0f16' }}>WhatsApp</option>
+                <option value="Google Search" style={{ background:'#0f0f16' }}>Google Search</option>
+                <option value="Instagram" style={{ background:'#0f0f16' }}>Instagram</option>
+                <option value="YouTube" style={{ background:'#0f0f16' }}>YouTube</option>
+                <option value="Friend" style={{ background:'#0f0f16' }}>Friend / Word of mouth</option>
+                <option value="Other" style={{ background:'#0f0f16' }}>Other</option>
+              </select>
+              {errors.source && <p className="text-red-400 text-xs mt-1">{errors.source}</p>}
             </div>
             {errors.submit && <p className="text-red-400 text-xs">{errors.submit}</p>}
             <motion.button
