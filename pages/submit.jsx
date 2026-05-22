@@ -17,7 +17,7 @@ const PLATFORMS = [
   { name: 'Custom',       color: '#c9a84c' },
 ];
 
-const EMPTY = { title:'', year:'', type:'Movie', language:'', genre:'', rating:'', poster_url:'', overview:'', uploaded_by:'', featured:false };
+const EMPTY = { title:'', year:'', type:'Movie', language:'', genre:'', rating:'', poster_url:'', overview:'', uploaded_by:'', featured:false, trailer_url:'' };
 
 export default function Submit() {
   const [form,    setForm]    = useState(EMPTY);
@@ -34,17 +34,16 @@ export default function Submit() {
   const removeLink = i => setLinks(l => l.filter((_, idx) => idx !== i));
   const applyPlatform = (i, p) => setLinks(l => l.map((x, idx) => idx === i ? { ...x, label: p.name, color: p.color } : x));
 
-  const validate = () => {
-    const e = {};
- const errs = {};
-    if (!form.title.trim())    errs.title    = 'Title is required';
-    if (!form.year?.trim())    errs.year     = 'Year is required';
-    if (!form.language?.trim()) errs.language = 'Language is required';
-    if (!form.genre?.trim())   errs.genre    = 'Genre is required';
-    if (!form.trailer_url?.trim()) errs.trailer_url = 'Trailer URL is required';
+const validate = () => {
+    const errs = {};
+    if (!form.title.trim())         errs.title       = 'Title is required';
+    if (!form.year?.trim())         errs.year        = 'Year is required';
+    if (!form.language?.trim())     errs.language    = 'Language is required';
+    if (!form.genre?.trim())        errs.genre       = 'Genre is required';
+    if (!form.trailer_url?.trim())  errs.trailer_url = 'Trailer URL is required';
     setErrors(errs);
-    if (Object.keys(errs).length) return;
-     }
+    return Object.keys(errs).length === 0;
+  };
 
   const handleSubmit = async () => {
     if (!validate()) return;
