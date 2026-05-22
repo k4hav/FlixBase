@@ -45,7 +45,14 @@ export default function Requests({ requests: initial }) {
 
     setLoading(true);
     try {
-      const r = await addRequest({ ...form, votes: 0, fulfilled: false });
+      const r = await addRequest({
+  title: form.title,
+  year: form.year,
+  language: form.language,
+  source: form.source,
+  votes: 0,
+  fulfilled: false
+});
       setRequests(prev => [r, ...prev]);
       setForm({ title: '', requested_by: '', note: '' });
       setSuccess(true);
