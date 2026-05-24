@@ -30,12 +30,8 @@ export default function Navbar() {
         {/* Logo icon only */}
         <Link href="/">
           <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }} className="relative cursor-pointer">
-            <motion.div
-              className="absolute -inset-1.5 rounded-xl"
-              style={{ background: 'conic-gradient(from 0deg, #c9a84c, #e8c87a, #c9a84c)', filter: 'blur(6px)', opacity: 0.5 }}
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 4, ease: 'linear' }}
-            />
+           
+          
             <div className="relative w-9 h-9 rounded-xl flex items-center justify-center"
               style={{ background: 'linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05))', border: '1px solid rgba(201,168,76,0.4)' }}>
               <Film size={17} style={{ color: '#e8c87a' }} />
