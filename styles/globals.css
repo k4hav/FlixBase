@@ -3,6 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
 :root {
   --gold:    #c9a84c;
   --gold2:   #e8c87a;
