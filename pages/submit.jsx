@@ -141,7 +141,7 @@ const validate = () => {
             Add a Movie
           </h1>
           <p className="text-xs" style={{ color:'#6a6a5a' }}>
-            Share a movie or series with the community. Only Title is required — everything else is optional.
+            Share a movie, series, anime or tv shows with the community.
           </p>
           <div className="divider-gold w-20 mt-3" />
         </motion.div>
