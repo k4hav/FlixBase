@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Film, Inbox, Plus, Heart, Send, Gamepad2, Home } from 'lucide-react';
+import { Film, Inbox, Plus, Heart, Send, Gamepad2, Home, Mail } from 'lucide-react';
 import { useCollection } from '../hooks/useCollection';
 
 export default function Navbar() {
@@ -10,13 +10,14 @@ export default function Navbar() {
   const bgO = useTransform(scrollY, [0, 60], [0, 1]);
   const { collection } = useCollection();
 
-  const links = [
-    { href: '/',         label: 'Explore',   icon: Home     },
-    { href: '/requests', label: 'Requests',  icon: Inbox    },
-    { href: '/games',    label: 'Games',     icon: Gamepad2 },
-    { href: '/submit',   label: 'Add Movie', icon: Plus     },
-  ];
-
+ const links = [
+  { href: '/',         label: 'Explore',   icon: Home     },
+  { href: '/requests', label: 'Requests',  icon: Inbox    },
+  { href: '/games',    label: 'Games',     icon: Gamepad2 },
+  { href: '/submit',   label: 'Add Movie', icon: Plus     },
+  { href: '/contact',  label: 'Contact',   icon: Mail     },
+  { href: '/support',  label: 'Support',   icon: Heart    },
+];
   return (
     <motion.nav className="fixed top-0 left-0 right-0 z-50">
       <motion.div style={{ opacity: bgO }}
@@ -43,7 +44,7 @@ export default function Navbar() {
         </Link>
 
         {/* Nav links */}
-        <div className="flex items-center gap-1.5">
+       <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide max-w-[75vw] sm:max-w-none">
           {links.map(({ href, label, icon: Icon }) => {
             const active = router.pathname === href;
             return (
