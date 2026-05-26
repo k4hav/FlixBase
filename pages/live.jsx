@@ -6,9 +6,9 @@ import { ArrowLeft, ExternalLink, Tv2, Radio } from 'lucide-react';
 
 const STREAMS = [
   { label: 'Stream 1', info: 'HINDI (Ad free)', url: 'https://we-live-v2.pages.dev/live-stream?channel=FOX%20HINDI%20WORLDWIDE', color: '#E50914' },
-  { label: 'Stream 2', info: 'ENGLISH', url: 'https://we-live-v2.pages.dev/live-stream?channel=Willow%20Worldwide', color: '#00A8E1' },
-  { label: 'Stream 3', info: 'OTHER', url: 'https://we-live-v2.pages.dev/live-stream?channel=Star%20Sports%20Hindi', color: '#6B4DE6' },
-  { label: 'Stream 3', info: 'OTHER', url: 'https://we-live-v2.pages.dev/live-stream?channel=Star%20Sports%201%20HD', color: '#6B4DE6' },
+  { label: 'Stream 2', info: 'ENGLISH (Ad Free)', url: 'https://we-live-v2.pages.dev/live-stream?channel=Willow%20Worldwide', color: '#00A8E1' },
+  { label: 'Stream 3', info: 'HINDI', url: 'https://we-live-v2.pages.dev/live-stream?channel=Star%20Sports%20Hindi', color: '#6B4DE6' },
+  { label: 'Stream 3', info: 'ENGLISH', url: 'https://we-live-v2.pages.dev/live-stream?channel=Star%20Sports%201%20HD', color: '#6B4DE6' },
 ];
 
 export default function Live() {
