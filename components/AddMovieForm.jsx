@@ -13,7 +13,7 @@ const PLATFORMS = [
   { name: 'Netflix',     color: '#E50914' },
   { name: 'Amazon Prime',color: '#00A8E1' },
   { name: 'GDflix',   color: '#6B4DE6' },
-  { name: 'FLIXBASE',     color: '#FF0000' },
+  { name: '1-click download',     color: '#FF0000' },
   { name: 'Custom',      color: '#c9a84c' },
 ];
 
