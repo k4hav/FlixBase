@@ -9,11 +9,11 @@ const PLATFORMS = [
   { name: 'Drive',       color: '#4285F4' },
   { name: 'Mega.nz',     color: '#D9272E' },
   { name: 'MediaFire',   color: '#1B82E4' },
-  { name: '1Fichier',    color: '#55a05b' },
+  { name: '1-click Download',    color: '#55a05b' },
   { name: 'Netflix',     color: '#E50914' },
   { name: 'Amazon Prime',color: '#00A8E1' },
   { name: 'GDflix',   color: '#6B4DE6' },
-  { name: '1-click download',     color: '#FF0000' },
+  { name: 'M-drive',     color: '#FF0000' },
   { name: 'Custom',      color: '#c9a84c' },
 ];
 
