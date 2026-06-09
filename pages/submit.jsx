@@ -84,16 +84,13 @@ const fillFromTMDB = async (item) => {
   const applyPlatform = (i, p) => setLinks(l => l.map((x, idx) => idx === i ? { ...x, label: p.name, color: p.color } : x));
 
 const validate = () => {
-    const errs = {};
-    if (!form.title.trim())         errs.title       = 'Title is required';
-    if (!form.year?.trim())         errs.year        = 'Year is required';
-    if (!form.language?.trim())     errs.language    = 'Language is required';
-    if (!form.genre?.trim())        errs.genre       = 'Genre is required';
-    if (!form.trailer_url?.trim())  errs.trailer_url = 'Trailer URL is required';
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  };
-
+  const errs = {};
+  if (!form.title.trim())  errs.title = 'Title is required';
+  if (!form.year?.trim())  errs.year  = 'Year is required';
+  // language, genre, trailer_url — removed (optional)
+  setErrors(errs);
+  return Object.keys(errs).length === 0;
+};
   const handleSubmit = async () => {
     if (!validate()) return;
     setLoading(true);
