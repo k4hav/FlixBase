@@ -34,6 +34,20 @@ const [showResults, setShowResults]   = useState(false);
   const set = (k, v) => { setForm(f => ({ ...f, [k]: v })); setErrors(e => ({ ...e, [k]: '' })); };
 
 const searchTMDB = async (query) => {
+  if (!query.trim() || query.length < 2) { setSearchResults([]); setShowResults(false); return; }
+  setSearching(true);
+  try {
+    const res = await fetch(`https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=e09889cb`);
+    const data = await res.json();
+    if (data.Search) {
+      setSearchResults(data.Search.slice(0, 6));
+      setShowResults(true);
+    } else {
+      setSearchResults([]);
+    }
+  } catch { setSearchResults([]); }
+  finally { setSearching(false); }
+};
 
 const fillFromTMDB = async (item) => {
   setShowResults(false);
