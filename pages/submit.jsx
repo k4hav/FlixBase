@@ -217,7 +217,7 @@ const validate = () => {
         set('title', val);
         searchTMDB(val);
       }}
-      placeholder="Type movie name — auto search krega..."
+      placeholder="Type movie or series name to search..."
       onBlur={() => setTimeout(() => setShowResults(false), 200)}
       onFocus={() => searchResults.length > 0 && setShowResults(true)}
     />
