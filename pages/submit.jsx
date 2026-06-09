@@ -33,49 +33,25 @@ const [showResults, setShowResults]   = useState(false);
 
   const set = (k, v) => { setForm(f => ({ ...f, [k]: v })); setErrors(e => ({ ...e, [k]: '' })); };
 
-  const searchTMDB = async (query) => {
-  if (!query.trim() || query.length < 2) { setSearchResults([]); setShowResults(false); return; }
-  setSearching(true);
-  try {
-    const key = process.env.NEXT_PUBLIC_TMDB_KEY;
-    const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${encodeURIComponent(query)}&language=en-US`);
-    const data = await res.json();
-    const results = (data.results || []).filter(r => r.media_type === 'movie' || r.media_type === 'tv').slice(0, 6);
-    setSearchResults(results);
-    setShowResults(true);
-  } catch { setSearchResults([]); }
-  finally { setSearching(false); }
-};
+const searchTMDB = async (query) => {
 
 const fillFromTMDB = async (item) => {
   setShowResults(false);
   setSearchQuery('');
-  const isTV = item.media_type === 'tv';
-  const title = isTV ? item.name : item.title;
-  const year = (isTV ? item.first_air_date : item.release_date)?.slice(0, 4) || '';
-  const poster = item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '';
-  const rating = item.vote_average ? item.vote_average.toFixed(1) : '';
-  const overview = item.overview || '';
-
-  // Get genres
-  let genre = '';
   try {
-    const key = process.env.NEXT_PUBLIC_TMDB_KEY;
-    const type = isTV ? 'tv' : 'movie';
-    const detail = await fetch(`https://api.themoviedb.org/3/${type}/${item.id}?api_key=${key}`);
-    const d = await detail.json();
-    genre = (d.genres || []).map(g => g.name).slice(0, 2).join(', ');
+    const res = await fetch(`https://www.omdbapi.com/?i=${item.imdbID}&apikey=e09889cb`);
+    const d = await res.json();
+    setForm(f => ({ ...f,
+      title:     d.Title || item.Title || '',
+      year:      d.Year?.slice(0, 4) || '',
+      poster_url: d.Poster !== 'N/A' ? d.Poster : '',
+      rating:    d.imdbRating !== 'N/A' ? d.imdbRating : '',
+      overview:  d.Plot !== 'N/A' ? d.Plot : '',
+      genre:     d.Genre !== 'N/A' ? d.Genre.split(',')[0].trim() : '',
+      language:  d.Language !== 'N/A' ? d.Language.split(',')[0].trim() : '',
+      type:      d.Type === 'series' ? 'Series' : d.Type === 'movie' ? 'Movie' : 'Movie',
+    }));
   } catch {}
-
-  setForm(f => ({ ...f,
-    title,
-    year,
-    poster_url: poster,
-    rating,
-    overview,
-    genre,
-    type: isTV ? 'Series' : 'Movie',
-  }));
 };
 
   const addLink    = () => setLinks(l => [...l, { label:'', info:'', url:'', color:'#c9a84c' }]);
@@ -248,9 +224,9 @@ const validate = () => {
         className="absolute top-full left-0 right-0 z-50 mt-1 rounded-xl overflow-hidden"
         style={{ background:'rgba(14,14,22,0.98)', border:'1px solid rgba(201,168,76,0.2)', backdropFilter:'blur(20px)', boxShadow:'0 20px 60px rgba(0,0,0,0.6)' }}>
         {searchResults.map((item, i) => {
-          const title = item.media_type === 'tv' ? item.name : item.title;
-          const year = (item.media_type === 'tv' ? item.first_air_date : item.release_date)?.slice(0,4);
-          const poster = item.poster_path ? `https://image.tmdb.org/t/p/w92${item.poster_path}` : null;
+         const title = item.Title;
+         const year = item.Year;
+         const poster = item.Poster !== 'N/A' ? item.Poster : null;
           return (
             <motion.div key={item.id}
               whileHover={{ background:'rgba(201,168,76,0.08)' }}
@@ -266,9 +242,9 @@ const validate = () => {
                 <div className="text-[10px] mt-0.5" style={{ color:'#6a6a5a' }}>
                   {year && <span>{year}</span>}
                   <span className="ml-2 px-1.5 py-0.5 rounded text-[9px]"
-                    style={{ background: item.media_type==='tv' ? 'rgba(79,150,247,0.15)' : 'rgba(201,168,76,0.12)',
-                      color: item.media_type==='tv' ? '#7ec8f7' : '#c9a84c' }}>
-                    {item.media_type === 'tv' ? 'Series' : 'Movie'}
+                    style={{ background: item.Type === 'series' ? 'rgba(79,150,247,0.15)' : 'rgba(201,168,76,0.12)',
+                      color: item.Type === 'series' ? '#7ec8f7' : '#c9a84c' }}>
+                    {item.Type === 'series' ? 'Series' : 'Movie'}
                   </span>
                 </div>
               </div>
