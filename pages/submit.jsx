@@ -25,9 +25,58 @@ export default function Submit() {
   const [watchLinks, setWatchLinks] = useState([]);
   const [errors,  setErrors]  = useState({});
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery]   = useState('');
+const [searchResults, setSearchResults] = useState([]);
+const [searching, setSearching]       = useState(false);
+const [showResults, setShowResults]   = useState(false);
   const [success, setSuccess] = useState(false);
 
   const set = (k, v) => { setForm(f => ({ ...f, [k]: v })); setErrors(e => ({ ...e, [k]: '' })); };
+
+  const searchTMDB = async (query) => {
+  if (!query.trim() || query.length < 2) { setSearchResults([]); setShowResults(false); return; }
+  setSearching(true);
+  try {
+    const key = process.env.NEXT_PUBLIC_TMDB_KEY;
+    const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${encodeURIComponent(query)}&language=en-US`);
+    const data = await res.json();
+    const results = (data.results || []).filter(r => r.media_type === 'movie' || r.media_type === 'tv').slice(0, 6);
+    setSearchResults(results);
+    setShowResults(true);
+  } catch { setSearchResults([]); }
+  finally { setSearching(false); }
+};
+
+const fillFromTMDB = async (item) => {
+  setShowResults(false);
+  setSearchQuery('');
+  const isTV = item.media_type === 'tv';
+  const title = isTV ? item.name : item.title;
+  const year = (isTV ? item.first_air_date : item.release_date)?.slice(0, 4) || '';
+  const poster = item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : '';
+  const rating = item.vote_average ? item.vote_average.toFixed(1) : '';
+  const overview = item.overview || '';
+
+  // Get genres
+  let genre = '';
+  try {
+    const key = process.env.NEXT_PUBLIC_TMDB_KEY;
+    const type = isTV ? 'tv' : 'movie';
+    const detail = await fetch(`https://api.themoviedb.org/3/${type}/${item.id}?api_key=${key}`);
+    const d = await detail.json();
+    genre = (d.genres || []).map(g => g.name).slice(0, 2).join(', ');
+  } catch {}
+
+  setForm(f => ({ ...f,
+    title,
+    year,
+    poster_url: poster,
+    rating,
+    overview,
+    genre,
+    type: isTV ? 'Series' : 'Movie',
+  }));
+};
 
   const addLink    = () => setLinks(l => [...l, { label:'', info:'', url:'', color:'#c9a84c' }]);
   const setLink    = (i, k, v) => setLinks(l => l.map((x, idx) => idx === i ? { ...x, [k]: v } : x));
@@ -164,80 +213,83 @@ const validate = () => {
           </div>
 
           {/* Title */}
-          <div>
-            <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>
-              Title <span style={{ color:'#e05c3a' }}>*</span>
-            </label>
-            <input className={`input-dark w-full px-3 py-2 rounded-lg text-sm ${errors.title ? 'border-red-500/40' : ''}`}
-              value={form.title} onChange={e => set('title', e.target.value)}
-              placeholder="e.g. Pushpa 2, Attack on Titan S4..." />
-            {errors.title && <p className="text-red-400/80 text-xs mt-1">{errors.title}</p>}
-          </div>
-
-          {/* Row */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Year <span style={{ color:'#4a4a3a' }}>*</span></label>
-              <input className={`input-dark w-full px-3 py-2 rounded-lg text-sm ${errors.year?'border-red-500/40':''}`} value={form.year} onChange={e => set('year', e.target.value)} placeholder="2024" />
-            </div>
-            <div>
-              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Type <span style={{ color:'#4a4a3a' }}>*</span></label>
-              <select className="input-dark w-full px-3 py-2 rounded-lg text-sm cursor-pointer" value={form.type} onChange={e => set('type', e.target.value)}
-                style={{ background:'rgba(255,255,255,0.03)' }}>
-                {['Movie','Series','Anime','Documentary','Short Film'].map(t =>
-                  <option key={t} value={t} style={{ background:'#0f0f16' }}>{t}</option>
-                )}
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Language <span style={{ color:'#4a4a3a' }}>*</span></label>
-              <input className="input-dark w-full px-3 py-2 rounded-lg text-sm" value={form.language} onChange={e => set('language', e.target.value)} placeholder="Hindi, English, Japanese..." />
-            </div>
-            <div>
-              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Genre <span style={{ color:'#4a4a3a' }}>*</span></label>
-              <input className="input-dark w-full px-3 py-2 rounded-lg text-sm" value={form.genre} onChange={e => set('genre', e.target.value)} placeholder="Action, Romance, Thriller..." />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Rating <span style={{ color:'#4a4a3a' }}>optional</span></label>
-              <input className="input-dark w-full px-3 py-2 rounded-lg text-sm" value={form.rating} onChange={e => set('rating', e.target.value)} placeholder="8.5 out of 10" />
-            </div>
-            <div />
-          </div>
-
-          <div>
-            <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Poster Image URL <span style={{ color:'#4a4a3a' }}>*</span></label>
-            <input className="input-dark w-full px-3 py-2 rounded-lg text-sm" value={form.poster_url} onChange={e => set('poster_url', e.target.value)} placeholder="https://...jpg" />
-            {form.poster_url && (
-              <div className="mt-2 flex gap-2 items-center">
-                <img src={form.poster_url} alt="preview" className="w-10 h-14 object-cover rounded-lg"
-                  style={{ border:'1px solid rgba(201,168,76,0.2)' }} onError={e => e.target.style.display='none'} />
-                <span className="text-[10px]" style={{ color:'#6a6a5a' }}>Poster preview</span>
-              </div>
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>Overview <span style={{ color:'#4a4a3a' }}>optional</span></label>
-            <textarea className="input-dark w-full px-3 py-2 rounded-lg text-sm resize-none" rows={3}
-              value={form.overview} onChange={e => set('overview', e.target.value)}
-              placeholder="Short plot description..." />
-          </div>
-
-          <div>
+{/* Title with TMDB Search */}
+<div className="relative">
   <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>
-    Trailer URL — <span style={{ color:'#3a3a2a', letterSpacing:0 }}>*</span>
+    Search Movie / Series <span style={{ color:'#e05c3a' }}>*</span>
   </label>
-  <input className="input-dark w-full px-3 py-2 rounded-lg text-sm"
-    value={form.trailer_url || ''} onChange={e => set('trailer_url', e.target.value)}
-    placeholder="https://youtube.com/watch?v=... ya koi bhi trailer link" />
-</div>
 
+  {/* Search input */}
+  <div className="relative">
+    <input
+      className="input-dark w-full px-3 py-2.5 rounded-lg text-sm pr-10"
+      value={searchQuery || form.title}
+      onChange={e => {
+        const val = e.target.value;
+        setSearchQuery(val);
+        set('title', val);
+        searchTMDB(val);
+      }}
+      placeholder="Type movie name — auto search krega..."
+      onBlur={() => setTimeout(() => setShowResults(false), 200)}
+      onFocus={() => searchResults.length > 0 && setShowResults(true)}
+    />
+    {searching && (
+      <motion.div animate={{ rotate:360 }} transition={{ repeat:Infinity, duration:1, ease:'linear' }}
+        className="absolute right-3 top-1/2 -translate-y-1/2">
+        <div className="w-4 h-4 border-2 rounded-full" style={{ borderColor:'#c9a84c', borderTopColor:'transparent' }} />
+      </motion.div>
+    )}
+  </div>
+  {errors.title && <p className="text-red-400/80 text-xs mt-1">{errors.title}</p>}
+
+  {/* Search Results Dropdown */}
+  <AnimatePresence>
+    {showResults && searchResults.length > 0 && (
+      <motion.div
+        initial={{ opacity:0, y:-8 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-8 }}
+        className="absolute top-full left-0 right-0 z-50 mt-1 rounded-xl overflow-hidden"
+        style={{ background:'rgba(14,14,22,0.98)', border:'1px solid rgba(201,168,76,0.2)', backdropFilter:'blur(20px)', boxShadow:'0 20px 60px rgba(0,0,0,0.6)' }}>
+        {searchResults.map((item, i) => {
+          const title = item.media_type === 'tv' ? item.name : item.title;
+          const year = (item.media_type === 'tv' ? item.first_air_date : item.release_date)?.slice(0,4);
+          const poster = item.poster_path ? `https://image.tmdb.org/t/p/w92${item.poster_path}` : null;
+          return (
+            <motion.div key={item.id}
+              whileHover={{ background:'rgba(201,168,76,0.08)' }}
+              onMouseDown={() => fillFromTMDB(item)}
+              className="flex items-center gap-3 px-3 py-2.5 cursor-pointer transition-colors"
+              style={{ borderBottom: i < searchResults.length-1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+              {poster
+                ? <img src={poster} alt={title} className="w-8 h-12 object-cover rounded-md flex-shrink-0" />
+                : <div className="w-8 h-12 rounded-md flex-shrink-0" style={{ background:'#1a1a28' }} />
+              }
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-medium truncate" style={{ color:'#e8e4d8' }}>{title}</div>
+                <div className="text-[10px] mt-0.5" style={{ color:'#6a6a5a' }}>
+                  {year && <span>{year}</span>}
+                  <span className="ml-2 px-1.5 py-0.5 rounded text-[9px]"
+                    style={{ background: item.media_type==='tv' ? 'rgba(79,150,247,0.15)' : 'rgba(201,168,76,0.12)',
+                      color: item.media_type==='tv' ? '#7ec8f7' : '#c9a84c' }}>
+                    {item.media_type === 'tv' ? 'Series' : 'Movie'}
+                  </span>
+                </div>
+              </div>
+              {item.vote_average > 0 && (
+                <span className="text-[10px] flex-shrink-0" style={{ color:'#c9a84c' }}>
+                  ★ {item.vote_average.toFixed(1)}
+                </span>
+              )}
+            </motion.div>
+          );
+        })}
+        <div className="px-3 py-1.5 text-[9px] text-right" style={{ color:'#3a3a2a', background:'rgba(0,0,0,0.3)' }}>
+          Powered by TMDB
+        </div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+</div>
      {/* Watch Online Links */}
 <div>
   <div className="flex items-center justify-between mb-3">
