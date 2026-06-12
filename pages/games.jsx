@@ -93,8 +93,8 @@ export default function Games() {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {filtered.map((item, i) => (
-              <Link href={`/games/${item.id}`}>
-              <Link href={`/games/${item.id}`}>
+              <Link key={item.id} href={`/games/${item.id}`}>
+              <motion.div
                 initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
                 viewport={{ once:true }} transition={{ delay: i*0.05 }}
                 className="rounded-xl overflow-hidden group"
@@ -166,9 +166,8 @@ export default function Games() {
                   )}
                 </div>
               </motion.div>
-                  </Link>
-         
-           ))}
+             </Link>
+            ))}
         
           </div>
         )}
@@ -176,3 +175,4 @@ export default function Games() {
     </div>
   );
 }
+
