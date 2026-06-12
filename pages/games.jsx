@@ -166,8 +166,9 @@ export default function Games() {
                   )}
                 </div>
               </motion.div>
-             </Link>
-            ))}
+         
+           ))}
+          </Link>
           </div>
         )}
       </div>
