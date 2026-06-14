@@ -88,26 +88,31 @@ export default function Requests({ requests: initial }) {
           </p>
         </motion.div>
 
-                {/* Guidance box */}
-<motion.div initial={{ opacity:0 }} animate={{ opacity:1 }}
+                
+{/* Guidance box */}
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
   className="mb-5 p-4 rounded-xl"
-  style={{ background:'rgba(201,168,76,0.05)', border:'1px solid rgba(201,168,76,0.15)' }}>
-  <p className="text-[11px] font-semibold mb-2" style={{ color:'#c9a84c' }}>📋 How to fill this form correctly:</p>
-  <div className="space-y-1.5">
-    {[
-      ['Movie / Series Title', 'Write exact name — e.g. "KGF Chapter 3" not just "KGF"'],
-      ['Year', 'Write release year — e.g. "2025" or "2026"'],
-      ['Language', 'Write language — e.g. "Hindi", "Tamil", "Hindi Dubbed"'],
-      ['Where did you hear', 'Select from the dropdown — helps us understand our reach'],
-    ].map(([field, hint]) => (
-      <div key={field} className="flex gap-2 text-[10px]">
-        <span className="flex-shrink-0 font-semibold" style={{ color:'#e8c87a' }}>• {field}:</span>
-        <span style={{ color:'#6a6a5a' }}>{hint}</span>
-      </div>
-    ))}
-  </div>
-</motion.div>
+  style={{ background: 'rgba(201,168,76,0.05)', border: '1px solid rgba(201,168,76,0.15)' }}
+>
+  <p
+    className="text-[11px] font-semibold mb-2"
+    style={{ color: '#c9a84c' }}
+  >
+    📌 Important:
+  </p>
 
+  <p
+    className="text-[12px] leading-relaxed"
+    style={{ color: '#a6a5a' }}
+  >
+    Please fill all details carefully and accurately. Enter the exact Movie/Series
+    title, release year, and language. Incomplete, incorrect, or random
+    information can make it difficult to find and process your request. The more
+    accurate the details, the faster your request can be fulfilled. Thank you ! 😊
+  </p>
+</motion.div>
         {/* Request form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
