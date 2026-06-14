@@ -2,16 +2,16 @@ export default function Admin() {
   return (
     <div
       style={{
-        height: "100vh",
+        height: "50vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        fontSize: "200px",
+        fontSize: "100px",
         fontWeight: "bold",
         color: "red",
       }}
     >
-      NICE TRY
+      NICE TRY MOTHERFAKAR
     </div>
   );
 }
