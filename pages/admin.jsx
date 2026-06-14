@@ -1,74 +1,109 @@
 export default function Admin() {
   return (
     <div className="container">
-      <h1 className="glitch" data-text="NICE TRY">
-        NICE TRY MOTHERFAKAR
-      </h1>
-
+      <h1 className="text" id="seq-text"></h1>
       <style jsx>{`
         .container {
           height: 100vh;
+          width: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
-          background: #000;
           overflow: hidden;
+          padding: 0 16px;
+          box-sizing: border-box;
         }
-
-        .glitch {
-          position: relative;
-          font-size: clamp(80px, 12vw, 220px);
+        .text {
+          font-size: clamp(32px, 12vw, 160px);
           font-weight: 900;
-          color: #fff;
-          text-transform: uppercase;
-          animation: flicker 2s infinite;
-        }
-
-        .glitch::before,
-        .glitch::after {
-          content: attr(data-text);
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
-
-        .glitch::before {
           color: #ff0000;
-          animation: glitch1 0.5s infinite;
+          text-align: center;
+          text-transform: uppercase;
+          white-space: nowrap;
+          margin: 0;
+          letter-spacing: 2px;
+          text-shadow:
+            0 0 10px rgba(255, 0, 0, 0.8),
+            0 0 20px rgba(255, 0, 0, 0.7),
+            0 0 40px rgba(255, 0, 0, 0.6);
+          opacity: 0;
+          animation:
+            popIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+            glow 2s ease-in-out infinite alternate,
+            float 3s ease-in-out infinite;
+        }
+        @keyframes popIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        @keyframes glow {
+          from {
+            text-shadow:
+              0 0 10px rgba(255, 0, 0, 0.7),
+              0 0 20px rgba(255, 0, 0, 0.6);
+          }
+          to {
+            text-shadow:
+              0 0 20px rgba(255, 0, 0, 1),
+              0 0 40px rgba(255, 0, 0, 0.9),
+              0 0 80px rgba(255, 0, 0, 0.8);
+          }
+        }
+        @keyframes float {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-15px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
         }
 
-        .glitch::after {
-          color: #00ffff;
-          animation: glitch2 0.5s infinite;
-        }
-
-        @keyframes glitch1 {
-          0% { transform: translate(0); }
-          20% { transform: translate(-5px, 5px); }
-          40% { transform: translate(-5px, -5px); }
-          60% { transform: translate(5px, 5px); }
-          80% { transform: translate(5px, -5px); }
-          100% { transform: translate(0); }
-        }
-
-        @keyframes glitch2 {
-          0% { transform: translate(0); }
-          20% { transform: translate(5px, -5px); }
-          40% { transform: translate(5px, 5px); }
-          60% { transform: translate(-5px, -5px); }
-          80% { transform: translate(-5px, 5px); }
-          100% { transform: translate(0); }
-        }
-
-        @keyframes flicker {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.8; }
-          52% { opacity: 0.3; }
-          54% { opacity: 1; }
+        /* Mobile optimization */
+        @media (max-width: 600px) {
+          .text {
+            font-size: clamp(28px, 14vw, 80px);
+            letter-spacing: 1px;
+            white-space: normal;
+            line-height: 1.2;
+          }
         }
       `}</style>
+
+      {/* Sequential word swap logic */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const words = ["NICE TRY", "MOTHERFAKAR"];
+              let i = 0;
+              const el = document.getElementById('seq-text');
+
+              function show() {
+                el.textContent = words[i];
+                el.style.animation = 'none';
+                void el.offsetWidth; // restart animation
+                el.style.animation =
+                  'popIn 0.5s cubic-bezier(0.2,0.8,0.2,1) forwards, glow 2s ease-in-out infinite alternate, float 3s ease-in-out infinite';
+              }
+
+              show();
+              setInterval(() => {
+                i = (i + 1) % words.length;
+                show();
+              }, 1800);
+            })();
+          `,
+        }}
+      />
     </div>
   );
 }
