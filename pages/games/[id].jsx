@@ -113,6 +113,17 @@ export default function GameDetail({ game }) {
                 {isGame ? '🎮 Game' : '📱 Modded App'}
               </span>
 
+              {/* Disclaimer — for ALL */}
+<motion.div initial={{ opacity:0, y:-8 }} animate={{ opacity:1, y:0 }}
+  className="mb-4 px-4 py-2.5 rounded-xl flex items-center gap-2.5"
+  style={{ background:'rgba(234,179,8,0.06)', border:'1px solid rgba(234,179,8,0.2)' }}>
+  <span className="text-base flex-shrink-0">⚠️</span>
+  <p className="text-[11px] leading-relaxed" style={{ color:'#8a8060' }}>
+    <span className="font-semibold" style={{ color:'#fbbf24' }}>Disclaimer: </span>
+    Some Games & Modded apps on this page may be flagged as suspicious by antivirus tools or your browser — this is common for cracked/patched files. Download and use entirely at your own risk. We are not responsible for any damage, data loss, or legal issues. If unsure, always prefer the official versions.
+  </p>
+</motion.div>
+
               {/* Title */}
               <h1 className="font-cinzel font-bold leading-tight mb-3"
                 style={{ fontFamily:'Cinzel,serif', fontSize:'clamp(1.5rem,4vw,2.4rem)',
