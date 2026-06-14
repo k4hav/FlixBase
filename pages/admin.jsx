@@ -1,7 +1,23 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+
 export default function Admin() {
+  const words = ["NICE TRY", "MOTHERFAKAR"];
+  const [i, setI] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setI((prev) => (prev + 1) % words.length);
+    }, 1800);
+    return () => clearInterval(t);
+  }, []);
+
   return (
     <div className="container">
-      <h1 className="text" id="seq-text"></h1>
+      <h1 className="text" key={i}>
+        {words[i]}
+      </h1>
       <style jsx>{`
         .container {
           height: 100vh;
@@ -12,6 +28,7 @@ export default function Admin() {
           overflow: hidden;
           padding: 0 16px;
           box-sizing: border-box;
+          background: #000;
         }
         .text {
           font-size: clamp(32px, 12vw, 160px);
@@ -67,7 +84,6 @@ export default function Admin() {
           }
         }
 
-        /* Mobile optimization */
         @media (max-width: 600px) {
           .text {
             font-size: clamp(28px, 14vw, 80px);
@@ -77,33 +93,6 @@ export default function Admin() {
           }
         }
       `}</style>
-
-      {/* Sequential word swap logic */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function() {
-              const words = ["NICE TRY", "MOTHERFAKAR"];
-              let i = 0;
-              const el = document.getElementById('seq-text');
-
-              function show() {
-                el.textContent = words[i];
-                el.style.animation = 'none';
-                void el.offsetWidth; // restart animation
-                el.style.animation =
-                  'popIn 0.5s cubic-bezier(0.2,0.8,0.2,1) forwards, glow 2s ease-in-out infinite alternate, float 3s ease-in-out infinite';
-              }
-
-              show();
-              setInterval(() => {
-                i = (i + 1) % words.length;
-                show();
-              }, 1800);
-            })();
-          `,
-        }}
-      />
     </div>
   );
 }
