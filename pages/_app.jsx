@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
+import { Analytics } from "@vercel/analytics/next"
 
 const pageVariants = {
   initial: { opacity: 0, y: 18 },
