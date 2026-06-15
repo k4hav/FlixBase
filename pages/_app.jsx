@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/react';
 
 const pageVariants = {
   initial: { opacity: 0, y: 18 },
@@ -25,6 +25,7 @@ export default function App({ Component, pageProps, router }) {
           <Component {...pageProps} />
         </motion.div>
       </AnimatePresence>
+      <Analytics />
     </>
   );
 }
