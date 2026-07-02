@@ -49,7 +49,7 @@ export default function Live() {
             
            
         <motion.img
-              src="      "
+              src="https://pngimg.com/uploads/cricket/cricket_PNG106.png"
               alt="Sports"
               className="relative z-10"
               style={{ width: '160px', height: '120px', objectFit: 'cover', borderRadius: '16px', border: '2px solid rgba(200,0,0,0.5)' }}
