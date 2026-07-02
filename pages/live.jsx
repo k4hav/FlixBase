@@ -49,7 +49,7 @@ export default function Live() {
             
            
         <motion.img
-              src="https://png.pngtree.com/png-vector/20230513/ourmid/pngtree-cricket-sport-vector-logo-design-transparent-background-for-free-download-png-image_7095410.png"
+              src="https://img.magnific.com/free-vector/t20-world-cup-cricket-championship-poster-template-brochure-decorated-flyer-banner-design_460848-15826.jpg?semt=ais_hybrid&w=740&q=80"
               alt="Sports"
               className="relative z-10"
               style={{ width: '160px', height: '120px', objectFit: 'cover', borderRadius: '16px', border: '2px solid rgba(200,0,0,0.5)' }}
@@ -73,7 +73,7 @@ export default function Live() {
               background:'linear-gradient(135deg,#ff6666,#cc0000)',
               WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
               filter:'drop-shadow(0 0 20px rgba(201,168,76,0.3))' }}>
-            IPL 2026 Live
+            Live Sports
           </h1>
           <p className="text-xs" style={{ color:'#6a6a5a' }}>
             Click any stream below to watch
