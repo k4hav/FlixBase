@@ -166,7 +166,7 @@ export default function Home({ movies: initial }) {
                     transition={{ repeat: Infinity, duration: 1 }}
                   />
 
-                   <span className="relative z-10 font-semibold">Watch IPL 2026 Live →</span>
+                   <span className="relative z-10 font-semibold">Watch Live Sports →</span>
                  
                 </motion.div>
               </Link>
