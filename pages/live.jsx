@@ -49,7 +49,7 @@ export default function Live() {
             
            
         <motion.img
-              src="https://img.magnific.com/free-vector/t20-world-cup-cricket-championship-poster-template-brochure-decorated-flyer-banner-design_460848-15826.jpg?semt=ais_hybrid&w=740&q=80"
+              src="      "
               alt="Sports"
               className="relative z-10"
               style={{ width: '160px', height: '120px', objectFit: 'cover', borderRadius: '16px', border: '2px solid rgba(200,0,0,0.5)' }}
@@ -58,6 +58,10 @@ export default function Live() {
             />
           </motion.div>
 
+
+
+
+          
           {/* Live badge */}
           <div className="flex items-center justify-center gap-2 mb-3">
             <motion.div
