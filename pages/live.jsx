@@ -5,10 +5,8 @@ import CinematicBackground from '../components/CinematicBackground';
 import { ArrowLeft, ExternalLink, Tv2, Radio } from 'lucide-react';
 
 const STREAMS = [
-  { label: 'Stream 1', info: 'HINDI (Ad free)', url: 'https://we-live-v2.pages.dev/live-stream?channel=FOX%20HINDI%20WORLDWIDE', color: '#E50914' },
-  { label: 'Stream 2', info: 'ENGLISH (Ad Free)', url: 'https://we-live-v2.pages.dev/live-stream?channel=Willow%20Worldwide', color: '#00A8E1' },
-  { label: 'Stream 3', info: 'HINDI', url: 'https://we-live-v2.pages.dev/live-stream?channel=Star%20Sports%20Hindi', color: '#6B4DE6' },
-  { label: 'Stream 3', info: 'ENGLISH', url: 'https://we-live-v2.pages.dev/live-stream?channel=Star%20Sports%201%20HD', color: '#6B4DE6' },
+  { label: 'Stream 1', info: 'HINDI', url: 'https://we-live.pages.dev/sports', color: '#E50914' },
+  { label: 'Stream 2', info: 'ENGLISH', url: 'https://we-live.pages.dev/sports', color: '#00A8E1' },
 ];
 
 export default function Live() {
@@ -16,7 +14,7 @@ export default function Live() {
     <div className="min-h-screen bg-deep">
       <Head>
         <title>Live Matches — FlixBase</title>
-        <meta name="description" content="Watch live cricket matches on FlixBase" />
+        <meta name="description" content="Watch live Sports Event on FlixBase" />
       </Head>
       <CinematicBackground />
 
@@ -51,8 +49,8 @@ export default function Live() {
             
            
         <motion.img
-              src="https://1000logos.net/wp-content/uploads/2022/08/IPL-sponsorship-Logo-2022.png"
-              alt="IPL"
+              src="https://png.pngtree.com/png-vector/20230513/ourmid/pngtree-cricket-sport-vector-logo-design-transparent-background-for-free-download-png-image_7095410.png"
+              alt="Sports"
               className="relative z-10"
               style={{ width: '160px', height: '120px', objectFit: 'cover', borderRadius: '16px', border: '2px solid rgba(200,0,0,0.5)' }}
               animate={{ scale: [1, 1.03, 1] }}
