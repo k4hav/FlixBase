@@ -38,8 +38,8 @@ function NoticeBoard() {
               <span className="underline cursor-pointer" style={{ color:'#c9a84c' }}>Request Section</span>
             </Link>
             {' '}and submit your request.{' '}
-            <span style={{ color:'#c9a84c' }}>Requested titles are added within 24 hours.</span>
-            {' '}Thank you for your patience! 🙏
+            <span style={{ color:'#c9a84c' }}>Requested contents are added within 24 hours.</span>
+            {' '}Please be patient!
           </p>
         </div>
         <motion.button whileHover={{ scale:1.1, rotate:90 }} whileTap={{ scale:0.9 }}
