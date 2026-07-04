@@ -202,7 +202,7 @@ export default function Home({ movies: initial }) {
 
         
         {/* Notice Board */}
-       <NoticeBoard />
+  
 
         function NoticeBoard() {
   const [visible, setVisible] = useState(true);
