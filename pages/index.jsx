@@ -8,6 +8,51 @@ import SearchBar from '../components/SearchBar';
 import MovieCard from '../components/MovieCard';
 import { Film, Inbox, ChevronLeft, ChevronRight, Download, Send } from 'lucide-react';
 
+
+function NoticeBoard() {
+  const [visible, setVisible] = useState(true);
+  if (!visible) return null;
+  return (
+    <motion.div
+      initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }}
+      className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 mb-6"
+    >
+      <div className="relative px-5 py-4 rounded-2xl overflow-hidden flex items-start gap-4"
+        style={{ background:'rgba(201,168,76,0.06)', border:'1px solid rgba(201,168,76,0.2)', backdropFilter:'blur(12px)' }}>
+        <motion.div className="absolute inset-0 pointer-events-none"
+          style={{ background:'linear-gradient(105deg,transparent 30%,rgba(201,168,76,0.06) 50%,transparent 70%)' }}
+          animate={{ x:['-100%','200%'] }}
+          transition={{ repeat:Infinity, duration:5, ease:'easeInOut', repeatDelay:3 }}
+        />
+        <motion.div animate={{ rotate:[-5,5,-5] }}
+          transition={{ repeat:Infinity, duration:2, ease:'easeInOut' }}
+          className="text-xl flex-shrink-0 relative z-10">
+          📢
+        </motion.div>
+        <div className="flex-1 relative z-10">
+          <p className="text-xs font-semibold mb-1" style={{ color:'#e8c87a' }}>Notice — Please Read</p>
+          <p className="text-[11px] leading-relaxed" style={{ color:'#8a8778' }}>
+            Only <span style={{ color:'#c9a84c' }}>requested movies and series</span> are added to FlixBase.
+            If you are looking for something specific, head over to the{' '}
+            <Link href="/requests">
+              <span className="underline cursor-pointer" style={{ color:'#c9a84c' }}>Request Section</span>
+            </Link>
+            {' '}and submit your request.{' '}
+            <span style={{ color:'#c9a84c' }}>Requested titles are added within 24 hours.</span>
+            {' '}Thank you for your patience! 🙏
+          </p>
+        </div>
+        <motion.button whileHover={{ scale:1.1, rotate:90 }} whileTap={{ scale:0.9 }}
+          onClick={() => setVisible(false)}
+          className="flex-shrink-0 relative z-10 w-6 h-6 rounded-full flex items-center justify-center"
+          style={{ background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.1)', color:'#6a6a5a' }}>
+          ✕
+        </motion.button>
+      </div>
+    </motion.div>
+  );
+}
+
 const PER_PAGE = 20;
 
 export default function Home({ movies: initial }) {
@@ -200,72 +245,9 @@ export default function Home({ movies: initial }) {
         </section>
 
 
-        
-        {/* Notice Board */}
-  
-
-        function NoticeBoard() {
-  const [visible, setVisible] = useState(true);
-  if (!visible) return null;
-  return (
-    <motion.div
-      initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }}
-      exit={{ opacity:0, y:-10 }}
-      className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 mb-6"
-    >
-      <div className="relative px-5 py-4 rounded-2xl overflow-hidden flex items-start gap-4"
-        style={{ background:'rgba(201,168,76,0.06)', border:'1px solid rgba(201,168,76,0.2)', backdropFilter:'blur(12px)' }}>
-
-        {/* Shimmer */}
-        <motion.div className="absolute inset-0 pointer-events-none"
-          style={{ background:'linear-gradient(105deg,transparent 30%,rgba(201,168,76,0.06) 50%,transparent 70%)' }}
-          animate={{ x:['-100%','200%'] }}
-          transition={{ repeat:Infinity, duration:5, ease:'easeInOut', repeatDelay:3 }}
-        />
-
-        {/* Icon */}
-        <motion.div
-          animate={{ rotate:[-5,5,-5] }}
-          transition={{ repeat:Infinity, duration:2, ease:'easeInOut' }}
-          className="text-xl flex-shrink-0 relative z-10">
-          📢
-        </motion.div>
-
-        {/* Text */}
-        <div className="flex-1 relative z-10">
-          <p className="text-xs font-semibold mb-1" style={{ color:'#e8c87a' }}>
-            Notice — Please Read
-          </p>
-          <p className="text-[11px] leading-relaxed" style={{ color:'#8a8778' }}>
-            Only <span style={{ color:'#c9a84c' }}>requested movies and series</span> are added to FlixBase.
-            If you are looking for something specific, head over to the{' '}
-            <Link href="/requests">
-              <span className="underline cursor-pointer transition-colors"
-                style={{ color:'#c9a84c' }}
-                onMouseEnter={e=>e.target.style.color='#f5e4a8'}
-                onMouseLeave={e=>e.target.style.color='#c9a84c'}>
-                Request Section
-              </span>
-            </Link>
-            {' '}and submit your request.{' '}
-            <span style={{ color:'#c9a84c' }}>Requested titles are added within 24 hours.</span>
-            {' '}Thank you for your patience! 🙏
-          </p>
-        </div>
-
-        {/* Close button */}
-        <motion.button
-          whileHover={{ scale:1.1, rotate:90 }} whileTap={{ scale:0.9 }}
-          onClick={() => setVisible(false)}
-          className="flex-shrink-0 relative z-10 w-6 h-6 rounded-full flex items-center justify-center transition-all"
-          style={{ background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.1)', color:'#6a6a5a' }}>
-          ✕
-        </motion.button>
-      </div>
-    </motion.div>
-  );
-}
-
+       {/* Notice Board */}
+<NoticeBoard /> 
+       
         {/* ══ ALL TITLES ══ */}
         <section id="explore" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-24">
           {/* Header */}
