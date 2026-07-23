@@ -7,16 +7,12 @@ import { Search, ArrowLeft, ExternalLink, Film } from 'lucide-react';
 
 const SITES = [
   { name: '7reel',    color: '#e05c3a', icon: '🎬', url: q => `https://7reels.cc/?s=${encodeURIComponent(q)}` },
-  { name: 'Filmywap',      color: '#c0392b', icon: '🎥', url: q => `https://www.filmywap.skin/?s=${encodeURIComponent(q)}` },
-  { name: 'Vegamovies',    color: '#8b5cf6', icon: '🍿', url: q => `https://vegamovies.skin/?s=${encodeURIComponent(q)}` },
-  { name: 'Bollyflix',     color: '#f59e0b', icon: '⭐', url: q => `https://bollyflix.skin/?s=${encodeURIComponent(q)}` },
-  { name: 'HDHub4u',       color: '#3b82f6', icon: '📺', url: q => `https://hdhub4u.skin/?s=${encodeURIComponent(q)}` },
-  { name: 'Movierulz',     color: '#10b981', icon: '🎞️', url: q => `https://www.movierulz.tc/?s=${encodeURIComponent(q)}` },
-  { name: 'Tamilrockers',  color: '#ef4444', icon: '🔥', url: q => `https://www.tamilrockers.fm/?s=${encodeURIComponent(q)}` },
-  { name: 'Kuttymovies',   color: '#06b6d4', icon: '💎', url: q => `https://www.kuttymovies.app/?s=${encodeURIComponent(q)}` },
-  { name: '1337x',         color: '#f97316', icon: '🧲', url: q => `https://https://www.hypersonicmedia.workers.dev/1784808597872/popular-movies/search/${encodeURIComponent(q)}/1/` },
-  { name: 'YTS',           color: '#22c55e', icon: '🎦', url: q => `https://yts.mx/browse-movies/${encodeURIComponent(q)}` },
-  { name: 'Telegram',      color: '#229ED9', icon: '✈️', url: q => `https://t.me/s/FlixBaseBot?q=${encodeURIComponent(q)}` },
+  { name: 'UHDMOVIES',      color: '#c0392b', icon: '🎥', url: q => `https://uhdmovies.casa/?s=${encodeURIComponent(q)}` },
+  { name: 'Vegamovies',    color: '#8b5cf6', icon: '🍿', url: q => `https://vegamoviess.lat/?s=${encodeURIComponent(q)}` },
+  { name: 'Movieleach-Bolly',     color: '#f59e0b', icon: '⭐', url: q => `https://moviesleech.asia/?s=${encodeURIComponent(q)}` },
+  { name: 'cinehd',       color: '#3b82f6', icon: '📺', url: q => `https://cinehd.app/home?s=${encodeURIComponent(q)}` },
+  { name: 'MovieMod',     color: '#10b981', icon: '🎞️', url: q => `https://moviesmod.at/?s=${encodeURIComponent(q)}` },
+  { name: '1337x',         color: '#f97316', icon: '🧲', url: q => `https://www.hypersonicmedia.workers.dev/1784808597872/popular-movies/?s${encodeURIComponent(q)}/1/` },
   { name: 'Google',        color: '#4285F4', icon: '🔍', url: q => `https://www.google.com/search?q=${encodeURIComponent(q + ' download free')}` },
 ];
 
