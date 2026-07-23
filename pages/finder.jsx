@@ -6,7 +6,7 @@ import CinematicBackground from '../components/CinematicBackground';
 import { Search, ArrowLeft, ExternalLink, Film } from 'lucide-react';
 
 const SITES = [
-  { name: '7reel',    color: '#e05c3a', icon: '🎬', url: q => `https://7reels.cc/?s=${encodeURIComponent(q)}` },
+  { name: '7reel',    color: '#e05c3a', icon: '🎬', url: q => `https://7reels.cc/search?q=${encodeURIComponent(q)}` },
   { name: 'UHDMOVIES',      color: '#c0392b', icon: '🎥', url: q => `https://uhdmovies.casa/?s=${encodeURIComponent(q)}` },
   { name: 'Vegamovies',    color: '#8b5cf6', icon: '🍿', url: q => `https://vegamoviess.lat/?s=${encodeURIComponent(q)}` },
   { name: 'Movieleach-Bolly',     color: '#f59e0b', icon: '⭐', url: q => `https://moviesleech.asia/?s=${encodeURIComponent(q)}` },
