@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Film, Inbox, Plus, Heart, Send, Gamepad2, Home, Mail } from 'lucide-react';
+import { Film, Inbox, Plus, Heart, Send, Gamepad2, Home, Mail, Search } from 'lucide-react';
 import { useCollection } from '../hooks/useCollection';
 
 export default function Navbar() {
@@ -17,6 +17,7 @@ export default function Navbar() {
   { href: '/submit',   label: 'Add Movie', icon: Plus     },
   { href: '/contact',  label: 'Contact',   icon: Mail     },
   { href: '/support',  label: 'Support',   icon: Heart    },
+  { href:'/finder', label:'Movie Finder', icon: Search },
 ];
   return (
     <motion.nav className="fixed top-0 left-0 right-0 z-50">
