@@ -166,10 +166,12 @@ export default function Requests({ requests: initial }) {
     {/* Site links */}
     <div id="finder-results" className="flex-wrap gap-2 mb-3" style={{ display:'none' }}>
       {[
-  { name: '7reel',    color: '#e05c3a', icon: '🎬', url: q => `https://7reels.cc/search?q=${encodeURIComponent(q)}` },
-  { name: 'UHDMOVIES',      color: '#c0392b', icon: '🎥', url: q => `https://uhdmovies.casa/?s=${encodeURIComponent(q)}` },
-  { name: 'Movieleach-Bolly',     color: '#f59e0b', icon: '⭐', url: q => `https://moviesleech.asia/?s=${encodeURIComponent(q)}` },
-  { name: 'MovieMod',     color: '#10b981', icon: '🎞️', url: q => `https://moviesmod.at/?s=${encodeURIComponent(q)}` },
+        
+        { name:'7Reels',      color:'#e05c3a', base:'https://7reels.cc/search?q=${encodeURIComponent(q)}` },
+        { name:'UHDMovies',   color:'#c0392b', base:'https://uhdmovies.casa/?s=${encodeURIComponent(q)}` },
+        { name:'MoviesMod-Holly',   color:'#10b981', base:'https://moviesmod.at/?s=${encodeURIComponent(q)}` },
+        { name:'Movieleach-Bolly',   color:'#f59e0b', base:'https://moviesleech.asia/?s=${encodeURIComponent(q)}`},
+       ];
       ].map((s, i) => (
         <a key={i} className="finder-link inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium"
           data-base={s.base} href="#" target="_blank" rel="noopener noreferrer"
