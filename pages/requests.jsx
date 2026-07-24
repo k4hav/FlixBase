@@ -47,10 +47,13 @@
     {/* Site links */}
     <div id="finder-results" className="flex-wrap gap-2 mb-3" style={{ display:'none' }}>
       {[
-        { name:'7Reels',      color:'#e05c3a', base:'https://7reels.cc/search?q=${encodeURIComponent(q)}' },
-        { name:'UHDMovies',   color:'#c0392b', base:'https://uhdmovies.casa/?s=${encodeURIComponent(q)}' },
-        { name:'MoviesMod-Holly',   color:'#10b981', base:'https://moviesmod.at/?s=${encodeURIComponent(q)}' },
-        { name:'Movieleach-Bolly',   color:'#f59e0b', base:'https://moviesleech.asia/?s=${encodeURIComponent(q)}' },
+        { name:'Vegamovies',  color:'#8b5cf6', base:'https://vegamoviess.lat/?s=' },
+        { name:'7Reels',      color:'#e05c3a', base:'https://7reels.cc/search?q=' },
+        { name:'UHDMovies',   color:'#c0392b', base:'https://uhdmovies.casa/?s=' },
+        { name:'MoviesMod',   color:'#10b981', base:'https://moviesmod.at/?s=' },
+        { name:'Bollyflix',   color:'#f59e0b', base:'https://bollyflix.skin/?s=' },
+        { name:'HDHub4u',     color:'#3b82f6', base:'https://hdhub4u.skin/?s=' },
+        { name:'Google',      color:'#4285F4', base:'https://www.google.com/search?q=' },
       ].map((s, i) => (
         <a key={i} className="finder-link inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium"
           data-base={s.base} href="#" target="_blank" rel="noopener noreferrer"
