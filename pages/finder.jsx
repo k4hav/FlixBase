@@ -8,12 +8,10 @@ import { Search, ArrowLeft, ExternalLink, Film } from 'lucide-react';
 const SITES = [
   { name: '7reel',    color: '#e05c3a', icon: '🎬', url: q => `https://7reels.cc/search?q=${encodeURIComponent(q)}` },
   { name: 'UHDMOVIES',      color: '#c0392b', icon: '🎥', url: q => `https://uhdmovies.casa/?s=${encodeURIComponent(q)}` },
-  { name: 'Vegamovies',    color: '#8b5cf6', icon: '🍿', url: q => `https://vegamoviess.lat/?s=${encodeURIComponent(q)}` },
   { name: 'Movieleach-Bolly',     color: '#f59e0b', icon: '⭐', url: q => `https://moviesleech.asia/?s=${encodeURIComponent(q)}` },
-  { name: 'cinehd',       color: '#3b82f6', icon: '📺', url: q => `https://cinehd.app/home?s=${encodeURIComponent(q)}` },
   { name: 'MovieMod',     color: '#10b981', icon: '🎞️', url: q => `https://moviesmod.at/?s=${encodeURIComponent(q)}` },
-  { name: '1337x',         color: '#f97316', icon: '🧲', url: q => `https://www.hypersonicmedia.workers.dev/1784808597872/popular-movies/?s${encodeURIComponent(q)}/1/` },
-  { name: 'Google',        color: '#4285F4', icon: '🔍', url: q => `https://www.google.com/search?q=${encodeURIComponent(q + ' download free')}` },
+  
+  
 ];
 
 export default function Finder() {
