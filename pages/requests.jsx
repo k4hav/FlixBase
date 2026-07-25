@@ -124,7 +124,7 @@ export default function Requests({ requests: initial }) {
     animate={{ x:['-100%','200%'] }}
     transition={{ repeat:Infinity, duration:4, ease:'easeInOut', repeatDelay:3 }}
   />
-  < className="relative z-10">
+  <div className="relative z-10">
     <p className="text-sm font-bold mb-1" style={{ color:'#e8c87a' }}>
       🔍 Can't find your movie on FlixBase?
     </p>
@@ -166,7 +166,7 @@ export default function Requests({ requests: initial }) {
 
      {/* Movie Finder Banner */}
 
-    <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }}
+     <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }}
   className="mb-6 p-4 rounded-2xl flex items-center justify-between gap-4"
   style={{ background:'rgba(201,168,76,0.05)', border:'1px solid rgba(201,168,76,0.15)' }}>
   <p className="text-xs" style={{ color:'#8a8778' }}>
@@ -179,6 +179,8 @@ export default function Requests({ requests: initial }) {
     </motion.div>
   </Link>
 </motion.div>
+
+    </div>
 
     {/* Site links */}
     <div id="finder-results" className="flex-wrap gap-2 mb-3" style={{ display:'none' }}>
