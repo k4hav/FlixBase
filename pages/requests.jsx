@@ -164,48 +164,7 @@ export default function Requests({ requests: initial }) {
     
 
 
-     {/* Movie Finder Banner */}
-
-     <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }}
-  className="mb-6 p-4 rounded-2xl flex items-center justify-between gap-4"
-  style={{ background:'rgba(201,168,76,0.05)', border:'1px solid rgba(201,168,76,0.15)' }}>
-  <p className="text-xs" style={{ color:'#8a8778' }}>
-    🔍 <span style={{ color:'#e8c87a' }}>Can't find your movie?</span> Search it on other sites first — if still not found, request it below.
-  </p>
-  <Link href="/finder">
-    <motion.div whileHover={{ scale:1.04 }} whileTap={{ scale:0.97 }}
-      className="btn-primary flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold flex-shrink-0">
-      🔍 Find Movie
-    </motion.div>
-  </Link>
-</motion.div>
-
-    </div>
-
-    {/* Site links */}
-    <div id="finder-results" className="flex-wrap gap-2 mb-3" style={{ display:'none' }}>
-      {[
-        { name:'Vegamovies',  color:'#8b5cf6', base:'https://vegamoviess.lat/?s=' },
-        { name:'7Reels',      color:'#e05c3a', base:'https://7reels.cc/search?q=' },
-        { name:'UHDMovies',   color:'#c0392b', base:'https://uhdmovies.casa/?s=' },
-        { name:'MoviesMod',   color:'#10b981', base:'https://moviesmod.at/?s=' },
-        { name:'Bollyflix',   color:'#f59e0b', base:'https://bollyflix.skin/?s=' },
-        { name:'HDHub4u',     color:'#3b82f6', base:'https://hdhub4u.skin/?s=' },
-        { name:'Google',      color:'#4285F4', base:'https://www.google.com/search?q=' },
-      ].map((s, i) => (
-        <a key={i} className="finder-link inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium"
-          data-base={s.base} href="#" target="_blank" rel="noopener noreferrer"
-          style={{ background:`${s.color}15`, border:`1px solid ${s.color}35`, color:s.color, textDecoration:'none' }}>
-          {s.name} →
-        </a>
-      ))}
-    </div>
-
-    <p className="text-[10px]" style={{ color:'#4a4a3a' }}>
-      Still not found anywhere? Fill the request form below ↓
-    </p>
-  </div>
-</motion.div>
+     
 
 
 
