@@ -58,7 +58,7 @@ FlixBase is a self-hosted, community-driven movie hub where anyone can add movie
 
 ## 🛠️ Tech Stack
 
-<div align="center">
+<div>
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
