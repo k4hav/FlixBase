@@ -28,7 +28,7 @@ FlixBase is a self-hosted, community-driven movie hub where anyone can add movie
 
 <div align="center">
 
-![Snake animation](https://github.com/k4hav/k4hav/blob/output/github-contribution-grid-snake.svg)
+
 
 </div>
 
