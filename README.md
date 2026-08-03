@@ -16,7 +16,7 @@
 ![Last Commit](https://img.shields.io/github/last-commit/k4hav/FlixBase?style=for-the-badge&color=orange)
 ![Repo Size](https://img.shields.io/github/repo-size/k4hav/FlixBase?style=for-the-badge&color=purple)
 
-
+<img src="https://cdn.pixabay.com/animation/2023/10/10/13/26/13-26-07-593_512.gif" width="300"/>
 
 </div>
 
