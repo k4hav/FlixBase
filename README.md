@@ -1,15 +1,22 @@
 <div align="center">
 
-# 🎬 FlixBase
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=FlixBase&fontSize=70&fontColor=fff&animation=twinkling&fontAlignY=38&desc=Your%20Cinematic%20Universe&descAlignY=58&descSize=20" width="100%"/>
 
-### Your Cinematic Universe
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=C9A84C&center=true&vCenter=true&width=600&lines=Discover+Movies%2C+Web+Series+%26+Anime;Find+Download+Links+%E2%80%A2+Build+Your+Collection;100%25+Free+%E2%80%A2+No+Login+%E2%80%A2+No+Ads" alt="Typing SVG" />
 
-*Discover movies, web series & anime — find download links, build your collection, and request your favourites. All in one place, completely free.*
+<br/>
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-flix--base.vercel.app-c9a84c?style=for-the-badge&logo=vercel&logoColor=white)](https://flix-base.vercel.app)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
 [![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue?style=for-the-badge&logo=apache)](LICENSE)
+
+![Stars](https://img.shields.io/github/stars/k4hav/FlixBase?style=for-the-badge&color=gold)
+![Forks](https://img.shields.io/github/forks/k4hav/FlixBase?style=for-the-badge&color=blue)
+![Last Commit](https://img.shields.io/github/last-commit/k4hav/FlixBase?style=for-the-badge&color=orange)
+![Repo Size](https://img.shields.io/github/repo-size/k4hav/FlixBase?style=for-the-badge&color=purple)
+
+<img src="https://media.giphy.com/media/l0HlKrB02QY0f1mbm/giphy.gif" width="450"/>
 
 </div>
 
@@ -19,9 +26,17 @@
 
 FlixBase is a self-hosted, community-driven movie hub where anyone can add movies and web series, share download links, and request their favourite titles. No subscriptions, no ads, no login required — completely free.
 
+<div align="center">
+
+![Snake animation](https://github.com/k4hav/k4hav/blob/output/github-contribution-grid-snake.svg)
+
+</div>
+
 ---
 
 ## 🚀 Features
+
+<div align="center">
 
 | Feature | Description |
 |---------|-------------|
@@ -37,9 +52,22 @@ FlixBase is a self-hosted, community-driven movie hub where anyone can add movie
 | 🚀 Free Hosting | Deploy on Vercel for free |
 | 🗄️ Free Database | Powered by Supabase free tier |
 
+</div>
+
 ---
 
 ## 🛠️ Tech Stack
+
+<div align="center">
+
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+</div>
 
 | Technology | Purpose |
 |-----------|---------|
@@ -130,6 +158,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser 🎉
 
 ## 🌐 Deploy on Vercel (Free)
 
+<div align="center">
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/k4hav/FlixBase)
+
+</div>
+
 1. Push your code to GitHub
 2. Go to [vercel.com](https://vercel.com) and sign in with GitHub
 3. Click **Add New Project** → import your `FlixBase` repository
@@ -188,18 +222,26 @@ You will receive a free domain like `flixbase.vercel.app`
 
 Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a pull request.
 
+<div align="center">
+
+![Contributors](https://contrib.rocks/image?repo=k4hav/FlixBase)
+
+</div>
+
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **Apache License 2.0** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
 <div align="center">
 
-Made by [k4hav](https://github.com/k4hav)
+Made with 🔥 by [k4hav](https://github.com/k4hav)
 
 ⭐ Star this repo if you found it useful!
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer"/>
 
 </div>
