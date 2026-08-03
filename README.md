@@ -16,7 +16,7 @@
 ![Last Commit](https://img.shields.io/github/last-commit/k4hav/FlixBase?style=for-the-badge&color=orange)
 ![Repo Size](https://img.shields.io/github/repo-size/k4hav/FlixBase?style=for-the-badge&color=purple)
 
-<img src="https://media.giphy.com/media/l0HlKrB02QY0f1mbm/giphy.gif" width="450"/>
+
 
 </div>
 
@@ -238,7 +238,7 @@ This project is licensed under the **Apache License 2.0** — see the [LICENSE](
 
 <div align="center">
 
-Made with 🔥 by [k4hav](https://github.com/k4hav)
+Made by [k4hav](https://github.com/k4hav)
 
 ⭐ Star this repo if you found it useful!
 
