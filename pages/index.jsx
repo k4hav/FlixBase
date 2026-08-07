@@ -32,14 +32,18 @@ function NoticeBoard() {
         <div className="flex-1 relative z-10">
           <p className="text-xs font-semibold mb-1" style={{ color:'#e8c87a' }}>Notice — Please Read</p>
           <p className="text-[11px] leading-relaxed" style={{ color:'#8a8778' }}>
-            Only <span style={{ color:'#c9a84c' }}>requested movies and series</span> are added to FlixBase.
-            If you are looking for something specific, head over to the{' '}
-            <Link href="/requests">
-              <span className="underline cursor-pointer" style={{ color:'#c9a84c' }}>Request Section</span>
+            <span style={{ color:'#c9a84c' }}>Disclaimer:</span> FlixBase does not own or host any content.
+            All movies, series and links available here are sourced from the internet through deep online research
+            We are not responsible for any third-party content. If you have a copyright concern, please{' '}
+            <Link href="/contact">
+              <span className="underline cursor-pointer"
+                style={{ color:'#c9a84c' }}
+                onMouseEnter={e=>e.target.style.color='#f5e4a8'}
+                onMouseLeave={e=>e.target.style.color='#c9a84c'}>
+                contact us
+              </span>
             </Link>
-            {' '}and submit your request.{' '}
-            <span style={{ color:'#c9a84c' }}>Requested contents are added within 24 hours.</span>
-            {' '}Please be patient!
+            {' '}and we will remove it immediately. 🙏
           </p>
         </div>
         <motion.button whileHover={{ scale:1.1, rotate:90 }} whileTap={{ scale:0.9 }}
