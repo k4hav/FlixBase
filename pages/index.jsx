@@ -107,7 +107,7 @@ export default function Home({ movies: initial }) {
     <>
       <Head>
         
-      <title>FlixBase|Free Movie Download Website | Watch Movies Online Free | Bollywood Hollywood Hindi</title>
+      <title>FlixBase: Free Movie Download Website | Watch Movies Online Free | Bollywood Hollywood Hindi</title>
        <meta name="description" content="FlixBase is the best free movie website to download and watch Bollywood, Hollywood, Hindi dubbed movies, web series and anime. Get 4K, 1080p, 720p free download links. No subscription needed." />
         <meta property="og:title" content="FlixBase — Discover movies, series & anime" />
         <meta property="og:description" content="Discover movies, web series & anime. Find download links and request your favourites." />
