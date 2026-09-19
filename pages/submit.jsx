@@ -54,18 +54,26 @@ const searchTMDB = async (query) => {
 const fillFromTMDB = async (item) => {
   setShowResults(false);
   setSearchQuery('');
+
+  if (item.imdbID === 'manual') {
+    return;
+  }
+
   try {
     const res = await fetch(`https://www.omdbapi.com/?i=${item.imdbID}&apikey=e09889cb`);
     const d = await res.json();
+
+    if (d.Response === 'False') return;
+
     setForm(f => ({ ...f,
       title:     d.Title || item.Title || '',
       year:      d.Year?.slice(0, 4) || '',
-      poster_url: d.Poster !== 'N/A' ? d.Poster : '',
-      rating:    d.imdbRating !== 'N/A' ? d.imdbRating : '',
-      overview:  d.Plot !== 'N/A' ? d.Plot : '',
-      genre:     d.Genre !== 'N/A' ? d.Genre.split(',')[0].trim() : '',
-      language:  d.Language !== 'N/A' ? d.Language.split(',')[0].trim() : '',
-      type:      d.Type === 'series' ? 'Series' : d.Type === 'movie' ? 'Movie' : 'Movie',
+      poster_url: d.Poster && d.Poster !== 'N/A' ? d.Poster : '',
+      rating:    d.imdbRating && d.imdbRating !== 'N/A' ? d.imdbRating : '',
+      overview:  d.Plot && d.Plot !== 'N/A' ? d.Plot : '',
+      genre:     d.Genre && d.Genre !== 'N/A' ? d.Genre.split(',')[0].trim() : '',
+      language:  d.Language && d.Language !== 'N/A' ? d.Language.split(',')[0].trim() : '',
+      type:      d.Type === 'series' ? 'Series' : 'Movie',
     }));
   } catch {}
 };
@@ -244,7 +252,7 @@ const validate = () => {
          const year = item.Year;
          const poster = item.Poster !== 'N/A' ? item.Poster : null;
           return (
-            <motion.div key={item.id}
+            <motion.div key={item.imdbID || i}
               whileHover={{ background:'rgba(201,168,76,0.08)' }}
               onMouseDown={() => fillFromTMDB(item)}
               className="flex items-center gap-3 px-3 py-2.5 cursor-pointer transition-colors"
