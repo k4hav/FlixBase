@@ -39,11 +39,13 @@ const searchTMDB = async (query) => {
   try {
     const res = await fetch(`https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=e09889cb`);
     const data = await res.json();
+    
     if (data.Search) {
       setSearchResults(data.Search.slice(0, 6));
       setShowResults(true);
     } else {
-      setSearchResults([]);
+      setSearchResults([{ imdbID: 'manual', Title: `"${query}" — Not found, fill manually`, Year: '', Poster: 'N/A', Type: 'movie' }]);
+      setShowResults(true);
     }
   } catch { setSearchResults([]); }
   finally { setSearching(false); }
