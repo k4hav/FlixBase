@@ -41,11 +41,13 @@ export default function Submit() {
       const res = await fetch(`https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=e09889cb`);
       const data = await res.json();
 
+      const manualOption = { imdbID: 'manual', Title: `Can't find "${query}"? Enter manually`, Year: '', Poster: 'N/A', Type: 'manual' };
+
       if (data.Search) {
-        setSearchResults(data.Search.slice(0, 6));
+        setSearchResults([...data.Search.slice(0, 6), manualOption]);
         setShowResults(true);
       } else {
-        setSearchResults([{ imdbID: 'manual', Title: `"${query}" — Not found, fill manually`, Year: '', Poster: 'N/A', Type: 'movie' }]);
+        setSearchResults([manualOption]);
         setShowResults(true);
       }
     } catch { setSearchResults([]); }
@@ -252,6 +254,24 @@ export default function Submit() {
                   className="absolute top-full left-0 right-0 z-50 mt-1 rounded-xl overflow-hidden"
                   style={{ background:'rgba(14,14,22,0.98)', border:'1px solid rgba(201,168,76,0.2)', backdropFilter:'blur(20px)', boxShadow:'0 20px 60px rgba(0,0,0,0.6)' }}>
                   {searchResults.map((item, i) => {
+                    if (item.imdbID === 'manual') {
+                      return (
+                        <motion.div key="manual"
+                          whileHover={{ background:'rgba(96,165,250,0.1)' }}
+                          onMouseDown={() => fillFromTMDB(item)}
+                          className="flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors"
+                          style={{ borderTop:'1px dashed rgba(96,165,250,0.25)', background:'rgba(96,165,250,0.04)' }}>
+                          <div className="w-8 h-12 rounded-md flex-shrink-0 flex items-center justify-center"
+                            style={{ background:'rgba(96,165,250,0.12)', border:'1px dashed rgba(96,165,250,0.35)' }}>
+                            <Plus size={14} style={{ color:'#60a5fa' }} />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-xs font-medium" style={{ color:'#93c5fd' }}>{item.Title}</div>
+                            <div className="text-[10px] mt-0.5" style={{ color:'#5a7a9a' }}>Fill all details yourself</div>
+                          </div>
+                        </motion.div>
+                      );
+                    }
                     const title = item.Title;
                     const year = item.Year;
                     const poster = item.Poster !== 'N/A' ? item.Poster : null;
@@ -260,7 +280,7 @@ export default function Submit() {
                         whileHover={{ background:'rgba(201,168,76,0.08)' }}
                         onMouseDown={() => fillFromTMDB(item)}
                         className="flex items-center gap-3 px-3 py-2.5 cursor-pointer transition-colors"
-                        style={{ borderBottom: i < searchResults.length-1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
+                        style={{ borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
                         {poster
                           ? <img src={poster} alt={title} className="w-8 h-12 object-cover rounded-md flex-shrink-0" />
                           : <div className="w-8 h-12 rounded-md flex-shrink-0" style={{ background:'#1a1a28' }} />
@@ -292,64 +312,98 @@ export default function Submit() {
             </AnimatePresence>
           </div>
 
-          {/* Manual Details Section — shown when TMDB search finds nothing */}
+          {/* Manual Details Section — shown when user picks "Enter manually" */}
           <AnimatePresence>
             {showManualFields && (
               <motion.div
-                initial={{ opacity:0, height:0 }} animate={{ opacity:1, height:'auto' }} exit={{ opacity:0, height:0 }}
-                className="p-4 rounded-xl space-y-3 overflow-hidden"
-                style={{ background:'rgba(201,168,76,0.04)', border:'1px solid rgba(201,168,76,0.15)' }}>
-                <p className="text-[10px] font-medium tracking-[2px] uppercase" style={{ color:'#c9a84c' }}>
-                  Fill Details Manually
-                </p>
-                <div className="grid grid-cols-2 gap-2.5">
-                  <div>
-                    <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#4a4a3a' }}>
-                      Year <span style={{ color:'#e05c3a' }}>*</span>
-                    </label>
-                    <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
-                      value={form.year} onChange={e => set('year', e.target.value)}
-                      placeholder="e.g. 2023" />
-                    {errors.year && <p className="text-red-400/80 text-[10px] mt-1">{errors.year}</p>}
-                  </div>
-                  <div>
-                    <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#4a4a3a' }}>Genre</label>
-                    <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
-                      value={form.genre} onChange={e => set('genre', e.target.value)}
-                      placeholder="e.g. Action" />
-                  </div>
-                  <div>
-                    <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#4a4a3a' }}>Language</label>
-                    <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
-                      value={form.language} onChange={e => set('language', e.target.value)}
-                      placeholder="e.g. Hindi" />
-                  </div>
-                  <div>
-                    <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#4a4a3a' }}>Rating</label>
-                    <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
-                      value={form.rating} onChange={e => set('rating', e.target.value)}
-                      placeholder="e.g. 7.5" />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#4a4a3a' }}>Poster Image URL</label>
-                  <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
-                    value={form.poster_url} onChange={e => set('poster_url', e.target.value)}
-                    placeholder="https://..." />
-                </div>
-                <div>
-                  <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#4a4a3a' }}>Overview</label>
-                  <textarea className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs" rows={3}
-                    value={form.overview} onChange={e => set('overview', e.target.value)}
-                    placeholder="Short description" />
-                </div>
-                <div>
-                  <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#4a4a3a' }}>Type</label>
-                  <select className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
-                    value={form.type} onChange={e => set('type', e.target.value)}>
-                    <option value="Movie">Movie</option>
-                    <option value="Series">Series</option>
-                  </select>
+                initial={{ opacity:0, height:0, scale:0.97 }}
+                animate={{ opacity:1, height:'auto', scale:1 }}
+                exit={{ opacity:0, height:0, scale:0.97 }}
+                transition={{ duration:0.35, ease:[0.16,1,0.3,1] }}
+                className="relative rounded-xl overflow-hidden"
+                style={{ background:'rgba(96,165,250,0.05)', border:'1px solid rgba(96,165,250,0.2)' }}>
+
+                {/* animated glow sweep */}
+                <motion.div className="absolute inset-0 pointer-events-none"
+                  style={{ background:'linear-gradient(105deg,transparent 30%,rgba(96,165,250,0.08) 50%,transparent 70%)' }}
+                  animate={{ x:['-100%','200%'] }}
+                  transition={{ repeat:Infinity, duration:3.5, ease:'easeInOut', repeatDelay:2 }}
+                />
+
+                <div className="relative z-10 p-4 space-y-3">
+                  <motion.div
+                    initial={{ opacity:0, y:-6 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.05 }}
+                    className="flex items-center gap-2 mb-1">
+                    <motion.div
+                      animate={{ rotate:[0,10,-10,0] }} transition={{ repeat:Infinity, duration:2.5, ease:'easeInOut' }}
+                      className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ background:'rgba(96,165,250,0.15)', border:'1px solid rgba(96,165,250,0.35)' }}>
+                      <Plus size={12} style={{ color:'#60a5fa' }} />
+                    </motion.div>
+                    <p className="text-[10px] font-semibold tracking-[2px] uppercase" style={{ color:'#93c5fd' }}>
+                      Fill Details Manually
+                    </p>
+                  </motion.div>
+
+                  {[
+                    <div className="grid grid-cols-2 gap-2.5" key="row1">
+                      <div>
+                        <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>
+                          Year <span style={{ color:'#e05c3a' }}>*</span>
+                        </label>
+                        <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
+                          value={form.year} onChange={e => set('year', e.target.value)}
+                          placeholder="e.g. 2023" />
+                        {errors.year && <p className="text-red-400/80 text-[10px] mt-1">{errors.year}</p>}
+                      </div>
+                      <div>
+                        <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>Genre</label>
+                        <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
+                          value={form.genre} onChange={e => set('genre', e.target.value)}
+                          placeholder="e.g. Action" />
+                      </div>
+                    </div>,
+                    <div className="grid grid-cols-2 gap-2.5" key="row2">
+                      <div>
+                        <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>Language</label>
+                        <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
+                          value={form.language} onChange={e => set('language', e.target.value)}
+                          placeholder="e.g. Hindi" />
+                      </div>
+                      <div>
+                        <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>Rating</label>
+                        <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
+                          value={form.rating} onChange={e => set('rating', e.target.value)}
+                          placeholder="e.g. 7.5" />
+                      </div>
+                    </div>,
+                    <div key="poster">
+                      <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>Poster Image URL</label>
+                      <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
+                        value={form.poster_url} onChange={e => set('poster_url', e.target.value)}
+                        placeholder="https://..." />
+                    </div>,
+                    <div key="overview">
+                      <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>Overview</label>
+                      <textarea className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs" rows={3}
+                        value={form.overview} onChange={e => set('overview', e.target.value)}
+                        placeholder="Short description" />
+                    </div>,
+                    <div key="type">
+                      <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>Type</label>
+                      <select className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
+                        value={form.type} onChange={e => set('type', e.target.value)}>
+                        <option value="Movie">Movie</option>
+                        <option value="Series">Series</option>
+                      </select>
+                    </div>,
+                  ].map((el, idx) => (
+                    <motion.div key={idx}
+                      initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }}
+                      transition={{ delay:0.08 + idx*0.06, duration:0.3, ease:'easeOut' }}>
+                      {el}
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
             )}
