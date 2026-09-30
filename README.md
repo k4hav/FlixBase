@@ -48,7 +48,6 @@ FlixBase is a self-hosted, community-driven movie hub where anyone can add movie
 | ❤️ My Collection | Save favourites to browser — no login needed |
 | 📥 Request System | Users can request movies and upvote each other's requests |
 | 👤 Uploader Credit | Uploaded by name shown on movie page |
-| 🛡️ Admin Panel | Add, edit, delete movies and manage requests |
 | 🚀 Free Hosting | Deploy on Vercel for free |
 | 🗄️ Free Database | Powered by Supabase free tier |
 
