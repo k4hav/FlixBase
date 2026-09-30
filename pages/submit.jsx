@@ -5,6 +5,39 @@ import { addMovie } from '../lib/supabase';
 import CinematicBackground from '../components/CinematicBackground';
 import { Film, Plus, Trash2, Save, ArrowLeft, CheckCircle2 } from 'lucide-react';
 
+// ─────────────── SECURITY HELPERS ───────────────
+// Text: trim, HTML tags strip, max length
+const sanitize = (str, max = 300) =>
+  (str ?? '').toString().trim().replace(/<[^>]*>/g, '').slice(0, max);
+
+// URL: sirf valid http/https allow (javascript: etc. block)
+const safeUrl = (u) => {
+  try {
+    const x = new URL((u || '').trim());
+    return x.protocol === 'https:' || x.protocol === 'http:' ? x.href : '';
+  } catch { return ''; }
+};
+
+// Rating: sirf number (0-10), warna empty
+const safeRating = (r) => {
+  const v = (r ?? '').toString().trim();
+  if (!/^\d+(\.\d+)?$/.test(v)) return '';
+  const n = parseFloat(v);
+  return n >= 0 && n <= 10 ? v.slice(0, 4) : '';
+};
+
+// Links array clean karo
+const cleanLinks = (arr, withInfo) =>
+  arr
+    .map(l => ({
+      label: sanitize(l.label, 50),
+      ...(withInfo && { info: sanitize(l.info, 100) }),
+      url: safeUrl(l.url),
+      ...(withInfo && { color: /^#[0-9a-f]{6}$/i.test(l.color) ? l.color : '#c9a84c' }),
+    }))
+    .filter(l => l.url);
+// ────────────────────────────────────────────────
+
 const PLATFORMS = [
   { name: 'Telegram',     color: '#229ED9' },
   { name: 'Google Drive', color: '#4285F4' },
@@ -101,10 +134,25 @@ export default function Submit() {
     if (!validate()) return;
     setLoading(true);
     try {
-      await addMovie({ ...form, links: links.filter(l => l.url), watch_links: watchLinks.filter(l=>l.url) });
+      // Sirf whitelisted + cleaned fields jaate hain (featured/status nahi)
+      await addMovie({
+        title:       sanitize(form.title, 200),
+        year:        sanitize(form.year, 4),
+        type:        form.type === 'Series' ? 'Series' : 'Movie',
+        language:    sanitize(form.language, 50),
+        genre:       sanitize(form.genre, 50),
+        rating:      safeRating(form.rating),
+        poster_url:  safeUrl(form.poster_url),
+        trailer_url: safeUrl(form.trailer_url),
+        overview:    sanitize(form.overview, 2000),
+        uploaded_by: sanitize(form.uploaded_by, 50),
+        links:       cleanLinks(links, true),
+        watch_links: cleanLinks(watchLinks, false),
+      });
       setSuccess(true);
       setForm(EMPTY);
       setLinks([]);
+      setWatchLinks([]);
       setShowManualFields(false);
     } catch (err) {
       setErrors({ submit: err.message });
@@ -210,6 +258,7 @@ export default function Submit() {
             </label>
             <input className="input-dark w-full px-3 py-2 rounded-lg text-sm"
               value={form.uploaded_by} onChange={e => set('uploaded_by', e.target.value)}
+              maxLength={50}
               placeholder="e.g. Keshav, Rahul, Anonymous..." />
             <p className="text-[10px] mt-1.5" style={{ color:'#4a4a3a' }}>
               Will show as "Uploaded by {form.uploaded_by || 'you'}" on the movie page
@@ -227,6 +276,7 @@ export default function Submit() {
               <input
                 className="input-dark w-full px-3 py-2.5 rounded-lg text-sm pr-10"
                 value={searchQuery || form.title}
+                maxLength={200}
                 onChange={e => {
                   const val = e.target.value;
                   setSearchQuery(val);
@@ -353,6 +403,7 @@ export default function Submit() {
                         </label>
                         <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
                           value={form.year} onChange={e => set('year', e.target.value)}
+                          maxLength={4}
                           placeholder="e.g. 2023" />
                         {errors.year && <p className="text-red-400/80 text-[10px] mt-1">{errors.year}</p>}
                       </div>
@@ -360,6 +411,7 @@ export default function Submit() {
                         <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>Genre</label>
                         <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
                           value={form.genre} onChange={e => set('genre', e.target.value)}
+                          maxLength={50}
                           placeholder="e.g. Action" />
                       </div>
                     </div>,
@@ -368,12 +420,14 @@ export default function Submit() {
                         <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>Language</label>
                         <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
                           value={form.language} onChange={e => set('language', e.target.value)}
+                          maxLength={50}
                           placeholder="e.g. Hindi" />
                       </div>
                       <div>
                         <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>Rating</label>
                         <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
                           value={form.rating} onChange={e => set('rating', e.target.value)}
+                          maxLength={4}
                           placeholder="e.g. 7.5" />
                       </div>
                     </div>,
@@ -387,6 +441,7 @@ export default function Submit() {
                       <label className="block text-[9px] tracking-widest uppercase mb-1" style={{ color:'#5a7a9a' }}>Overview</label>
                       <textarea className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs" rows={3}
                         value={form.overview} onChange={e => set('overview', e.target.value)}
+                        maxLength={2000}
                         placeholder="Short description" />
                     </div>,
                     <div key="type">
@@ -432,6 +487,7 @@ export default function Submit() {
                   <div className="flex gap-2 items-center flex-wrap">
                     <input className="input-dark flex-1 min-w-[120px] px-2.5 py-1.5 rounded-lg text-xs"
                       value={link.label}
+                      maxLength={50}
                       onChange={e => setWatchLinks(l=>l.map((x,idx)=>idx===i?{...x,label:e.target.value}:x))}
                       placeholder="Label (e.g. Watch HD)" />
                     <input className="input-dark flex-[2] min-w-[150px] px-2.5 py-1.5 rounded-lg text-xs"
@@ -498,12 +554,14 @@ export default function Submit() {
                     </label>
                     <input className="input-dark w-full px-2.5 py-1.5 rounded-lg text-xs"
                       value={link.info || ''} onChange={e => setLink(i, 'info', e.target.value)}
+                      maxLength={100}
                       placeholder="e.g.  1080p HD  /  Season 1 Episode 1  /  4K HDR  /  480p" />
                   </div>
 
                   <div className="flex gap-2 items-center flex-wrap">
                     <input className="input-dark flex-1 min-w-[90px] px-2.5 py-1.5 rounded-lg text-xs"
                       value={link.label} onChange={e => setLink(i, 'label', e.target.value)}
+                      maxLength={50}
                       placeholder="Platform name" />
                     <input className="input-dark flex-[2] min-w-[130px] px-2.5 py-1.5 rounded-lg text-xs"
                       value={link.url} onChange={e => setLink(i, 'url', e.target.value)}
