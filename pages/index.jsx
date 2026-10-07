@@ -32,7 +32,7 @@ function NoticeBoard() {
         <div className="flex-1 relative z-10">
           <p className="text-xs font-semibold mb-1" style={{ color:'#e8c87a' }}>Notice</p>
           <p className="text-[11px] leading-relaxed" style={{ color:'#8a8778' }}>
-            <span style={{ color:'#c9a84c' }}>Disclaimer:</span> Fs not own or host any content.
+            <span style={{ color:'#c9a84c' }}>Disclaimer:</span> FLIXBASE does not own or host any content.
             All movies, series and links available here are sourced from the internet through deep online research
             We are not responsible for any third-party content. If you have a copyright concern, please{' '}
             <Link href="/contact">
