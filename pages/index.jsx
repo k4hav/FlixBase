@@ -30,9 +30,9 @@ function NoticeBoard() {
           📢
         </motion.div>
         <div className="flex-1 relative z-10">
-          <p className="text-xs font-semibold mb-1" style={{ color:'#e8c87a' }}>Notice — Please Read</p>
+          <p className="text-xs font-semibold mb-1" style={{ color:'#e8c87a' }}>Notice</p>
           <p className="text-[11px] leading-relaxed" style={{ color:'#8a8778' }}>
-            <span style={{ color:'#c9a84c' }}>Disclaimer:</span> FlixBase does not own or host any content.
+            <span style={{ color:'#c9a84c' }}>Disclaimer:</span> Fs not own or host any content.
             All movies, series and links available here are sourced from the internet through deep online research
             We are not responsible for any third-party content. If you have a copyright concern, please{' '}
             <Link href="/contact">
@@ -45,6 +45,28 @@ function NoticeBoard() {
             </Link>
             {' '}and we will remove it immediately. 🙏
           </p>
+{/* Why FlixBase */}
+<div className="mt-4 pt-4 border-t border-white/10">
+  <p
+    className="text-xs font-semibold mb-1"
+    style={{ color: '#c9a84c' }}
+  >
+    Why FlixBase?
+  </p>
+
+  <p
+    className="text-[11px] leading-relaxed"
+    style={{ color: '#a8a778' }}
+  >
+   FlixBase is completely ad-free. 
+   I don’t place any ads on the platform. 
+    I make finding and downloading content 
+    easier by removing most of the unwanted 
+    ads, pop-ups, redirects, and unnecessary 
+    distractions found on other websites.
+  </p>
+</div>
+          
         </div>
         <motion.button whileHover={{ scale:1.1, rotate:90 }} whileTap={{ scale:0.9 }}
           onClick={() => setVisible(false)}
