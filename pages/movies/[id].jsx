@@ -34,6 +34,49 @@ export default function MovieDetail({ movie }) {
     {movie.poster_url && <meta property="og:image" content={movie.poster_url} />}
     </Head>
 
+    {/* Download button styles (gold gradient border button) */}
+    <style jsx global>{`
+      .dl-btn {
+        position: relative;
+        display: inline-flex;
+        padding: 1.5px;
+        border-radius: 12px;
+        text-decoration: none;
+        cursor: pointer;
+        background: linear-gradient(to right,#77530a,#ffd277,#77530a,#77530a,#ffd277,#77530a);
+        background-size: 250%;
+        background-position: left;
+        transition: background-position 1s, box-shadow 0.4s;
+        box-shadow: 0 4px 20px rgba(201,168,76,0.08);
+      }
+      .dl-btn:hover {
+        background-position: right;
+        box-shadow: 0 6px 26px rgba(255,210,119,0.22);
+      }
+      .dl-btn-inner {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px 16px;
+        border-radius: 10.5px;
+        background: rgba(8,8,18,0.92);
+        overflow: hidden;
+      }
+      .dl-btn-inner::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(105deg,transparent 30%,rgba(255,210,119,0.10) 50%,transparent 70%);
+        transform: translateX(-100%);
+        transition: transform 0.9s ease;
+      }
+      .dl-btn:hover .dl-btn-inner::after {
+        transform: translateX(100%);
+      }
+    `}</style>
+
     <CinematicBackground />
     {movie.poster_url && (
       <div className="fixed inset-0 pointer-events-none z-0"
@@ -246,27 +289,23 @@ export default function MovieDetail({ movie }) {
                 <motion.a key={i} href={l.url} target="_blank" rel="noopener noreferrer"
                 initial={{ opacity:0, scale:0.9 }} animate={{ opacity:1, scale:1 }}
                 transition={{ delay:0.35 + i*0.06 }}
-                whileHover={{ scale:1.04, y:-2 }} whileTap={{ scale:0.97 }}
-                className="flex flex-col gap-1 px-4 py-2.5 rounded-xl transition-all"
-                style={{
-                  background:`${l.color||'#c9a84c'}18`,
-                  border:`1px solid ${l.color||'#c9a84c'}35`,
-                  boxShadow:`0 4px 20px ${l.color||'#c9a84c'}10`,
-                  textDecoration:'none',
-                }}>
+                whileTap={{ scale:0.95 }}
+                className="dl-btn">
+                <div className="dl-btn-inner">
                 <div className="flex items-center gap-2">
-                <Download size={12} style={{ color:l.color||'#c9a84c' }} />
-                <span className="text-sm font-medium" style={{ color:l.color||'#c9a84c' }}>
+                <Download size={12} style={{ color:l.color||'#ffd277' }} />
+                <span className="text-sm font-semibold" style={{ color:l.color||'#ffd277' }}>
                 {l.label||'Download'}
                 </span>
-                <ExternalLink size={10} style={{ color:l.color||'#c9a84c', opacity:0.5 }} />
+                <ExternalLink size={10} style={{ color:l.color||'#ffd277', opacity:0.5 }} />
                 </div>
                 {l.info && (
                   <span className="text-[10px] px-1.5 py-0.5 rounded self-start"
-                  style={{ background:`${l.color||'#c9a84c'}15`, color:l.color||'#c9a84c', opacity:0.8 }}>
+                  style={{ background:'rgba(255,210,119,0.08)', color:'#d9c58a' }}>
                   {l.info}
                   </span>
                 )}
+                </div>
                 </motion.a>
               ))}
               </div>
