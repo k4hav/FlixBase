@@ -34,46 +34,137 @@ export default function MovieDetail({ movie }) {
     {movie.poster_url && <meta property="og:image" content={movie.poster_url} />}
     </Head>
 
-    {/* Download button styles (gold gradient border button) */}
+    {/* Download button styles — spinning light border + spotlight + 3D tilt */}
     <style jsx global>{`
+      @property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+
+      @keyframes dl-spin { to { --ang: 360deg; } }
+      @keyframes dl-ring { 0% { transform: scale(0.8); opacity: 0.7; } 100% { transform: scale(1.7); opacity: 0; } }
+      @keyframes dl-bounce { 0%,100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
+      @keyframes dl-rise { 0% { transform: translateY(8px) scale(0.5); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-26px) scale(1); opacity: 0; } }
+      @keyframes dl-chip { 0% { background-position: -150% 0; } 100% { background-position: 250% 0; } }
+
       .dl-btn {
+        --c: #ffd277;
         position: relative;
         display: inline-flex;
         padding: 1.5px;
-        border-radius: 12px;
+        border-radius: 18px;
         text-decoration: none;
         cursor: pointer;
-        background: linear-gradient(to right,#77530a,#ffd277,#77530a,#77530a,#ffd277,#77530a);
-        background-size: 250%;
-        background-position: left;
-        transition: background-position 1s, box-shadow 0.4s;
-        box-shadow: 0 4px 20px rgba(201,168,76,0.08);
+        transform: perspective(700px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+        transition: transform 0.25s ease-out;
+        background:
+          conic-gradient(from var(--ang), transparent 0deg, transparent 190deg, var(--c) 270deg, #ffd277 320deg, #fff 345deg, transparent 360deg),
+          rgba(255,210,119,0.12);
+        animation: dl-spin 4s linear infinite;
+        isolation: isolate;
       }
-      .dl-btn:hover {
-        background-position: right;
-        box-shadow: 0 6px 26px rgba(255,210,119,0.22);
+      .dl-btn:hover { animation-duration: 1.4s; }
+
+      /* soft glow behind the border */
+      .dl-btn::before {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        z-index: -1;
+        border-radius: 21px;
+        background: conic-gradient(from var(--ang), transparent 0deg, transparent 190deg, var(--c) 270deg, #ffd277 330deg, transparent 360deg);
+        filter: blur(16px);
+        opacity: 0.28;
+        transition: opacity 0.4s;
+        animation: dl-spin 4s linear infinite;
       }
+      .dl-btn:hover::before { opacity: 0.75; animation-duration: 1.4s; }
+
       .dl-btn-inner {
         position: relative;
         display: flex;
-        flex-direction: column;
-        gap: 4px;
-        padding: 10px 16px;
-        border-radius: 10.5px;
-        background: rgba(8,8,18,0.92);
+        align-items: center;
+        gap: 14px;
+        padding: 12px 20px 12px 14px;
+        border-radius: 16.5px;
         overflow: hidden;
+        background:
+          radial-gradient(170px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--c) 24%, transparent), transparent 70%),
+          linear-gradient(135deg, #0e0e1e, #07070f);
       }
+
+      /* diagonal shine sweep on hover */
       .dl-btn-inner::after {
         content: '';
         position: absolute;
         inset: 0;
         pointer-events: none;
-        background: linear-gradient(105deg,transparent 30%,rgba(255,210,119,0.10) 50%,transparent 70%);
-        transform: translateX(-100%);
-        transition: transform 0.9s ease;
+        background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.14) 50%, transparent 65%);
+        transform: translateX(-120%);
+        transition: transform 0.8s ease;
       }
-      .dl-btn:hover .dl-btn-inner::after {
-        transform: translateX(100%);
+      .dl-btn:hover .dl-btn-inner::after { transform: translateX(120%); }
+
+      /* icon bubble */
+      .dl-ic {
+        position: relative;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--c);
+        background: color-mix(in srgb, var(--c) 14%, transparent);
+        border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+        box-shadow: 0 0 18px color-mix(in srgb, var(--c) 30%, transparent);
+      }
+      .dl-ic::after {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: 50%;
+        border: 1px solid var(--c);
+        opacity: 0;
+        animation: dl-ring 2s ease-out infinite;
+      }
+      .dl-btn:hover .dl-ic svg { animation: dl-bounce 0.7s ease-in-out infinite; }
+
+      .dl-label { font-size: 14px; font-weight: 600; letter-spacing: 0.02em; color: var(--c); display: flex; align-items: center; gap: 7px; }
+      .dl-label svg { opacity: 0.55; transition: transform 0.3s, opacity 0.3s; }
+      .dl-btn:hover .dl-label svg { transform: translate(3px,-3px); opacity: 1; }
+
+      .dl-chip {
+        display: inline-block;
+        margin-top: 5px;
+        padding: 3px 8px;
+        font-size: 10px;
+        line-height: 1.35;
+        border-radius: 7px;
+        color: #d9c58a;
+        border: 1px solid rgba(255,210,119,0.14);
+        background:
+          linear-gradient(100deg, transparent 30%, rgba(255,210,119,0.22) 50%, transparent 70%) no-repeat,
+          rgba(255,210,119,0.06);
+        background-size: 60% 100%, 100% 100%;
+        background-position: -150% 0, 0 0;
+      }
+      .dl-btn:hover .dl-chip { animation: dl-chip 1.6s ease-in-out infinite; }
+
+      /* floating sparks */
+      .dl-spark {
+        position: absolute;
+        bottom: 10px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--c);
+        box-shadow: 0 0 8px var(--c);
+        opacity: 0;
+        pointer-events: none;
+      }
+      .dl-btn:hover .dl-spark { animation: dl-rise 1.4s ease-out infinite; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .dl-btn, .dl-btn::before, .dl-ic::after { animation: none !important; }
       }
     `}</style>
 
@@ -286,27 +377,42 @@ export default function MovieDetail({ movie }) {
             : (
               <div className="flex flex-wrap gap-3">
               {links.map((l, i) => (
-                <motion.a key={i} href={l.url} target="_blank" rel="noopener noreferrer"
-                initial={{ opacity:0, scale:0.9 }} animate={{ opacity:1, scale:1 }}
-                transition={{ delay:0.35 + i*0.06 }}
-                whileTap={{ scale:0.95 }}
-                className="dl-btn">
+                <motion.div key={i}
+                initial={{ opacity:0, y:28, scale:0.9 }} animate={{ opacity:1, y:0, scale:1 }}
+                transition={{ type:'spring', stiffness:140, damping:16, delay:0.35 + i*0.08 }}
+                whileTap={{ scale:0.95 }}>
+                <a href={l.url} target="_blank" rel="noopener noreferrer"
+                className="dl-btn"
+                style={{ '--c': l.color || '#ffd277' }}
+                onMouseMove={e => {
+                  const el = e.currentTarget;
+                  const r = el.getBoundingClientRect();
+                  const x = e.clientX - r.left, y = e.clientY - r.top;
+                  el.style.setProperty('--mx', x + 'px');
+                  el.style.setProperty('--my', y + 'px');
+                  el.style.setProperty('--ry', ((x / r.width - 0.5) * 10) + 'deg');
+                  el.style.setProperty('--rx', (-(y / r.height - 0.5) * 10) + 'deg');
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget;
+                  el.style.setProperty('--rx', '0deg');
+                  el.style.setProperty('--ry', '0deg');
+                }}>
                 <div className="dl-btn-inner">
-                <div className="flex items-center gap-2">
-                <Download size={12} style={{ color:l.color||'#ffd277' }} />
-                <span className="text-sm font-semibold" style={{ color:l.color||'#ffd277' }}>
+                <span className="dl-spark" style={{ left:'26px', animationDelay:'0s' }} />
+                <span className="dl-spark" style={{ left:'38px', animationDelay:'0.45s' }} />
+                <span className="dl-spark" style={{ left:'18px', animationDelay:'0.9s' }} />
+                <div className="dl-ic"><Download size={17} /></div>
+                <div className="min-w-0">
+                <div className="dl-label">
                 {l.label||'Download'}
-                </span>
-                <ExternalLink size={10} style={{ color:l.color||'#ffd277', opacity:0.5 }} />
+                <ExternalLink size={11} />
                 </div>
-                {l.info && (
-                  <span className="text-[10px] px-1.5 py-0.5 rounded self-start"
-                  style={{ background:'rgba(255,210,119,0.08)', color:'#d9c58a' }}>
-                  {l.info}
-                  </span>
-                )}
+                {l.info && <span className="dl-chip">{l.info}</span>}
                 </div>
-                </motion.a>
+                </div>
+                </a>
+                </motion.div>
               ))}
               </div>
             )
