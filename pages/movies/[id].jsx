@@ -39,7 +39,7 @@ export default function MovieDetail({ movie }) {
       @keyframes dl-ring { 0% { transform: scale(0.8); opacity: 0.7; } 100% { transform: scale(1.7); opacity: 0; } }
       @keyframes dl-bounce { 0%,100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
       @keyframes dl-rise { 0% { transform: translateY(8px) scale(0.5); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-26px) scale(1); opacity: 0; } }
-      @keyframes dl-swipe { 0% { transform: translateX(-160%) skewX(-22deg); } 55%,100% { transform: translateX(380%) skewX(-22deg); } }
+      @keyframes dl-swipe { 0% { transform: translateX(-160%) skewX(-22deg); } 60%,100% { transform: translateX(380%) skewX(-22deg); } }
       @keyframes dl-chip { 0% { background-position: -150% 0; } 100% { background-position: 250% 0; } }
 
       .dl-btn {
@@ -86,7 +86,7 @@ export default function MovieDetail({ movie }) {
         transform: translateX(-160%) skewX(-22deg);
         background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10) 45%, rgba(255,255,255,0.20) 50%, rgba(255,255,255,0.10) 55%, transparent);
       }
-      .dl-btn:hover .dl-btn-inner::after { opacity: 1; animation: dl-swipe 1.8s ease-in-out infinite; }
+      .dl-btn:hover .dl-btn-inner::after { opacity: 1; animation: dl-swipe 4.5s ease-in-out infinite; }
 
       /* icon bubble */
       .dl-ic {
