@@ -42,6 +42,7 @@ export default function MovieDetail({ movie }) {
       @keyframes dl-ring { 0% { transform: scale(0.8); opacity: 0.7; } 100% { transform: scale(1.7); opacity: 0; } }
       @keyframes dl-bounce { 0%,100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
       @keyframes dl-rise { 0% { transform: translateY(8px) scale(0.5); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-26px) scale(1); opacity: 0; } }
+      @keyframes dl-swipe { 0% { transform: translateX(-160%) skewX(-22deg); } 55%,100% { transform: translateX(380%) skewX(-22deg); } }
       @keyframes dl-chip { 0% { background-position: -150% 0; } 100% { background-position: 250% 0; } }
 
       .dl-btn {
@@ -66,16 +67,16 @@ export default function MovieDetail({ movie }) {
       .dl-btn::before {
         content: '';
         position: absolute;
-        inset: -3px;
+        inset: 0;
         z-index: -1;
-        border-radius: 21px;
-        background: conic-gradient(from var(--ang), transparent 0deg, transparent 190deg, var(--c) 270deg, #ffd277 330deg, transparent 360deg);
-        filter: blur(16px);
-        opacity: 0.28;
+        border-radius: 18px;
+        background: conic-gradient(from var(--ang), transparent 0deg, transparent 220deg, var(--c) 290deg, transparent 350deg);
+        filter: blur(9px);
+        opacity: 0.12;
         transition: opacity 0.4s;
         animation: dl-spin 4s linear infinite;
       }
-      .dl-btn:hover::before { opacity: 0.75; animation-duration: 1.4s; }
+      .dl-btn:hover::before { opacity: 0.32; animation-duration: 1.4s; }
 
       .dl-btn-inner {
         position: relative;
@@ -86,21 +87,24 @@ export default function MovieDetail({ movie }) {
         border-radius: 16.5px;
         overflow: hidden;
         background:
-          radial-gradient(170px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--c) 24%, transparent), transparent 70%),
+          radial-gradient(170px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--c) 14%, transparent), transparent 70%),
           linear-gradient(135deg, #0e0e1e, #07070f);
       }
 
-      /* diagonal shine sweep on hover */
+      /* light swipe: slanted band, plays only on hover (no reverse sweep) */
       .dl-btn-inner::after {
         content: '';
         position: absolute;
-        inset: 0;
+        top: -20%;
+        bottom: -20%;
+        left: 0;
+        width: 38%;
         pointer-events: none;
-        background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.14) 50%, transparent 65%);
-        transform: translateX(-120%);
-        transition: transform 0.8s ease;
+        opacity: 0;
+        transform: translateX(-160%) skewX(-22deg);
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10) 45%, rgba(255,255,255,0.20) 50%, rgba(255,255,255,0.10) 55%, transparent);
       }
-      .dl-btn:hover .dl-btn-inner::after { transform: translateX(120%); }
+      .dl-btn:hover .dl-btn-inner::after { opacity: 1; animation: dl-swipe 1.8s ease-in-out infinite; }
 
       /* icon bubble */
       .dl-ic {
@@ -115,7 +119,7 @@ export default function MovieDetail({ movie }) {
         color: var(--c);
         background: color-mix(in srgb, var(--c) 14%, transparent);
         border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
-        box-shadow: 0 0 18px color-mix(in srgb, var(--c) 30%, transparent);
+        box-shadow: 0 0 10px color-mix(in srgb, var(--c) 18%, transparent);
       }
       .dl-ic::after {
         content: '';
