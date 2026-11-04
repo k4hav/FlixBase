@@ -36,9 +36,6 @@ export default function MovieDetail({ movie }) {
 
     {/* Download button styles — spinning light border + spotlight + 3D tilt */}
     <style jsx global>{`
-      @property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-
-      @keyframes dl-spin { to { --ang: 360deg; } }
       @keyframes dl-ring { 0% { transform: scale(0.8); opacity: 0.7; } 100% { transform: scale(1.7); opacity: 0; } }
       @keyframes dl-bounce { 0%,100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
       @keyframes dl-rise { 0% { transform: translateY(8px) scale(0.5); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-26px) scale(1); opacity: 0; } }
@@ -54,29 +51,14 @@ export default function MovieDetail({ movie }) {
         text-decoration: none;
         cursor: pointer;
         transform: perspective(700px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-        transition: transform 0.25s ease-out;
-        background:
-          conic-gradient(from var(--ang), transparent 0deg, transparent 190deg, var(--c) 270deg, #ffd277 320deg, #fff 345deg, transparent 360deg),
-          rgba(255,210,119,0.12);
-        animation: dl-spin 4s linear infinite;
+        transition: transform 0.25s ease-out, box-shadow 0.4s, background 0.4s;
+        background: linear-gradient(135deg, color-mix(in srgb, var(--c) 35%, transparent), rgba(255,210,119,0.10) 50%, color-mix(in srgb, var(--c) 35%, transparent));
         isolation: isolate;
       }
-      .dl-btn:hover { animation-duration: 1.4s; }
-
-      /* soft glow behind the border */
-      .dl-btn::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        border-radius: 18px;
-        background: conic-gradient(from var(--ang), transparent 0deg, transparent 220deg, var(--c) 290deg, transparent 350deg);
-        filter: blur(9px);
-        opacity: 0.12;
-        transition: opacity 0.4s;
-        animation: dl-spin 4s linear infinite;
+      .dl-btn:hover {
+        background: linear-gradient(135deg, color-mix(in srgb, var(--c) 80%, transparent), rgba(255,210,119,0.25) 50%, color-mix(in srgb, var(--c) 80%, transparent));
+        box-shadow: 0 6px 22px color-mix(in srgb, var(--c) 18%, transparent);
       }
-      .dl-btn:hover::before { opacity: 0.32; animation-duration: 1.4s; }
 
       .dl-btn-inner {
         position: relative;
@@ -168,7 +150,7 @@ export default function MovieDetail({ movie }) {
       .dl-btn:hover .dl-spark { animation: dl-rise 1.4s ease-out infinite; }
 
       @media (prefers-reduced-motion: reduce) {
-        .dl-btn, .dl-btn::before, .dl-ic::after { animation: none !important; }
+        .dl-ic::after { animation: none !important; }
       }
     `}</style>
 
