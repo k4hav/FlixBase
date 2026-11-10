@@ -338,7 +338,7 @@ export default function MovieDetail({ movie }) {
           {/* Play icon animated */}
           <motion.div className="relative z-10 w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
             style={{ background:'rgba(255,255,255,0.15)', border:'1px solid rgba(255,255,255,0.3)' }}
-            animate={{ scale:[1,1.2,1], boxShadow:['0 0 0px rgba(99,102,241,0)','0 0 16px rgba(99,102,241,0.8)','0 0 0px rgba(99,102,241,0)'] }}
+            animate={{ scale:[1,1,1], boxShadow:['0 0 0px rgba(99,102,241,0)','0 0 16px rgba(99,102,241,0.8)','0 0 0px rgba(99,102,241,0)'] }}
             transition={{ repeat:Infinity, duration:1.8, ease:'easeInOut' }}
           >
             <span style={{ fontSize:'10px', marginLeft:'1px' }}>▶</span>
