@@ -305,16 +305,6 @@ export default function MovieDetail({ movie }) {
 )}
 
 
-{/* Uploader Instruction */}
-{movie.instruction && (
-  <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.2 }} className="mb-6">
-    <div className="section-tag mb-3 flex items-center gap-2">📝 Uploader Instruction</div>
-    <div className="p-4 rounded-xl text-xs leading-relaxed whitespace-pre-line"
-      style={{ background:'rgba(201,168,76,0.05)', border:'1px solid rgba(201,168,76,0.18)', color:'#b8b4a8' }}>
-      {movie.instruction}
-    </div>
-  </motion.div>
-)}
 
         {/* Watch Online */}
 {movie.watch_links && Array.isArray(movie.watch_links) && movie.watch_links.length > 0 && (
@@ -359,6 +349,20 @@ export default function MovieDetail({ movie }) {
           <ExternalLink size={12} className="relative z-10" style={{ opacity:0.7 }} />
         </motion.a>
       ))}
+    </div>
+  </motion.div>
+)}
+
+
+
+
+{/* Uploader Instruction */}
+{movie.instruction && (
+  <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.2 }} className="mb-6">
+    <div className="section-tag mb-3 flex items-center gap-2">📝 Uploader Instruction</div>
+    <div className="p-4 rounded-xl text-xs leading-relaxed whitespace-pre-line"
+      style={{ background:'rgba(201,168,76,0.05)', border:'1px solid rgba(201,168,76,0.18)', color:'#b8b4a8' }}>
+      {movie.instruction}
     </div>
   </motion.div>
 )}
