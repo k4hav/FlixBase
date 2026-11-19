@@ -50,7 +50,7 @@ const PLATFORMS = [
   { name: 'Custom',       color: '#c9a84c' },
 ];
 
-const EMPTY = { title:'', year:'', type:'Movie', language:'', genre:'', rating:'', poster_url:'', overview:'', uploaded_by:'', featured:false, trailer_url:'' };
+const EMPTY = { title:'', year:'', type:'Movie', language:'', genre:'', rating:'', poster_url:'', overview:'', uploaded_by:'', featured:false, trailer_url:'', instruction:'' };
 
 export default function Submit() {
   const [form,    setForm]    = useState(EMPTY);
@@ -131,35 +131,36 @@ export default function Submit() {
   };
 
   const handleSubmit = async () => {
-    if (!validate()) return;
-    setLoading(true);
-    try {
-      // Sirf whitelisted + cleaned fields jaate hain (featured/status nahi)
-      await addMovie({
-        title:       sanitize(form.title, 200),
-        year:        sanitize(form.year, 4),
-        type:        form.type === 'Series' ? 'Series' : 'Movie',
-        language:    sanitize(form.language, 50),
-        genre:       sanitize(form.genre, 50),
-        rating:      safeRating(form.rating),
-        poster_url:  safeUrl(form.poster_url),
-        trailer_url: safeUrl(form.trailer_url),
-        overview:    sanitize(form.overview, 2000),
-        uploaded_by: sanitize(form.uploaded_by, 50),
-        links:       cleanLinks(links, true),
-        watch_links: cleanLinks(watchLinks, false),
-      });
-      setSuccess(true);
-      setForm(EMPTY);
-      setLinks([]);
-      setWatchLinks([]);
-      setShowManualFields(false);
-    } catch (err) {
-      setErrors({ submit: err.message });
-    } finally {
-      setLoading(false);
-    }
-  };
+  if (!validate()) return;
+  setLoading(true);
+  try {
+    // Sirf whitelisted + cleaned fields jaate hain (featured/status nahi)
+    await addMovie({
+      title:       sanitize(form.title, 200),
+      year:        sanitize(form.year, 4),
+      type:        ['Movie', 'Series', 'Anime', 'Documentary', 'Short Film'].includes(form.type) ? form.type : 'Movie',
+      language:    sanitize(form.language, 50),
+      genre:       sanitize(form.genre, 50),
+      rating:      safeRating(form.rating),
+      poster_url:  safeUrl(form.poster_url),
+      trailer_url: safeUrl(form.trailer_url),
+      overview:    sanitize(form.overview, 2000),
+      instruction: sanitize(form.instruction, 1000),
+      uploaded_by: sanitize(form.uploaded_by, 50),
+      links:       cleanLinks(links, true),
+      watch_links: cleanLinks(watchLinks, false),
+    });
+    setSuccess(true);
+    setForm(EMPTY);
+    setLinks([]);
+    setWatchLinks([]);
+    setShowManualFields(false);
+  } catch (err) {
+    setErrors({ submit: err.message });
+  } finally {
+    setLoading(false);
+  }
+};
 
   if (success) return (
     <div className="min-h-screen bg-deep flex items-center justify-center">
@@ -463,6 +464,17 @@ export default function Submit() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Uploader Instruction */}
+<div>
+  <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>
+    Uploader Instruction <span style={{ color:'#4a4a3a', letterSpacing:0 }}>optional</span>
+  </label>
+  <textarea className="input-dark w-full px-3 py-2 rounded-lg text-sm resize-none" rows={3}
+    value={form.instruction || ''} onChange={e => set('instruction', e.target.value)}
+    placeholder="e.g. Use VLC player for best audio. Hindi audio in 1080p link only." />
+</div>
+
 
           {/* Watch Online Links */}
           <div>
