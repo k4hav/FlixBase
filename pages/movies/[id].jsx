@@ -360,9 +360,20 @@ export default function MovieDetail({ movie }) {
 {movie.instruction && (
   <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.2 }} className="mb-6">
     <div className="section-tag mb-3 flex items-center gap-2">📝 Uploader Instruction</div>
-    <div className="p-4 rounded-xl text-xs leading-relaxed whitespace-pre-line"
-      style={{ background:'rgba(201,168,76,0.05)', border:'1px solid rgba(201,168,76,0.18)', color:'#b8b4a8' }}>
-      {movie.instruction}
+
+    <div className="relative rounded-2xl overflow-hidden p-4"
+      style={{ background:'rgba(14,14,22,0.85)', border:'1px solid rgba(201,168,76,0.22)' }}>
+
+      {/* Light swipe */}
+      <motion.div className="absolute inset-0 pointer-events-none"
+        style={{ background:'linear-gradient(105deg, transparent 30%, rgba(245,228,168,0.1) 50%, transparent 70%)' }}
+        animate={{ x:['-120%', '220%'] }}
+        transition={{ repeat:Infinity, duration:2.8, ease:'easeInOut', repeatDelay:2 }}
+      />
+
+      <p className="relative z-10 text-xs leading-relaxed whitespace-pre-line" style={{ color:'#b8b4a8' }}>
+        {movie.instruction}
+      </p>
     </div>
   </motion.div>
 )}
