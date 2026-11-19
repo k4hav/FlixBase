@@ -368,7 +368,7 @@ export default function MovieDetail({ movie }) {
       <motion.div className="absolute inset-0 pointer-events-none"
         style={{ background:'linear-gradient(105deg, transparent 30%, rgba(245,228,168,0.1) 50%, transparent 70%)' }}
         animate={{ x:['-120%', '220%'] }}
-        transition={{ repeat:Infinity, duration:2.8, ease:'easeInOut', repeatDelay:2 }}
+        transition={{ repeat:Infinity, duration:6, ease:'easeInOut', repeatDelay:2 }}
       />
 
       <p className="relative z-10 text-xs leading-relaxed whitespace-pre-line" style={{ color:'#b8b4a8' }}>
