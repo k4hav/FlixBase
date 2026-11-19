@@ -468,11 +468,11 @@ export default function Submit() {
           {/* Uploader Instruction */}
 <div>
   <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>
-    Uploader Instruction <span style={{ color:'#4a4a3a', letterSpacing:0 }}>optional</span>
+    Message for Downloaders <span style={{ color:'#4a4a3a', letterSpacing:0 }}>optional</span>
   </label>
   <textarea className="input-dark w-full px-3 py-2 rounded-lg text-sm resize-none" rows={3}
     value={form.instruction || ''} onChange={e => set('instruction', e.target.value)}
-    placeholder="e.g. Use VLC player for best audio. Hindi audio in 1080p link only." />
+    placeholder="Write a message/note/suggestion for people who will download this.." />
 </div>
 
 

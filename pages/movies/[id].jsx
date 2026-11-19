@@ -359,7 +359,7 @@ export default function MovieDetail({ movie }) {
 {/* Uploader Instruction */}
 {movie.instruction && (
   <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.2 }} className="mb-6">
-    <div className="section-tag mb-3 flex items-center gap-2">📝 Uploader Instruction</div>
+    <div className="section-tag mb-3 flex items-center gap-2">📝 Message from Uploader</div>
 
     <div className="relative rounded-2xl overflow-hidden p-4"
       style={{ background:'rgba(14,14,22,0.85)', border:'1px solid rgba(201,168,76,0.22)' }}>

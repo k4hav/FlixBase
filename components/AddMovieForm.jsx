@@ -200,6 +200,16 @@ export default function AddMovieForm({ initial=null, onSave, onCancel, loading=f
   )}
 </div>
 
+{/* Message for Downloaders */}
+<div>
+  <label className="block text-[10px] font-medium mb-1.5 tracking-[2px] uppercase" style={{ color:'#6a6a5a' }}>
+    Message for Downloaders <span style={{ color:'#4a4a3a', letterSpacing:0 }}>optional</span>
+  </label>
+  <textarea className="input-dark w-full px-3 py-2 rounded-lg text-sm resize-none" rows={3}
+    value={form.instruction || ''} onChange={e => set('instruction', e.target.value)}
+    placeholder="Write a note for people who will download this. e.g. Use VLC player for best audio. Hindi audio is in the 1080p link only." />
+</div>
+
       {/* Download Links */}
       <div>
         <div className="flex items-center justify-between mb-3">
